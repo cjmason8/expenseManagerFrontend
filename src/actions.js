@@ -39,7 +39,7 @@ function fetchPosts(reddit) {
   return dispatch => {
     dispatch(requestPosts(reddit));
     console.log(reddit);
-    return fetch(`http://localhost:8080/test?type=` + reddit)
+    return fetch(`http://localhost:8081/test?type=` + reddit)
       .then(req => req.json())
       .then(json => dispatch(receivePosts(reddit, json)));
   }
