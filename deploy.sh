@@ -16,4 +16,4 @@ done
 
 docker login --username=cjmason8 --password=$PASSWORD
 docker pull cjmason8/expense-manager-frontend:latest
-docker run -p 8081:8080 -d cjmason8/expense-manager-frontend:latest
+docker run -p 45612:3000 -d cjmason8/expense-manager-frontend:latest
