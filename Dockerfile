@@ -3,6 +3,7 @@ FROM cjmason8/ubuntu-nodev6:latest
 MAINTAINER "Chris Mason <cjmason8@gmail.com>"
 
 # App Config
+RUN mkdir /app
 COPY * /app/
 
 WORKDIR /app
