@@ -2,15 +2,18 @@ FROM cjmason8/ubuntu-nodev6:latest
 
 MAINTAINER "Chris Mason <cjmason8@gmail.com>"
 
+ARG env
+
 # App Config
 COPY src /app/src
-COPY *.js /app/
-COPY index.html /app/
+COPY angular-cli.json /app/
 COPY package.json /app/
 
 WORKDIR /app
 
 RUN npm install
+RUN npm install -g angular-cli
 
-EXPOSE 3000
-CMD [ "npm", "start" ]
+RUN ng build --environment=test
+
+EXPOSE 4200

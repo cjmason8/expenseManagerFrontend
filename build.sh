@@ -2,13 +2,16 @@
 
 set -e
 
-FULL_IMAGE_NAME="expense-manager-frontend"
+FULL_IMAGE_NAME="event-manager-frontend"
 
-while getopts ":p:d:" opt; do
+while getopts ":p:e:d:" opt; do
   case $opt in
     # Provide commands to run
     p)
       PASSWORD="${OPTARG}"
+    ;;
+    e)
+      ENV_NAME="${OPTARG}"
     ;;
     d)
       GIT_PASS="${OPTARG}"
@@ -32,7 +35,7 @@ git config user.name "Release Manager"
 git config user.email "Release.Manager@jenkins.com.au"
 git add --all
 git commit -m "bump version"
-git push https://cjmason8:${GIT_PASS}@github.com/cjmason8/expenseManagerFrontend.git
+git push https://cjmason8:${GIT_PASS}@github.com/cjmason8/eventManagerFrontend.git
 
 echo "login docker"
 docker login --username=cjmason8 --password=$PASSWORD
@@ -50,10 +53,10 @@ if [ -z "${TAG_NAME}" ]; then
   echo "No tag name defined, unable to continue."
   exit 1
 fi
-
 if [[ "$(docker images -q ${FULL_IMAGE_NAME}:${TAG_NAME} 2> /dev/null)" == "" ]]; then
+
   echo "Creating image: ${FULL_IMAGE_NAME}:${TAG_NAME}"
-  docker build --no-cache --pull -t ${FULL_IMAGE_NAME}:${TAG_NAME} .
+  docker build --no-cache --pull --build-arg env=${ENV_NAME} -t ${FULL_IMAGE_NAME}:${TAG_NAME} .
 fi
 
 echo "Beginning publish step."

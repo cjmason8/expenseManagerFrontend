@@ -1,0 +1,5 @@
+eventManagerFrontend:
+  image: cjmason8/event-manager-frontend:latest
+  volumes:
+    - /applogs:/applogs
+

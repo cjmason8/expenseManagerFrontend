@@ -1,0 +1,36 @@
+<h5>Login</h5>
+<div class="row">
+  <form materialize class="col s12" [formGroup]="form" (ngSubmit)="loginUser()">
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="userName" type="text" class="validate"
+               [(ngModel)]="login.userName" formControlName="userName"
+               [class.invalid]="form.controls['userName'].touched && !form.controls['userName'].valid"
+        >
+        <label for="userName"
+               [class.active]="login.userName"
+               data-error="User Name is required">
+          User Name
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="password" type="text" class="validate"
+               [(ngModel)]="login.password" formControlName="password"
+               [class.invalid]="form.controls['password'].touched && !form.controls['password'].valid"
+        >
+        <label for="password"
+               [class.active]="login.password"
+               data-error="Password is required">
+          Password
+        </label>
+      </div>
+    </div>
+
+    <button class="btn waves-effect waves-light" type="submit"
+            [disabled]="!form.valid">
+      Login<i class="material-icons right">send</i>
+    </button>
+  </form>
+</div>

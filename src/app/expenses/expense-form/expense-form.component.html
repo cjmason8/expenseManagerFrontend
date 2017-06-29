@@ -1,0 +1,64 @@
+<h5>{{ title }}</h5>
+<div class="row">
+  <form materialize class="col s12" [formGroup]="form" (ngSubmit)="save()">
+    <table cellspacing="0" cellpadding="0" width="80%">
+      <tr>
+        <td>
+          <div class="input-field col s12">
+            <select id="expenseType" [(ngModel)]="expense.expenseType" formControlName="expenseType" materialize="material_select">
+              <option value="" disabled selected>Choose your option</option>
+              <option *ngFor="let item of expenseTypes" [value]="item.value">{{item.description}}</option>
+            </select>
+            <label for="expenseType"
+                   [class.active]="expense.expenseType"
+                   data-error="Expense Type is required and needs to contain at least 3 chars">
+              Expense Type
+            </label>
+          </div>
+        </td>
+        <td>
+          <div class="input-field col s12">
+            <input id="amount" type="text" class="validate"
+                   [(ngModel)]="expense.amount" formControlName="amount"
+                   [class.invalid]="form.controls['amount'].touched && !form.controls['amount'].valid"
+            >
+            <label for="amount"
+                   [class.active]="expense.amount"
+                   data-error="Amount is required and needs to contain at least 3 chars">
+              Amount
+            </label>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="input-field col s12">
+          </div>
+        </td>
+        <td>
+          <div class="input-field col s12">
+            <input id="dueDate" type="text" class="validate"
+                   [(ngModel)]="expense.dueDate" formControlName="dueDate"
+                   [class.invalid]="form.controls['dueDate'].touched && !form.controls['dueDate'].valid"
+            >
+            <label for="dueDate"
+                   [class.active]="expense.dueDate"
+                   data-error="Due Date is required">
+              Due Date
+            </label>
+          </div>
+        </td>
+        <td>
+          <div class="input-field col s12">
+
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <button class="btn waves-effect waves-light" type="submit"
+            [disabled]="!form.valid">
+      Submit<i class="material-icons right">send</i>
+    </button>
+  </form>
+</div>
