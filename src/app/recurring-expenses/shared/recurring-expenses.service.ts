@@ -9,9 +9,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../../environments/environment'
 
 @Injectable()
-export class ExpensesService {
+export class RecurringExpensesService {
 
-  private url: string = environment.backendEndPoint + "/expenses";
+  private url: string = environment.backendEndPoint + "/recurringExpenses";
   private usersUrl: string = environment.backendEndPoint + "/users";
   private refDataUrl: string = environment.backendEndPoint + "/refData";
 
@@ -19,13 +19,13 @@ export class ExpensesService {
       private router: Router,
       private route: ActivatedRoute) { }
 
-  getExpenses(){
+  getRecurringExpenses(){
     return this.http.get(this.url)
       .map(res => res.json());
   }
 
-  getExpense(id){
-    return this.http.get(this.getExpenseUrl(id))
+  getRecurringExpense(id){
+    return this.http.get(this.getRecurringExpenseUrl(id))
       .map(res => res.json());
   }
 
@@ -43,33 +43,33 @@ export class ExpensesService {
       });;
   }
 
-  addExpense(expense){
+  addRecurringExpense(recurringExpense){
     var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
     var options = new RequestOptions({ headers: headers });
-    return this.http.post(this.url, JSON.stringify(expense), options)
+    return this.http.post(this.url, JSON.stringify(recurringExpense), options)
       .map(res => res.json());
   }
 
-  updateExpense(expense){
+  updateRecurringExpense(recurringExpense){
     var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
     var options = new RequestOptions({ headers: headers });
-    return this.http.put(this.getExpenseUrl(expense.id), JSON.stringify(expense), options)
+    return this.http.put(this.getRecurringExpenseUrl(recurringExpense.id), JSON.stringify(recurringExpense), options)
       .map(res => res.json());
   }
 
-  deleteExpense(id){
+  deleteRecurringExpense(id){
     var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
     var options = new RequestOptions({ headers: headers });
-    return this.http.delete(this.getExpenseUrl(id), options)
+    return this.http.delete(this.getRecurringExpenseUrl(id), options)
       .map(res => res.json());
   }
 
-  getExpenseTypes(){
-    return this.http.get(this.refDataUrl + '/expenseType')
+  getRecurringTypes(){
+    return this.http.get(this.refDataUrl + '/recurringType')
       .map(res => res.json());
   }
 
-  private getExpenseUrl(id){
+  private getRecurringExpenseUrl(id){
     return this.url + "/" + id;
   }
 

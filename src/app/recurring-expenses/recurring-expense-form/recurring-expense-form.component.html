@@ -5,7 +5,7 @@
       <tr>
         <td>
           <div class="input-field col s12">
-            <select id="expenseType" [(ngModel)]="expense.expenseType" formControlName="expenseType" materialize="material_select" [materializeSelectOptions]="expenseTypes">
+            <select id="expenseType" [(ngModel)]="recurringExpense.expenseType" formControlName="expenseType" materialize="material_select" [materializeSelectOptions]="expenseTypes">
               <option value="" disabled selected>Choose your option</option>
               <option *ngFor="let item of expenseTypes" [value]="item.value">{{item.description}}</option>
             </select>

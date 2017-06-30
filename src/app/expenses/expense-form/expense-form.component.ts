@@ -29,18 +29,17 @@ export class ExpenseFormComponent implements OnInit {
     private _cookieService:CookieService
   ) {
     this.form = formBuilder.group({
-      name: ['', [
-        Validators.required,
-        Validators.minLength(3)
+      expenseType: ['', [
+        Validators.required
       ]],
       amount: ['', [
         Validators.required,
-        Validators.minLength(4)
+        Validators.pattern('[0-9]+(\.[0-9][0-9])?')
       ]],
-      dueDate: ['', [
-        Validators.required,
-        Validators.minLength(4)
-      ]]
+      dueDateString: ['', [
+        Validators.required
+      ]],
+      paid: ['', []]      
     });
   }
 
