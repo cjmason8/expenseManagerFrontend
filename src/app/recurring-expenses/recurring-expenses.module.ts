@@ -8,7 +8,7 @@ import { RecurringExpensesComponent } from './recurring-expenses.component';
 import { RecurringExpensesService } from './shared/recurring-expenses.service';
 import { RecurringExpenseFormComponent } from './recurring-expense-form/recurring-expense-form.component';
 
-import {MaterializeDirective} from "angular2-materialize";
+import {MaterializeModule} from "angular2-materialize";
 
 @NgModule({
   imports: [
@@ -16,12 +16,12 @@ import {MaterializeDirective} from "angular2-materialize";
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    HttpModule
+    HttpModule,
+    MaterializeModule
   ],
   declarations: [
     RecurringExpensesComponent,
-    RecurringExpenseFormComponent,
-    MaterializeDirective
+    RecurringExpenseFormComponent
   ],
   exports: [
     RecurringExpensesComponent
@@ -30,4 +30,4 @@ import {MaterializeDirective} from "angular2-materialize";
     RecurringExpensesService
   ]
 })
-export class ExpensesModule { }
+export class RecurringExpensesModule { }

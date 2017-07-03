@@ -8,7 +8,7 @@ import { ExpensesComponent } from './expenses.component';
 import { ExpensesService } from './shared/expenses.service';
 import { ExpenseFormComponent } from './expense-form/expense-form.component';
 
-import {MaterializeDirective} from "angular2-materialize";
+import {MaterializeModule} from "angular2-materialize";
 
 @NgModule({
   imports: [
@@ -16,12 +16,12 @@ import {MaterializeDirective} from "angular2-materialize";
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    HttpModule
+    HttpModule,
+    MaterializeModule
   ],
   declarations: [
     ExpensesComponent,
-    ExpenseFormComponent,
-    MaterializeDirective
+    ExpenseFormComponent
   ],
   exports: [
     ExpensesComponent

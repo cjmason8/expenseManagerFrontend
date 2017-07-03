@@ -1,9 +1,10 @@
-export class Expense {
+export class RecurringExpense {
   id: number;
   expenseType: string;
   amount: number;
-  dueDateString: string;
-  paid: boolean;
+  startDateString: string;
+  endDateString: string;
+  recurringType: string;
 
   constructor() {
   }

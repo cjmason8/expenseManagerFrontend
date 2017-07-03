@@ -4,8 +4,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 
 import { RecurringExpense } from '../shared/recurring-expense';
-import { RefData } from '../shared/refData';
+import { RefData } from '../../shared/refData';
 import { RecurringExpensesService } from '../shared/recurring-expenses.service';
+import { ExpensesService } from '../../expenses/shared/expenses.service';
 import { BasicValidators } from '../../shared/basic-validators';
 
 @Component({
@@ -20,12 +21,14 @@ export class RecurringExpenseFormComponent implements OnInit {
   title: string;
   recurringExpense: RecurringExpense = new RecurringExpense();
   recurringTypes: Array<RefData>;
+  expenseTypes: Array<RefData>;
 
   constructor(
     formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
     private recurringExpensesService: RecurringExpensesService,
+    private expensesService: ExpensesService,
     private _cookieService:CookieService
   ) {
     this.form = formBuilder.group({
@@ -39,9 +42,10 @@ export class RecurringExpenseFormComponent implements OnInit {
       startDateString: ['', [
         Validators.required
       ]],
-      endDateString: ['', [
+      endDateString: ['', []],
+      recurringType: ['', [
         Validators.required
-      ]]
+      ]],
     });
   }
 
@@ -50,6 +54,9 @@ export class RecurringExpenseFormComponent implements OnInit {
 
     this.recurringExpensesService.getRecurringTypes()
        .subscribe(data => this.recurringTypes = data);
+
+    this.expensesService.getExpenseTypes()
+       .subscribe(data => this.expenseTypes = data);
 
     var id = this.route.params.subscribe(params => {
       var id = params['id'];

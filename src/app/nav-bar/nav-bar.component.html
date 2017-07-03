@@ -4,6 +4,9 @@
     <ul id="nav-mobile" class="right hide-on-med-and-down" *ngIf="isAdmin">
       <li><a routerLink="/expenses" routerLinkActive="active">Expenses</a></li>
     </ul>
+    <ul id="nav-mobile" class="right hide-on-med-and-down" *ngIf="isAdmin">
+      <li><a routerLink="/recurringExpenses" routerLinkActive="active">Recurring Expenses</a></li>
+    </ul>    
     <ul id="nav-mobile" class="right hide-on-med-and-down" *ngIf="loggedIn">
       <li><a routerLink="/logout" routerLinkActive="active">Logout</a></li>
     </ul>

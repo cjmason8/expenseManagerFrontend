@@ -1,32 +1,34 @@
 <p>
-  Displaying {{ expenses.length }} expenses.
+  Displaying {{ recurringExpenses.length }} recurring expenses.
 </p>
 
 <table>
   <thead>
   <tr>
-    <th data-field="name">Name</th>
+    <th data-field="name">Expense Type</th>
     <th data-field="name">Amount</th>
-    <th data-field="name">Due Date</th>
-    <th data-field="name">Paid</th>
+    <th data-field="name">Start Date</th>
+    <th data-field="name">End Date</th>
+    <th data-field="name">Recurring Type</th>
     <th data-field="name">Edit</th>
     <th data-field="name">Delete</th>
   </tr>
   </thead>
 
   <tbody>
-    <tr *ngFor="let expense of expenses">
-      <td>{{ expense.expenseTypeDescription }}</td>
-      <td>{{ expense.amount }}</td>
-      <td>{{ expense.dueDateString }}</td>
-      <td>{{ expense.paid ? "PAID" : "" }}</td>
+    <tr *ngFor="let recurringExpense of recurringExpenses">
+      <td>{{ recurringExpense.expenseTypeDescription }}</td>
+      <td>{{ recurringExpense.amount }}</td>
+      <td>{{ recurringExpense.startDateString }}</td>
+      <td>{{ recurringExpense.endDateString }}</td>
+      <td>{{ recurringExpense.recurringTypeDescription }}</td>
       <td>
-        <a [routerLink]="['/expenses', expense.id]">
+        <a [routerLink]="['/recurringExpenses', recurringExpense.id]">
           <i class="material-icons">mode_edit</i>
         </a>
       </td>
       <td>
-        <a (click)="deleteExpense(expense)" class="pointer">
+        <a (click)="deleteRecurringExpense(expense)" class="pointer">
           <i class="material-icons">delete</i>
         </a>
       </td>
@@ -36,7 +38,7 @@
 
 <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
   <a class="btn-floating btn-large waves-effect waves-light green"
-     routerLink="/expenses/new">
+     routerLink="/recurringExpenses/new">
     <i class="material-icons">add</i>
   </a>
 </div>

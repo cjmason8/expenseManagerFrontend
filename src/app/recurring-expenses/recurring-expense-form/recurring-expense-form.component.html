@@ -10,7 +10,7 @@
               <option *ngFor="let item of expenseTypes" [value]="item.value">{{item.description}}</option>
             </select>
             <label for="expenseType"
-                   [class.active]="expense.expenseType">
+                   [class.active]="recurringExpense.expenseType">
               Expense Type
             </label>
           </div>
@@ -24,11 +24,11 @@
         <td>
           <div class="input-field col s12">
             <input id="amount" type="text" class="validate"
-                   [(ngModel)]="expense.amount" formControlName="amount"
+                   [(ngModel)]="recurringExpense.amount" formControlName="amount"
                    [class.invalid]="form.controls['amount'].touched && !form.controls['amount'].valid"
             >
             <label for="amount"
-                   [class.active]="expense.amount"
+                   [class.active]="recurringExpense.amount"
                    data-error="Amount needs to be numeric with zero or two decimal places">
               Amount
             </label>
@@ -43,39 +43,47 @@
       <tr>
         <td>
           <div class="input-field col s12">
-            <input id="dueDateString" type="text" class="validate"
-                   [(ngModel)]="expense.dueDateString" formControlName="dueDateString"
-                   [class.invalid]="form.controls['dueDateString'].touched && !form.controls['dueDateString'].valid"
+            <input id="startDateString" type="text" class="validate"
+                   [(ngModel)]="recurringExpense.startDateString" formControlName="startDateString"
+                   [class.invalid]="form.controls['startDateString'].touched && !form.controls['startDateString'].valid"
             >
-            <label for="dueDateString"
-                   [class.active]="expense.dueDateString"
-                   data-error="Due Date is required">
-              Due Date
+            <label for="startDateString"
+                   [class.active]="recurringExpense.startDateString"
+                   data-error="Start Date is required">
+              Start Date
             </label>
           </div>
         </td>
         <td>
           <div class="input-field col s12">
-
+            <input id="endDateString" type="text" class="validate"
+                   [(ngModel)]="recurringExpense.endDateString" formControlName="endDateString"
+                   [class.invalid]="form.controls['endDateString'].touched && !form.controls['endDateString'].valid"
+            >
+            <label for="endDateString"
+                   [class.active]="recurringExpense.endDateString">
+              End Date
+            </label>
           </div>
         </td>
       </tr>
       <tr>
         <td>
           <div class="input-field col s12">
-            <input id="paid" type="checkbox"
-                   [(ngModel)]="expense.paid" formControlName="paid"
-            >
-            <label for="paid" [class.active]="expense.paid">
-              Paid
+            <select id="recurringType" [(ngModel)]="recurringExpense.recurringType" formControlName="recurringType" materialize="material_select" [materializeSelectOptions]="recurringTypes">
+              <option value="" disabled selected>Choose your option</option>
+              <option *ngFor="let item of recurringTypes" [value]="item.value">{{item.description}}</option>
+            </select>
+            <label for="recurringType"
+                   [class.active]="recurringExpense.recurringType">
+              Recurring Type
             </label>
           </div>
         </td>
         <td>
           <div class="input-field col s12">
-
           </div>
-        </td>
+        </td>        
       </tr>      
     </table>
     <p></p>

@@ -10,9 +10,11 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { LogoutComponent } from './logout/logout.component';
 import { routing } from './app.routing';
 import { expensesRouting } from "./expenses/expenses.routing";
+import { recurringExpensesRouting } from "./recurring-expenses/recurring-expenses.routing";
 import { loginRouting } from "./login/login.routing";
 import { logoutRouting } from "./logout/logout.routing";
 import { ExpensesModule } from "./expenses/expenses.module";
+import { RecurringExpensesModule } from "./recurring-expenses/recurring-expenses.module";
 import { LoginModule } from "./login/login.module";
 
 @NgModule({
@@ -28,8 +30,10 @@ import { LoginModule } from "./login/login.module";
     FormsModule,
     HttpModule,
     ExpensesModule,
+    RecurringExpensesModule,
     LoginModule,
     expensesRouting,
+    recurringExpensesRouting,
     loginRouting,
     logoutRouting,
     routing

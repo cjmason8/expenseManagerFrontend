@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 
 import { Expense } from '../shared/expense';
-import { RefData } from '../shared/refData';
+import { RefData } from '../../shared/refData';
 import { ExpensesService } from '../shared/expenses.service';
 import { BasicValidators } from '../../shared/basic-validators';
 
