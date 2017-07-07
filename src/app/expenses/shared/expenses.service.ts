@@ -19,8 +19,9 @@ export class ExpensesService {
       private router: Router,
       private route: ActivatedRoute) { }
 
-  getExpenses(){
-    return this.http.get(this.url)
+  getExpensesForWeek(weekString){
+    var suffix = weekString ? "/" + weekString : "";
+    return this.http.get(this.url + "/week" + suffix)
       .map(res => res.json());
   }
 

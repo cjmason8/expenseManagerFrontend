@@ -1,5 +1,8 @@
 <p>
-  Displaying {{ expenses.length }} expenses.
+  Displaying {{ expenses.length }} expenses for week beginning {{thisWeek}}. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]="['/expenses/week', previousWeek]">
+          <i class="material-icons">navigate_before</i>Prev</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]="['/expenses/week', nextWeek]">
+          Next<i class="material-icons">navigate_next</i>
+        </a>
 </p>
 
 <table>

@@ -23,8 +23,8 @@ export class RecurringExpensesComponent implements OnInit {
       .subscribe(data => this.recurringExpenses = data);
   }
 
-  deleteExpense(recurringExpense){
-    if (confirm("Are you sure you want to delete " + recurringExpense.name + "?")) {
+  deleteRecurringExpense(recurringExpense){
+    if (confirm("Are you sure you want to delete " + recurringExpense.expenseTypeDescription + " recurring " + recurringExpense.recurringTypeDescription + "?")) {
       var index = this.recurringExpenses.indexOf(recurringExpense);
       this.recurringExpenses.splice(index, 1);
       this.recurringExpensesService.deleteRecurringExpense(recurringExpense.id)

@@ -77,6 +77,9 @@ export class ExpenseFormComponent implements OnInit {
       result = this.expensesService.addExpense(this.expense);
     }
 
-    result.subscribe(data => this.router.navigate(['expenses']));
+    result.subscribe(data => {
+      console.log(data);
+      this.router.navigate(['expenses/week/' + data.week]);
+    });
   }
 }
