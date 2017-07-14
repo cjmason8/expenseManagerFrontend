@@ -1,8 +1,3 @@
-<p>
-  Displaying {{ expenses.length }} expenses for week beginning {{thisWeek}}. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="dateString" size="15" type="text" class="validate" (blur)="gotoWeek()" /><a [routerLink]="['/', previousWeek]">
-          <i class="material-icons">navigate_before</i>Prev</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]="['/', nextWeek]">Next<i class="material-icons">navigate_next</i></a>
-</p>
-
 <table>
   <tr>
     <td style="vertical-align:top">
@@ -12,7 +7,9 @@
         <tr>
           <th data-field="name">Name</th>
           <th data-field="name">Amount</th>
-          <th data-field="name">Due Date</th>
+          <th data-field="name">Recurring Type</th>
+          <th data-field="name">Start Date</th>
+          <th data-field="name">End Date</th>
           <th data-field="name">Edit</th>
           <th data-field="name">Delete</th>
         </tr>
@@ -22,7 +19,9 @@
           <tr *ngFor="let income of incomes">
             <td>{{ income.incomeTypeDescription }}</td>
             <td>{{ income.amount }}</td>
-            <td>{{ income.dueDateString }}</td>
+            <td>{{ income.recurringTypeDescription }}</td>
+            <td>{{ income.startDateString }}</td>
+            <td>{{ income.endDateString }}</td>
             <td>
               <a [routerLink]="['/incomes', income.id]">
                 <i class="material-icons">mode_edit</i>
@@ -32,16 +31,6 @@
               <a (click)="deleteIncome(income)" class="pointer">
                 <i class="material-icons">delete</i>
               </a>
-            </td>
-          </tr>
-          <tr>
-            <td colspan=5>
-              <div class="fixed-action-btn" style="bottom: 45px; left: 24px;">
-                <a class="btn-floating btn-large waves-effect waves-light green"
-                  routerLink="/incomes/new">
-                  <i class="material-icons">add</i>
-                </a>
-              </div>
             </td>
           </tr>
         </tbody>
@@ -54,8 +43,9 @@
         <tr>
           <th data-field="name">Name</th>
           <th data-field="name">Amount</th>
-          <th data-field="name">Due Date</th>
-          <th data-field="name">Paid</th>
+          <th data-field="name">Recurring Type</th>
+          <th data-field="name">Start Date</th>
+          <th data-field="name">End Date</th>
           <th data-field="name">Edit</th>
           <th data-field="name">Delete</th>
         </tr>
@@ -65,8 +55,9 @@
           <tr *ngFor="let expense of expenses">
             <td>{{ expense.expenseTypeDescription }}</td>
             <td>{{ expense.amount }}</td>
-            <td>{{ expense.dueDateString }}</td>
-            <td>{{ expense.paid ? "PAID" : "" }}</td>
+            <td>{{ expense.recurringTypeDescription }}</td>
+            <td>{{ expense.startDateString }}</td>
+            <td>{{ expense.endDateString }}</td>
             <td>
               <a [routerLink]="['/expenses', expense.id]">
                 <i class="material-icons">mode_edit</i>
@@ -76,16 +67,6 @@
               <a (click)="deleteExpense(expense)" class="pointer">
                 <i class="material-icons">delete</i>
               </a>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-                <a class="btn-floating btn-large waves-effect waves-light green"
-                  routerLink="/expenses/new">
-                  <i class="material-icons">add</i>
-                </a>
-              </div>
             </td>
           </tr>
         </tbody>

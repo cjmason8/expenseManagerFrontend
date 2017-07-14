@@ -1,9 +1,8 @@
-export class Expense {
+export class Income {
   id: number;
-  expenseType: string;
+  incomeType: string;
   amount: number;
   dueDateString: string;
-  paid: boolean;
   recurringType: string;
   startDateString: string;
   endDateString: string;

@@ -5,13 +5,13 @@
       <tr>
         <td>
           <div class="input-field col s12">
-            <select id="expenseType" [(ngModel)]="expense.expenseType" formControlName="expenseType" materialize="material_select" [materializeSelectOptions]="expenseTypes">
+            <select id="incomeType" [(ngModel)]="income.incomeType" formControlName="incomeType" materialize="material_select" [materializeSelectOptions]="incomeTypes">
               <option value="" disabled selected>Choose your option</option>
-              <option *ngFor="let item of expenseTypes" [value]="item.value">{{item.description}}</option>
+              <option *ngFor="let item of incomeTypes" [value]="item.value">{{item.description}}</option>
             </select>
-            <label for="expenseType"
-                   [class.active]="expense.expenseType">
-              Expense Type
+            <label for="incomeType"
+                   [class.active]="income.incomeType">
+              Income Type
             </label>
           </div>
         </td>
@@ -24,11 +24,11 @@
         <td>
           <div class="input-field col s12">
             <input id="amount" type="text" class="validate"
-                   [(ngModel)]="expense.amount" formControlName="amount"
+                   [(ngModel)]="income.amount" formControlName="amount"
                    [class.invalid]="form.controls['amount'].touched && !form.controls['amount'].valid"
             >
             <label for="amount"
-                   [class.active]="expense.amount"
+                   [class.active]="income.amount"
                    data-error="Amount needs to be numeric with zero or two decimal places">
               Amount
             </label>
@@ -42,29 +42,22 @@
       </tr>      
       <tr>
         <td>
-          <div class="input-field col s8">
+          <div class="input-field col s12">
             <input id="dueDateString" type="text" class="validate"
-                   [(ngModel)]="expense.dueDateString" formControlName="dueDateString"
+                   [(ngModel)]="income.dueDateString" formControlName="dueDateString"
                    [class.invalid]="form.controls['dueDateString'].touched && !form.controls['dueDateString'].valid"
             >
             <label for="dueDateString"
-                   [class.active]="expense.dueDateString"
+                   [class.active]="income.dueDateString"
                    data-error="Due Date is required">
               Due Date(dd-MM-yyyy)
             </label>
           </div>
-          <div class="input-field col s4">
-            <input id="paid" type="checkbox"
-                   [(ngModel)]="expense.paid" formControlName="paid"
-            >
-            <label for="paid">
-              Paid
-            </label>
-          </div>                    
         </td>
         <td>
           <div class="input-field col s12">
-          </div>          
+
+          </div>
         </td>
       </tr>
       <tr>
@@ -82,19 +75,19 @@
 
           </div>
         </td>
-      </tr>      
-      </table>
-      <br/>
+      </tr>
+    </table>
+    <br/>
       <table id="recurringTable" style="display: none">
       <tr>
         <td>
           <div class="input-field col s12">
-            <select id="recurringType" [(ngModel)]="expense.recurringType" formControlName="recurringType" materialize="material_select" [materializeSelectOptions]="recurringTypes">
+            <select id="recurringType" [(ngModel)]="income.recurringType" formControlName="recurringType" materialize="material_select" [materializeSelectOptions]="recurringTypes">
               <option value="" disabled selected>Choose your option</option>
               <option *ngFor="let item of recurringTypes" [value]="item.value">{{item.description}}</option>
             </select>
             <label for="recurringType"
-                   [class.active]="expense.recurringType">
+                   [class.active]="income.recurringType">
               Recurring Type
             </label>
           </div>
@@ -108,11 +101,11 @@
         <td>
           <div class="input-field col s12">
             <input id="startDateString" type="text" class="validate"
-                   [(ngModel)]="expense.startDateString" formControlName="startDateString"
+                   [(ngModel)]="income.startDateString" formControlName="startDateString"
                    [class.invalid]="form.controls['startDateString'].touched && !form.controls['startDateString'].valid"
             >
             <label for="startDateString"
-                   [class.active]="expense.startDateString"
+                   [class.active]="income.startDateString"
                    data-error="Start Date is required">
               Start Date
             </label>
@@ -121,11 +114,11 @@
         <td>
           <div class="input-field col s12">
             <input id="endDateString" type="text" class="validate"
-                   [(ngModel)]="expense.endDateString" formControlName="endDateString"
+                   [(ngModel)]="income.endDateString" formControlName="endDateString"
                    [class.invalid]="form.controls['endDateString'].touched && !form.controls['endDateString'].valid"
             >
             <label for="endDateString"
-                   [class.active]="expense.endDateString">
+                   [class.active]="income.endDateString">
               End Date
             </label>
           </div>

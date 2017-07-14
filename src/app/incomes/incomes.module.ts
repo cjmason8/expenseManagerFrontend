@@ -4,9 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule }  from '@angular/router';
 import { HttpModule }  from '@angular/http';
 
-import { RecurringExpensesComponent } from './recurring-expenses.component';
-import { RecurringExpensesService } from './shared/recurring-expenses.service';
-import { RecurringExpenseFormComponent } from './recurring-expense-form/recurring-expense-form.component';
+import { IncomesService } from './shared/incomes.service';
+import { IncomeFormComponent } from './income-form/income-form.component';
 
 import {MaterializeModule} from "angular2-materialize";
 
@@ -20,14 +19,12 @@ import {MaterializeModule} from "angular2-materialize";
     MaterializeModule
   ],
   declarations: [
-    RecurringExpensesComponent,
-    RecurringExpenseFormComponent
+    IncomeFormComponent
   ],
   exports: [
-    RecurringExpensesComponent
   ],
   providers: [
-    RecurringExpensesService
+    IncomesService
   ]
 })
-export class RecurringExpensesModule { }
+export class IncomesModule { }

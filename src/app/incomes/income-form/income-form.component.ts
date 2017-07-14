@@ -3,34 +3,36 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 
-import { Expense } from '../shared/expense';
+import { Income } from '../shared/income';
 import { RefData } from '../../shared/refData';
-import { ExpensesService } from '../shared/expenses.service';
+import { IncomesService } from '../shared/incomes.service';
+import { ExpensesService } from '../../expenses/shared/expenses.service';
 import { BasicValidators } from '../../shared/basic-validators';
 
 @Component({
   selector: 'app-expense-form',
-  templateUrl: './expense-form.component.html',
-  styleUrls: ['./expense-form.component.css'],
+  templateUrl: './income-form.component.html',
+  styleUrls: ['./income-form.component.css'],
   providers: [CookieService]
 })
-export class ExpenseFormComponent implements OnInit {
+export class IncomeFormComponent implements OnInit {
 
   form: FormGroup;
   title: string;
-  expense: Expense = new Expense();
-  expenseTypes: Array<RefData>;
+  income: Income = new Income();
+  incomeTypes: Array<RefData>;
   recurringTypes: Array<RefData>;
 
   constructor(
     formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
+    private incomesService: IncomesService,
     private expensesService: ExpensesService,
     private _cookieService:CookieService
   ) {
     this.form = formBuilder.group({
-      expenseType: ['', [
+      incomeType: ['', [
         Validators.required
       ]],
       amount: ['', [
@@ -40,7 +42,6 @@ export class ExpenseFormComponent implements OnInit {
       dueDateString: ['', [
         Validators.required
       ]],
-      paid: ['', []],
       recurring: ['', []],      
       recurringType: ['', []],
       startDateString: ['', []],
@@ -49,10 +50,10 @@ export class ExpenseFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.expensesService.authenticate(this._cookieService.get('token'));
+    this.incomesService.authenticate(this._cookieService.get('token'));
 
-    this.expensesService.getExpenseTypes()
-       .subscribe(data => this.expenseTypes = data);
+    this.incomesService.getIncomeTypes()
+       .subscribe(data => this.incomeTypes = data);
 
     this.expensesService.getRecurringTypes()
        .subscribe(data => this.recurringTypes = data);
@@ -60,16 +61,16 @@ export class ExpenseFormComponent implements OnInit {
     var id = this.route.params.subscribe(params => {
       var id = params['id'];
 
-      this.title = id ? 'Edit Expense' : 'New Expense';
+      this.title = id ? 'Edit Income' : 'New Income';
 
       if (!id)
         return;
 
-      this.expensesService.getExpense(id)
+      this.incomesService.getIncome(id)
         .subscribe(
-          expense => {
-            this.expense = expense;
-            if (this.expense.recurringType) {
+          income => {
+            this.income = income;
+            if (this.income.recurringType) {
               document.forms[0]['recurring'].checked = true;
               document.getElementById('recurringTable').style.display = 'block';
             }
@@ -85,10 +86,10 @@ export class ExpenseFormComponent implements OnInit {
   save() {
     var result;
 
-    if (this.expense.id){
-      result = this.expensesService.updateExpense(this.expense);
+    if (this.income.id){
+      result = this.incomesService.updateIncome(this.income);
     } else {
-      result = this.expensesService.addExpense(this.expense);
+      result = this.incomesService.addIncome(this.income);
     }
 
     result.subscribe(data => {

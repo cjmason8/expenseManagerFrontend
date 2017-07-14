@@ -11,7 +11,8 @@ import { environment } from '../../../environments/environment'
 @Injectable()
 export class ExpensesService {
 
-  private url: string = environment.backendEndPoint + "/expenses";
+  private url: string = environment.backendEndPoint;
+  private expensesUrl: string = environment.backendEndPoint + "/expenses";
   private usersUrl: string = environment.backendEndPoint + "/users";
   private refDataUrl: string = environment.backendEndPoint + "/refData";
 
@@ -22,6 +23,11 @@ export class ExpensesService {
   getExpensesForWeek(weekString){
     var suffix = weekString ? "/" + weekString : "";
     return this.http.get(this.url + "/week" + suffix)
+      .map(res => res.json());
+  }
+
+  getRecurring(){
+    return this.http.get(this.url + "/recurring")
       .map(res => res.json());
   }
 
@@ -47,7 +53,7 @@ export class ExpensesService {
   addExpense(expense){
     var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
     var options = new RequestOptions({ headers: headers });
-    return this.http.post(this.url, JSON.stringify(expense), options)
+    return this.http.post(this.expensesUrl, JSON.stringify(expense), options)
       .map(res => res.json());
   }
 
@@ -70,8 +76,13 @@ export class ExpensesService {
       .map(res => res.json());
   }
 
+  getRecurringTypes(){
+    return this.http.get(this.refDataUrl + '/recurringType')
+      .map(res => res.json());
+  }
+
   private getExpenseUrl(id){
-    return this.url + "/" + id;
+    return this.expensesUrl + "/" + id;
   }
 
   private getAuthenticateUrl(token){

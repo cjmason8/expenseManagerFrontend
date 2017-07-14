@@ -9,9 +9,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../../environments/environment'
 
 @Injectable()
-export class RecurringExpensesService {
+export class IncomesService {
 
-  private url: string = environment.backendEndPoint + "/recurringExpenses";
+  private url: string = environment.backendEndPoint + "/incomes";
   private usersUrl: string = environment.backendEndPoint + "/users";
   private refDataUrl: string = environment.backendEndPoint + "/refData";
 
@@ -19,13 +19,14 @@ export class RecurringExpensesService {
       private router: Router,
       private route: ActivatedRoute) { }
 
-  getRecurringExpenses(){
-    return this.http.get(this.url)
+  getIncomesForWeek(weekString){
+    var suffix = weekString ? "/" + weekString : "";
+    return this.http.get(this.url + "/week" + suffix)
       .map(res => res.json());
   }
 
-  getRecurringExpense(id){
-    return this.http.get(this.getRecurringExpenseUrl(id))
+  getIncome(id){
+    return this.http.get(this.getIncomeUrl(id))
       .map(res => res.json());
   }
 
@@ -43,33 +44,33 @@ export class RecurringExpensesService {
       });;
   }
 
-  addRecurringExpense(recurringExpense){
+  addIncome(income){
     var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
     var options = new RequestOptions({ headers: headers });
-    return this.http.post(this.url, JSON.stringify(recurringExpense), options)
+    return this.http.post(this.url, JSON.stringify(income), options)
       .map(res => res.json());
   }
 
-  updateRecurringExpense(recurringExpense){
+  updateIncome(income){
     var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
     var options = new RequestOptions({ headers: headers });
-    return this.http.put(this.getRecurringExpenseUrl(recurringExpense.id), JSON.stringify(recurringExpense), options)
+    return this.http.put(this.getIncomeUrl(income.id), JSON.stringify(income), options)
       .map(res => res.json());
   }
 
-  deleteRecurringExpense(id){
+  deleteIncome(id){
     var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
     var options = new RequestOptions({ headers: headers });
-    return this.http.delete(this.getRecurringExpenseUrl(id), options)
+    return this.http.delete(this.getIncomeUrl(id), options)
       .map(res => res.json());
   }
 
-  getRecurringTypes(){
-    return this.http.get(this.refDataUrl + '/recurringType')
+  getIncomeTypes(){
+    return this.http.get(this.refDataUrl + '/incomeType')
       .map(res => res.json());
   }
 
-  private getRecurringExpenseUrl(id){
+  private getIncomeUrl(id){
     return this.url + "/" + id;
   }
 

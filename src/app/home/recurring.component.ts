@@ -7,33 +7,27 @@ import {Income} from "../incomes/shared/income";
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  selector: 'app-recurring',
+  templateUrl: './recurring.component.html',
+  styleUrls: ['./recurring.component.css'],
   providers: [CookieService]
 })
-export class HomeComponent implements OnInit {
+export class RecurringComponent implements OnInit {
 
   private expenses: Expense[] = [];
   private incomes: Income[] = [];
-  private previousWeek: String;
-  private nextWeek: String;
-  private thisWeek: String;
 
-  constructor(private expensesService: ExpensesService, private route: ActivatedRoute, private router: Router,
+  constructor(private expensesService: ExpensesService, private route: ActivatedRoute,
     private _cookieService:CookieService, private incomesService: IncomesService) { }
 
   ngOnInit() {
     this.expensesService.authenticate(this._cookieService.get('token'));
 
     this.route.params.subscribe(params => {
-      this.expensesService.getExpensesForWeek(params['weekString'])
+      this.expensesService.getRecurring()
         .subscribe(data => {
           this.expenses = data.expenses;
           this.incomes = data.incomes;
-          this.previousWeek = data.previousWeek;
-          this.nextWeek = data.nextWeek;
-          this.thisWeek = data.thisWeek;
         });
     });
   }
@@ -64,9 +58,5 @@ export class HomeComponent implements OnInit {
             this.incomes.splice(index, 0, income);
           });
     }
-  }
-
-  gotoWeek() {
-    this.router.navigate(['' + document.getElementById['dateString'].text]);
   }  
 }
