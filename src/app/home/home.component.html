@@ -12,7 +12,7 @@
 <table>
   <tr>
     <td style="vertical-align:top">
-      <b>Income</b>
+      <b>Incomes</b>
       <table>
         <thead>
         <tr>
@@ -59,7 +59,7 @@
       </table>
     </td>    
     <td style="vertical-align:top">
-      <b>Expense</b>
+      <b>Expenses</b>
       <table>
         <thead>
         <tr>
@@ -111,4 +111,62 @@
   <tr>
     <td><b>Total:</b>&nbsp;&nbsp;&nbsp;{{ difference }}</td><td></td>
   </tr>    
+  <tr>
+    <td></td>
+    <td>
+      <table id="unpaidExpensesTable" style="display: none" width="100%">
+        <tr>
+          <td style="vertical-align:top">
+            <b>Unpaid Expenses from previous weeks</b>
+            <table>
+              <thead>
+              <tr>
+                <th data-field="name">Name</th>
+                <th data-field="name">Amount</th>
+                <th data-field="name">Due Date</th>
+                <th data-field="name">Paid</th>
+                <th data-field="name">Notes</th>
+                <th data-field="name">Edit</th>
+                <th data-field="name">Delete</th>
+              </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let expense of unpaidExpenses">
+                  <td>{{ expense.expenseTypeDescription }}</td>
+                  <td>{{ expense.amount }}</td>
+                  <td>{{ expense.dueDateString }}</td>
+                  <td>{{ expense.paid ? "PAID" : "" }}</td>
+                  <td>{{ expense.notes }}</td>
+                  <td>
+                    <a [routerLink]="['/expenses', expense.id]">
+                      <i class="material-icons">mode_edit</i>
+                    </a>
+                  </td>
+                  <td>
+                    <a (click)="deleteExpense(expense)" class="pointer">
+                      <i class="material-icons">delete</i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>Expense Total:</b></td><td colspan="3">{{ unpaidExpenseTotal }}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+                      <a class="btn-floating btn-large waves-effect waves-light green"
+                        routerLink="/expenses/new">
+                        <i class="material-icons">add</i>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
 </table>

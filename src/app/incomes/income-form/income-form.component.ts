@@ -94,7 +94,6 @@ export class IncomeFormComponent implements OnInit {
     }
 
     result.subscribe(data => {
-      console.log(data);
       this.router.navigate(['' + data.week]);
     });
   }

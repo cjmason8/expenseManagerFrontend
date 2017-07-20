@@ -70,7 +70,6 @@ export class RefDataFormComponent implements OnInit {
     }
 
     result.subscribe(data => {
-      console.log(data);
       this.router.navigate(['refdatas/all']);
     });
   }

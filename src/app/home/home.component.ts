@@ -15,12 +15,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class HomeComponent implements OnInit {
 
   private expenses: Expense[] = [];
+  private unpaidExpenses: Expense[] = [];
   private incomes: Income[] = [];
   private previousWeek: String;
   private nextWeek: String;
   private thisWeek: String;
   private incomeTotal: String;
   private expenseTotal: String;
+  private unpaidExpenseTotal: String;
   private difference: String;
 
   constructor(private expensesService: ExpensesService, private route: ActivatedRoute, private router: Router,
@@ -39,7 +41,16 @@ export class HomeComponent implements OnInit {
           this.thisWeek = data.thisWeek;
           this.incomeTotal = data.incomeTotal;
           this.expenseTotal = data.expenseTotal;
+          this.unpaidExpenseTotal = data.unpaidExpenseTotal;
           this.difference = data.difference;
+          this.unpaidExpenses = data.unpaidExpenses;
+          if (this.unpaidExpenses && this.unpaidExpenses.length > 0) {
+            console.log('HERE!!!!!!');
+            document.getElementById("unpaidExpensesTable").style.display = "block";
+          }
+          else {
+            document.getElementById("unpaidExpensesTable").style.display = "none";
+          }
         });
     });
   }
