@@ -14,7 +14,7 @@ export class ExpensesService {
   private url: string = environment.backendEndPoint;
   private expensesUrl: string = environment.backendEndPoint + "/expenses";
   private usersUrl: string = environment.backendEndPoint + "/users";
-  private refDataUrl: string = environment.backendEndPoint + "/refData";
+  private refDataUrl: string = environment.backendEndPoint + "/refDatas/type";
 
   constructor(private http: Http,
       private router: Router,

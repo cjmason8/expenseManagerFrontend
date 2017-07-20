@@ -11,13 +11,13 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { LogoutComponent } from './logout/logout.component';
 import { routing } from './app.routing';
 import { expensesRouting } from "./expenses/expenses.routing";
+import { refDatasRouting } from "./ref-data/ref-datas.routing";
 import { incomesRouting } from "./incomes/incomes.routing";
-import { recurringExpensesRouting } from "./recurring-expenses/recurring-expenses.routing";
 import { loginRouting } from "./login/login.routing";
 import { logoutRouting } from "./logout/logout.routing";
 import { ExpensesModule } from "./expenses/expenses.module";
 import { IncomesModule } from "./incomes/incomes.module";
-import { RecurringExpensesModule } from "./recurring-expenses/recurring-expenses.module";
+import { RefDatasModule } from "./ref-data/ref-datas.module";
 import { LoginModule } from "./login/login.module";
 
 @NgModule({
@@ -35,11 +35,11 @@ import { LoginModule } from "./login/login.module";
     HttpModule,
     ExpensesModule,
     IncomesModule,
-    RecurringExpensesModule,
     LoginModule,
+    RefDatasModule,
     expensesRouting,
+    refDatasRouting,
     incomesRouting,
-    recurringExpensesRouting,
     loginRouting,
     logoutRouting,
     routing

@@ -1,7 +1,13 @@
-<p>
-  Displaying {{ expenses.length }} expenses for week beginning {{thisWeek}}. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="dateString" size="15" type="text" class="validate" (blur)="gotoWeek()" /><a [routerLink]="['/', previousWeek]">
-          <i class="material-icons">navigate_before</i>Prev</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]="['/', nextWeek]">Next<i class="material-icons">navigate_next</i></a>
-</p>
+<form (submit)="gotoWeek()">
+<table width="50%">
+  <tr>
+    <td width="50%">Displaying {{ expenses.length }} expenses for week beginning {{thisWeek}}.</td>
+    <td width="15%"><a [routerLink]="['/', previousWeek]"><i class="material-icons">navigate_before</i>Prev</a></td>
+    <td width="15%"><a [routerLink]="['/', nextWeek]">Next<i class="material-icons">navigate_next</i></a></td>
+    <td width="20%"><input id="dateString" name="dateString" size="15" type="text" class="validate" (blur)="gotoWeek()" /></td>
+  </tr>
+</table>
+</form>
 
 <table>
   <tr>
@@ -13,6 +19,7 @@
           <th data-field="name">Name</th>
           <th data-field="name">Amount</th>
           <th data-field="name">Due Date</th>
+          <th data-field="name">Notes</th>
           <th data-field="name">Edit</th>
           <th data-field="name">Delete</th>
         </tr>
@@ -23,6 +30,7 @@
             <td>{{ income.incomeTypeDescription }}</td>
             <td>{{ income.amount }}</td>
             <td>{{ income.dueDateString }}</td>
+            <td>{{ income.notes }}</td>
             <td>
               <a [routerLink]="['/incomes', income.id]">
                 <i class="material-icons">mode_edit</i>
@@ -34,6 +42,9 @@
               </a>
             </td>
           </tr>
+          <tr>
+            <td><b>Income Total:</b></td><td colspan="3">{{ incomeTotal }}</td>
+          </tr>  
           <tr>
             <td colspan=5>
               <div class="fixed-action-btn" style="bottom: 45px; left: 24px;">
@@ -56,6 +67,7 @@
           <th data-field="name">Amount</th>
           <th data-field="name">Due Date</th>
           <th data-field="name">Paid</th>
+          <th data-field="name">Notes</th>
           <th data-field="name">Edit</th>
           <th data-field="name">Delete</th>
         </tr>
@@ -67,6 +79,7 @@
             <td>{{ expense.amount }}</td>
             <td>{{ expense.dueDateString }}</td>
             <td>{{ expense.paid ? "PAID" : "" }}</td>
+            <td>{{ expense.notes }}</td>
             <td>
               <a [routerLink]="['/expenses', expense.id]">
                 <i class="material-icons">mode_edit</i>
@@ -77,6 +90,9 @@
                 <i class="material-icons">delete</i>
               </a>
             </td>
+          </tr>
+          <tr>
+            <td><b>Expense Total:</b></td><td colspan="3">{{ expenseTotal }}</td>
           </tr>
           <tr>
             <td>
@@ -92,4 +108,7 @@
       </table>
     </td>
   </tr>
+  <tr>
+    <td><b>Total:</b>&nbsp;&nbsp;&nbsp;{{ difference }}</td><td></td>
+  </tr>    
 </table>

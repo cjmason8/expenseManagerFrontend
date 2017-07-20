@@ -3,9 +3,10 @@ export class Income {
   incomeType: string;
   amount: number;
   dueDateString: string;
-  recurringType: string;
+  recurringTypeId: string;
   startDateString: string;
   endDateString: string;
+  notes: string;
 
   constructor() {
   }

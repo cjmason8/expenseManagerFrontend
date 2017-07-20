@@ -19,6 +19,9 @@ export class HomeComponent implements OnInit {
   private previousWeek: String;
   private nextWeek: String;
   private thisWeek: String;
+  private incomeTotal: String;
+  private expenseTotal: String;
+  private difference: String;
 
   constructor(private expensesService: ExpensesService, private route: ActivatedRoute, private router: Router,
     private _cookieService:CookieService, private incomesService: IncomesService) { }
@@ -34,6 +37,9 @@ export class HomeComponent implements OnInit {
           this.previousWeek = data.previousWeek;
           this.nextWeek = data.nextWeek;
           this.thisWeek = data.thisWeek;
+          this.incomeTotal = data.incomeTotal;
+          this.expenseTotal = data.expenseTotal;
+          this.difference = data.difference;
         });
     });
   }
@@ -67,6 +73,8 @@ export class HomeComponent implements OnInit {
   }
 
   gotoWeek() {
-    this.router.navigate(['' + document.getElementById['dateString'].text]);
-  }  
+    this.router.navigate(['' + document.forms[0]['dateString'].value]);
+    document.forms[0]['dateString'].value = "";
+  }
+
 }

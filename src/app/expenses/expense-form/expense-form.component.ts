@@ -42,9 +42,10 @@ export class ExpenseFormComponent implements OnInit {
       ]],
       paid: ['', []],
       recurring: ['', []],      
-      recurringType: ['', []],
+      recurringTypeId: ['', []],
       startDateString: ['', []],
-      endDateString: ['', []]
+      endDateString: ['', []],
+      notes: ['', []]
     });
   }
 
@@ -69,7 +70,7 @@ export class ExpenseFormComponent implements OnInit {
         .subscribe(
           expense => {
             this.expense = expense;
-            if (this.expense.recurringType) {
+            if (this.expense.recurringTypeId) {
               document.forms[0]['recurring'].checked = true;
               document.getElementById('recurringTable').style.display = 'block';
             }

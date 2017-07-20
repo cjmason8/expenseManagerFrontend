@@ -63,6 +63,23 @@
       <tr>
         <td>
           <div class="input-field col s12">
+            <input id="notes" type="text" class="validate"
+                   [(ngModel)]="income.notes" formControlName="notes">
+            <label for="notes"
+                   [class.active]="income.notes">
+              Notes
+            </label>
+          </div>
+        </td>
+        <td>
+          <div class="input-field col s12">
+
+          </div>
+        </td>
+      </tr>      
+      <tr>
+        <td>
+          <div class="input-field col s12">
             <input id="recurring" type="checkbox" formControlName="recurring" (click)="showHideRecurring()"
             >
             <label for="recurring">
@@ -82,12 +99,12 @@
       <tr>
         <td>
           <div class="input-field col s12">
-            <select id="recurringType" [(ngModel)]="income.recurringType" formControlName="recurringType" materialize="material_select" [materializeSelectOptions]="recurringTypes">
+            <select id="recurringTypeId" [(ngModel)]="income.recurringTypeId" formControlName="recurringTypeId" materialize="material_select" [materializeSelectOptions]="recurringTypes">
               <option value="" disabled selected>Choose your option</option>
               <option *ngFor="let item of recurringTypes" [value]="item.value">{{item.description}}</option>
             </select>
-            <label for="recurringType"
-                   [class.active]="income.recurringType">
+            <label for="recurringTypeId"
+                   [class.active]="income.recurringTypeId">
               Recurring Type
             </label>
           </div>

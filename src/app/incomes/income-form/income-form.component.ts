@@ -43,9 +43,10 @@ export class IncomeFormComponent implements OnInit {
         Validators.required
       ]],
       recurring: ['', []],      
-      recurringType: ['', []],
+      recurringTypeId: ['', []],
       startDateString: ['', []],
-      endDateString: ['', []]
+      endDateString: ['', []],
+      notes: ['', []]
     });
   }
 
@@ -70,7 +71,7 @@ export class IncomeFormComponent implements OnInit {
         .subscribe(
           income => {
             this.income = income;
-            if (this.income.recurringType) {
+            if (this.income.recurringTypeId) {
               document.forms[0]['recurring'].checked = true;
               document.getElementById('recurringTable').style.display = 'block';
             }

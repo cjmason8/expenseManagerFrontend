@@ -1,0 +1,52 @@
+<h5>{{ title }}</h5>
+<div class="row">
+  <form materialize class="col s12" [formGroup]="form" (ngSubmit)="save()">
+    <table cellspacing="0" cellpadding="0" width="80%">
+      <tr>
+        <td>
+          <div class="input-field col s12">
+            <select id="type" [(ngModel)]="refData.type" formControlName="type" materialize="material_select">
+              <option value="" disabled selected>Choose your option</option>
+              <option value="EXPENSE_TYPE">Expense Type</option>
+              <option value="INCOME_TYPE">Income Type</option>
+              <option value="RECURRING_TYPE">Recurring Type</option>
+            </select>
+            <label for="type"
+                   [class.active]="refData.type">
+              Type
+            </label>
+          </div>
+        </td>
+        <td>
+          <div class="input-field col s12">
+          </div>
+        </td>        
+      </tr>
+      <tr>
+        <td>
+          <div class="input-field col s12">
+            <input id="description" type="text" class="validate"
+                   [(ngModel)]="refData.description" formControlName="description"
+                   [class.invalid]="form.controls['description'].touched && !form.controls['description'].valid"
+            >
+            <label for="description"
+                   [class.active]="refData.description"
+                   data-error="Description is Required">
+              Description
+            </label>
+          </div>
+        </td>
+        <td>
+          <div class="input-field col s12">
+
+          </div>
+        </td>
+      </tr>      
+    </table>
+    <p></p>
+    <button class="btn waves-effect waves-light" type="submit"
+            [disabled]="!form.valid">
+      Submit<i class="material-icons right">send</i>
+    </button>
+  </form>
+</div>

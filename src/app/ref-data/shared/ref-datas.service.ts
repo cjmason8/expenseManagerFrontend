@@ -9,26 +9,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../../environments/environment'
 
 @Injectable()
-export class IncomesService {
+export class RefDatasService {
 
-  private url: string = environment.backendEndPoint + "/incomes";
+  private url: string = environment.backendEndPoint;
+  private refDatasUrl: string = environment.backendEndPoint + "/refDatas";
   private usersUrl: string = environment.backendEndPoint + "/users";
-  private refDataUrl: string = environment.backendEndPoint + "/refDatas/type";
 
   constructor(private http: Http,
       private router: Router,
       private route: ActivatedRoute) { }
-
-  getIncomesForWeek(weekString){
-    var suffix = weekString ? "/" + weekString : "";
-    return this.http.get(this.url + "/week" + suffix)
-      .map(res => res.json());
-  }
-
-  getIncome(id){
-    return this.http.get(this.getIncomeUrl(id))
-      .map(res => res.json());
-  }
 
   authenticate(token){
     if (!token) {
@@ -44,34 +33,39 @@ export class IncomesService {
       });;
   }
 
-  addIncome(income){
+  addRefData(refData){
     var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
     var options = new RequestOptions({ headers: headers });
-    return this.http.post(this.url, JSON.stringify(income), options)
+    return this.http.post(this.refDatasUrl, JSON.stringify(refData), options)
       .map(res => res.json());
   }
 
-  updateIncome(income){
+  updateRefData(refData){
     var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
     var options = new RequestOptions({ headers: headers });
-    return this.http.put(this.getIncomeUrl(income.id), JSON.stringify(income), options)
+    return this.http.put(this.getRefDataUrl(refData.id), JSON.stringify(refData), options)
       .map(res => res.json());
   }
 
-  deleteIncome(id){
+  deleteRefData(id){
     var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
     var options = new RequestOptions({ headers: headers });
-    return this.http.delete(this.getIncomeUrl(id), options)
+    return this.http.delete(this.getRefDataUrl(id), options)
       .map(res => res.json());
   }
 
-  getIncomeTypes(){
-    return this.http.get(this.refDataUrl + '/incomeType')
+  getRefData(id){
+    return this.http.get(this.getRefDataUrl(id))
       .map(res => res.json());
   }
 
-  private getIncomeUrl(id){
-    return this.url + "/" + id;
+  getRefDatas(){
+    return this.http.get(this.refDatasUrl)
+      .map(res => res.json());
+  }  
+
+  private getRefDataUrl(id){
+    return this.refDatasUrl + "/" + id;
   }
 
   private getAuthenticateUrl(token){

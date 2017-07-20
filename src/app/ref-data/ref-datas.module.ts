@@ -4,8 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule }  from '@angular/router';
 import { HttpModule }  from '@angular/http';
 
-import { ExpensesService } from './shared/expenses.service';
-import { ExpenseFormComponent } from './expense-form/expense-form.component';
+import { RefDatasComponent } from './ref-datas.component';
+import { RefDatasService } from './shared/ref-datas.service';
+import { RefDataFormComponent } from './ref-data-form/ref-data-form.component';
 
 import {MaterializeModule} from "angular2-materialize";
 
@@ -19,12 +20,14 @@ import {MaterializeModule} from "angular2-materialize";
     MaterializeModule
   ],
   declarations: [
-    ExpenseFormComponent
+    RefDatasComponent,
+    RefDataFormComponent
   ],
   exports: [
+    RefDatasComponent
   ],
   providers: [
-    ExpensesService
+    RefDatasService
   ]
 })
-export class ExpensesModule { }
+export class RefDatasModule { }
