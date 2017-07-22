@@ -2,7 +2,7 @@
 
 set -e
 
-FULL_IMAGE_NAME="event-manager-frontend"
+FULL_IMAGE_NAME="expense-manager-frontend"
 
 while getopts ":p:e:d:" opt; do
   case $opt in
@@ -35,7 +35,7 @@ git config user.name "Release Manager"
 git config user.email "Release.Manager@jenkins.com.au"
 git add --all
 git commit -m "bump version"
-git push https://cjmason8:${GIT_PASS}@github.com/cjmason8/eventManagerFrontend.git
+git push https://cjmason8:${GIT_PASS}@github.com/cjmason8/expenseManagerFrontend.git
 
 echo "login docker"
 docker login --username=cjmason8 --password=$PASSWORD
