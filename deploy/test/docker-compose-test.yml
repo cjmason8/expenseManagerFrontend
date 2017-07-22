@@ -1,7 +1,7 @@
-eventManagerFrontend:
+expenseManagerFrontend:
   extends:
     file: ../docker-compose.yml
-    service: eventManagerFrontend
+    service: expenseManagerFrontend
   environment:
     BACKEND_END_POINT: http://172.17.0.1:8083
   ports:
