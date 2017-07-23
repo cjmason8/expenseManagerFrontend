@@ -45,7 +45,6 @@ export class HomeComponent implements OnInit {
           this.difference = data.difference;
           this.unpaidExpenses = data.unpaidExpenses;
           if (this.unpaidExpenses && this.unpaidExpenses.length > 0) {
-            console.log('HERE!!!!!!');
             document.getElementById("unpaidExpensesTable").style.display = "block";
           }
           else {
