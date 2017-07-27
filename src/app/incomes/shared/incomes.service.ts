@@ -12,36 +12,14 @@ import { environment } from '../../../environments/environment'
 export class IncomesService {
 
   private url: string = environment.backendEndPoint + "/incomes";
-  private usersUrl: string = environment.backendEndPoint + "/users";
-  private refDataUrl: string = environment.backendEndPoint + "/refDatas/type";
 
   constructor(private http: Http,
       private router: Router,
       private route: ActivatedRoute) { }
 
-  getIncomesForWeek(weekString){
-    var suffix = weekString ? "/" + weekString : "";
-    return this.http.get(this.url + "/week" + suffix)
-      .map(res => res.json());
-  }
-
   getIncome(id){
     return this.http.get(this.getIncomeUrl(id))
       .map(res => res.json());
-  }
-
-  authenticate(token){
-    if (!token) {
-      this.router.navigate(['login']);
-    }
-
-    return this.http.get(this.getAuthenticateUrl(token))
-      .map(res => res.json())
-      .subscribe(result => {
-        if (result.status === 'failed') {
-          this.router.navigate(['login']);
-        }
-      });;
   }
 
   addIncome(income){
@@ -65,16 +43,8 @@ export class IncomesService {
       .map(res => res.json());
   }
 
-  getIncomeTypes(){
-    return this.http.get(this.refDataUrl + '/incomeType')
-      .map(res => res.json());
-  }
-
   private getIncomeUrl(id){
     return this.url + "/" + id;
   }
 
-  private getAuthenticateUrl(token){
-    return this.usersUrl + "/" + token + "/authenticate";
-  }
 }

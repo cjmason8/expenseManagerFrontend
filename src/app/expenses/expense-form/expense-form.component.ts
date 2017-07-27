@@ -4,8 +4,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 
 import { Expense } from '../shared/expense';
-import { RefData } from '../../shared/refData';
+import { RefData } from '../../ref-data/shared/ref-data';
 import { ExpensesService } from '../shared/expenses.service';
+import { AuthenticateService } from '../../shared/authenticate.service';
+import { RefDatasService } from '../../ref-data/shared/ref-datas.service';
 import { BasicValidators } from '../../shared/basic-validators';
 
 @Component({
@@ -27,6 +29,8 @@ export class ExpenseFormComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private expensesService: ExpensesService,
+    private authenticateService: AuthenticateService,
+    private refDatasService: RefDatasService,
     private _cookieService:CookieService
   ) {
     this.form = formBuilder.group({
@@ -37,9 +41,7 @@ export class ExpenseFormComponent implements OnInit {
         Validators.required,
         Validators.pattern('[0-9]+(\.[0-9][0-9])?')
       ]],
-      dueDateString: ['', [
-        Validators.required
-      ]],
+      dueDateString: ['', []],
       paid: ['', []],
       recurring: ['', []],      
       recurringTypeId: ['', []],
@@ -49,13 +51,17 @@ export class ExpenseFormComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.expensesService.authenticate(this._cookieService.get('token'));
+  validateForm() {
+    return !this.form.valid || (!this.form.controls['dueDateString'].value && !this.form.controls['recurring'].value);
+  }
 
-    this.expensesService.getExpenseTypes()
+  ngOnInit() {
+    this.authenticateService.authenticate(this._cookieService.get('token'));
+
+    this.refDatasService.getTypes('expenseType')
        .subscribe(data => this.expenseTypes = data);
 
-    this.expensesService.getRecurringTypes()
+    this.refDatasService.getTypes('recurringType')
        .subscribe(data => this.recurringTypes = data);
 
     var id = this.route.params.subscribe(params => {
@@ -100,9 +106,11 @@ export class ExpenseFormComponent implements OnInit {
   showHideRecurring() {
     if (document.forms[0]['recurring'].checked) {
       document.getElementById('recurringTable').style.display = 'block';
+      document.getElementById('dueDateDiv').style.display = 'none';
     }
     else {
       document.getElementById('recurringTable').style.display = 'none';
+      document.getElementById('dueDateDiv').style.display = 'block';
     }
   }
 }

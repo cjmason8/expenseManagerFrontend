@@ -39,10 +39,26 @@
 
           </div>
         </td>
-      </tr>      
+      </tr>
       <tr>
         <td>
           <div class="input-field col s12">
+            <input id="recurring" type="checkbox" formControlName="recurring" (click)="showHideRecurring()"
+            >
+            <label for="recurring">
+              Recurring
+            </label>
+          </div>
+        </td>
+        <td>
+          <div class="input-field col s12">
+
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="input-field col s12" id="dueDateDiv">
             <input id="dueDateString" type="text" class="validate"
                    [(ngModel)]="income.dueDateString" formControlName="dueDateString"
                    [class.invalid]="form.controls['dueDateString'].touched && !form.controls['dueDateString'].valid"
@@ -77,22 +93,6 @@
           </div>
         </td>
       </tr>      
-      <tr>
-        <td>
-          <div class="input-field col s12">
-            <input id="recurring" type="checkbox" formControlName="recurring" (click)="showHideRecurring()"
-            >
-            <label for="recurring">
-              Recurring
-            </label>
-          </div>
-        </td>
-        <td>
-          <div class="input-field col s12">
-
-          </div>
-        </td>
-      </tr>
     </table>
     <br/>
       <table id="recurringTable" style="display: none">
@@ -144,7 +144,7 @@
     </table>
     <p></p>
     <button class="btn waves-effect waves-light" type="submit"
-            [disabled]="!form.valid">
+            [disabled]="validateForm()">
       Submit<i class="material-icons right">send</i>
     </button>
   </form>

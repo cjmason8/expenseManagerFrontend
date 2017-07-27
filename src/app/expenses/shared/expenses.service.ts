@@ -13,41 +13,14 @@ export class ExpensesService {
 
   private url: string = environment.backendEndPoint;
   private expensesUrl: string = environment.backendEndPoint + "/expenses";
-  private usersUrl: string = environment.backendEndPoint + "/users";
-  private refDataUrl: string = environment.backendEndPoint + "/refDatas/type";
 
   constructor(private http: Http,
       private router: Router,
       private route: ActivatedRoute) { }
 
-  getExpensesForWeek(weekString){
-    var suffix = weekString ? "/" + weekString : "";
-    return this.http.get(this.url + "/week" + suffix)
-      .map(res => res.json());
-  }
-
-  getRecurring(){
-    return this.http.get(this.url + "/recurring")
-      .map(res => res.json());
-  }
-
   getExpense(id){
     return this.http.get(this.getExpenseUrl(id))
       .map(res => res.json());
-  }
-
-  authenticate(token){
-    if (!token) {
-      this.router.navigate(['login']);
-    }
-
-    return this.http.get(this.getAuthenticateUrl(token))
-      .map(res => res.json())
-      .subscribe(result => {
-        if (result.status === 'failed') {
-          this.router.navigate(['login']);
-        }
-      });;
   }
 
   addExpense(expense){
@@ -71,21 +44,8 @@ export class ExpensesService {
       .map(res => res.json());
   }
 
-  getExpenseTypes(){
-    return this.http.get(this.refDataUrl + '/expenseType')
-      .map(res => res.json());
-  }
-
-  getRecurringTypes(){
-    return this.http.get(this.refDataUrl + '/recurringType')
-      .map(res => res.json());
-  }
-
   private getExpenseUrl(id){
     return this.expensesUrl + "/" + id;
   }
 
-  private getAuthenticateUrl(token){
-    return this.usersUrl + "/" + token + "/authenticate";
-  }
 }

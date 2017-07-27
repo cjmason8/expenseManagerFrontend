@@ -71,4 +71,9 @@ export class RefDatasService {
   private getAuthenticateUrl(token){
     return this.usersUrl + "/" + token + "/authenticate";
   }
+
+  getTypes(type){
+    return this.http.get(this.refDatasUrl + '/type/' + type)
+      .map(res => res.json());
+  }
 }

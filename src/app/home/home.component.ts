@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {CookieService} from 'angular2-cookie/core';
 import { ExpensesService } from '../expenses/shared/expenses.service';
 import { IncomesService } from '../incomes/shared/incomes.service';
+import { AuthenticateService } from '../shared/authenticate.service';
+import { HomeService } from './shared/home.service';
 import {Expense} from "../expenses/shared/expense";
 import {Income} from "../incomes/shared/income";
 import { Login } from '../login/shared/login';
@@ -28,34 +30,14 @@ export class HomeComponent implements OnInit {
   private difference: String;
 
   constructor(private expensesService: ExpensesService, private route: ActivatedRoute, private router: Router,
-    private _cookieService:CookieService, private incomesService: IncomesService, private loginService: LoginService) { }
+    private _cookieService:CookieService, private incomesService: IncomesService, private homeService: HomeService,
+    private authenticateService: AuthenticateService) { }
 
   ngOnInit() {
-    if (document.location.href.indexOf('Jade') != -1) {
-      var login = new Login();
-      login.name = "jade";
-      login.password = "jade76";
-      var result = this.loginService.loginUser(login);
-
-      result.subscribe(data => {
-        if (data.loginStatus === 'success') {
-          this._cookieService.put('token', data.token);
-          this._cookieService.put('roles', data.roles);
-
-          this.displayPage();
-        }
-      });
-    }
-    else {
-      this.displayPage();
-    }
-  }
-
-  displayPage() {
-    this.expensesService.authenticate(this._cookieService.get('token'));
+    this.authenticateService.authenticate(this._cookieService.get('token'));
 
     this.route.params.subscribe(params => {
-      this.expensesService.getExpensesForWeek(params['weekString'])
+      this.homeService.getTransactionsForWeek(params['weekString'])
         .subscribe(data => {
           this.expenses = data.expenses;
           this.incomes = data.incomes;

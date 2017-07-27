@@ -8,7 +8,6 @@ import { RecurringComponent } from './home/recurring.component';
 const appRoutes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: ':weekString', component: HomeComponent },
-  { path: 'loginJade/now', component: HomeComponent },
   { path: 'not-found', component: NotFoundComponent },
   { path: 'recurring/all', component: RecurringComponent },
   { path: '**', redirectTo: 'not-found' }

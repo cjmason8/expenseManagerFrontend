@@ -5,7 +5,7 @@ import {CookieService} from 'angular2-cookie/core';
 
 import { RefData } from '../shared/ref-data';
 import { RefDatasService } from '../shared/ref-datas.service';
-import { ExpensesService } from '../../expenses/shared/expenses.service';
+import { AuthenticateService } from '../../shared/authenticate.service';
 import { BasicValidators } from '../../shared/basic-validators';
 
 @Component({
@@ -25,7 +25,7 @@ export class RefDataFormComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private refDatasService: RefDatasService,
-    private expensesService: ExpensesService,
+    private authenticateService: AuthenticateService,
     private _cookieService:CookieService
   ) {
     this.form = formBuilder.group({
@@ -39,7 +39,7 @@ export class RefDataFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.expensesService.authenticate(this._cookieService.get('token'));
+    this.authenticateService.authenticate(this._cookieService.get('token'));
 
     var id = this.route.params.subscribe(params => {
       var id = params['id'];

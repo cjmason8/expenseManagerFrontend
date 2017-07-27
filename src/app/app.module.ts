@@ -19,13 +19,14 @@ import { ExpensesModule } from "./expenses/expenses.module";
 import { IncomesModule } from "./incomes/incomes.module";
 import { RefDatasModule } from "./ref-data/ref-datas.module";
 import { LoginModule } from "./login/login.module";
+import { HomeModule } from "./home/home.module";
+
+import { AuthenticateService } from './shared/authenticate.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
-    HomeComponent,
-    RecurringComponent,
     NotFoundComponent,
     LogoutComponent
   ],
@@ -37,6 +38,7 @@ import { LoginModule } from "./login/login.module";
     IncomesModule,
     LoginModule,
     RefDatasModule,
+    HomeModule,
     expensesRouting,
     refDatasRouting,
     incomesRouting,
@@ -44,7 +46,7 @@ import { LoginModule } from "./login/login.module";
     logoutRouting,
     routing
   ],
-  providers: [],
+  providers: [AuthenticateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

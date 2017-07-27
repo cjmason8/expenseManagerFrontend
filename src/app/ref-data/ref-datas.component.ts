@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {RefDatasService} from "./shared/ref-datas.service";
-import {ExpensesService} from "../expenses/shared/expenses.service";
+import { AuthenticateService } from '../shared/authenticate.service';
 import {RefData} from "./shared/ref-data";
 import {CookieService} from 'angular2-cookie/core';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -15,12 +15,12 @@ export class RefDatasComponent implements OnInit {
 
   private refDatas: RefData[] = [];
 
-  constructor(private expensesService: ExpensesService, private refDatasService: RefDatasService, 
+  constructor(private authenticateService: AuthenticateService, private refDatasService: RefDatasService, 
   private route: ActivatedRoute,
     private _cookieService:CookieService) { }
 
  ngOnInit() {
-    this.expensesService.authenticate(this._cookieService.get('token'));
+    this.authenticateService.authenticate(this._cookieService.get('token'));
 
     this.route.params.subscribe(params => {
       this.refDatasService.getRefDatas()
