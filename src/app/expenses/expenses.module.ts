@@ -7,8 +7,6 @@ import { HttpModule }  from '@angular/http';
 import { ExpensesService } from './shared/expenses.service';
 import { ExpenseFormComponent } from './expense-form/expense-form.component';
 
-import {MaterializeModule} from "angular2-materialize";
-
 import {MdCardModule, MdInputModule, MdButtonModule, MaterialModule, MdAutocompleteModule, MdOptionModule} from '@angular/material';
 
 @NgModule({
@@ -18,7 +16,6 @@ import {MdCardModule, MdInputModule, MdButtonModule, MaterialModule, MdAutocompl
     ReactiveFormsModule,
     RouterModule,
     HttpModule,
-    MaterializeModule,
     MdCardModule,
     MdInputModule,
     MdButtonModule,

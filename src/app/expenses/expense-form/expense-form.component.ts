@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl, NgModel } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 
@@ -28,8 +28,6 @@ export class ExpenseFormComponent implements OnInit {
   expense: Expense = new Expense();
   expenseTypes: Array<RefData>;
   recurringTypes: Array<RefData>;
-
-  topHeightCtrl = new FormControl(0);
 
   reactiveExpenseTypes: any;
   reactiveRecurringTypes: any;
@@ -72,6 +70,7 @@ export class ExpenseFormComponent implements OnInit {
         .map(name => this.filterRecurringTypes(name));        
 
   }
+
   displayFn(value: any): string {
     return value && typeof value === 'object' ? value.description : value;
   }
@@ -95,7 +94,7 @@ export class ExpenseFormComponent implements OnInit {
   }
 
   validateForm() {
-    return !this.form.valid || (!this.form.controls['dueDateString'].value && !this.form.controls['recurring'].value);
+    return !this.form.valid || (!this.form.controls['dueDateString'].value && !this.form.controls['recurring'] && !this.form.controls['recurring'].value);
   }
 
   ngOnInit() {
@@ -122,6 +121,7 @@ export class ExpenseFormComponent implements OnInit {
             if (this.expense.recurringType) {
               document.forms[0]['recurring'].checked = true;
               document.getElementById('recurringTable').style.display = 'block';
+              this.showHideRecurring();
             }
           },
           response => {

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 
@@ -10,19 +10,27 @@ import { AuthenticateService } from '../../shared/authenticate.service';
 import { RefDatasService } from '../../ref-data/shared/ref-datas.service';
 import { BasicValidators } from '../../shared/basic-validators';
 
+import 'rxjs/add/operator/startWith';
+import 'rxjs/add/operator/map';
+
 @Component({
-  selector: 'app-expense-form',
+  selector: 'app-income-form',
   templateUrl: './income-form.component.html',
   styleUrls: ['./income-form.component.css'],
-  providers: [CookieService]
+  providers: [CookieService],
+  encapsulation: ViewEncapsulation.None
 })
 export class IncomeFormComponent implements OnInit {
-
+  stateCtrl: FormControl;
+  stateCtrl2: FormControl;
   form: FormGroup;
   title: string;
   income: Income = new Income();
   incomeTypes: Array<RefData>;
   recurringTypes: Array<RefData>;
+
+  reactiveIncomeTypes: any;
+  reactiveRecurringTypes: any;
 
   constructor(
     formBuilder: FormBuilder,
@@ -43,15 +51,48 @@ export class IncomeFormComponent implements OnInit {
       ]],
       dueDateString: ['', []],
       recurring: ['', []],      
-      recurringTypeId: ['', []],
+      recurringType: ['', []],
       startDateString: ['', []],
       endDateString: ['', []],
       notes: ['', []]
     });
+
+    this.stateCtrl = new FormControl({code: 'CA', name: 'California'});
+    this.stateCtrl2 = new FormControl({code: 'CA', name: 'California'});
+    this.reactiveIncomeTypes = this.stateCtrl.valueChanges
+        .startWith(this.stateCtrl.value)
+        .map(val => this.displayFn(val))
+        .map(name => this.filterIncomeTypes(name));
+    this.reactiveRecurringTypes = this.stateCtrl2.valueChanges
+        .startWith(this.stateCtrl2.value)
+        .map(val => this.displayFn(val))
+        .map(name => this.filterRecurringTypes(name));                
+  }
+
+  displayFn(value: any): string {
+    return value && typeof value === 'object' ? value.description : value;
+  }
+
+  filterIncomeTypes(val: string) {
+    if (val) {
+      const filterValue = val.toLowerCase();
+      return this.incomeTypes.filter(state => state.description.toLowerCase().startsWith(filterValue));
+    }
+
+    return this.incomeTypes;
+  }
+
+  filterRecurringTypes(val: string) {
+    if (val) {
+      const filterValue = val.toLowerCase();
+      return this.recurringTypes.filter(state => state.description.toLowerCase().startsWith(filterValue));
+    }
+
+    return this.recurringTypes;
   }
 
   validateForm() {
-    return !this.form.valid || (!this.form.controls['dueDateString'].value && !this.form.controls['recurring'].value);
+    return !this.form.valid || (!this.form.controls['dueDateString'].value && !this.form.controls['recurring'] && !this.form.controls['recurring'].value);
   }
 
   ngOnInit() {
@@ -75,9 +116,11 @@ export class IncomeFormComponent implements OnInit {
         .subscribe(
           income => {
             this.income = income;
-            if (this.income.recurringTypeId) {
+            if (this.income.recurringType) {
               document.forms[0]['recurring'].checked = true;
               document.getElementById('recurringTable').style.display = 'block';
+              this.showHideRecurring();
+              this.validateForm();
             }
           },
           response => {

@@ -3,7 +3,7 @@ export class Income {
   incomeType: string;
   amount: number;
   dueDateString: string;
-  recurringTypeId: string;
+  recurringType: string;
   startDateString: string;
   endDateString: string;
   notes: string;

@@ -17,9 +17,9 @@
 
         <tbody>
           <tr *ngFor="let income of incomes">
-            <td>{{ income.incomeTypeDescription }}</td>
+            <td>{{ income.incomeType.description }}</td>
             <td>{{ income.amount }}</td>
-            <td>{{ income.recurringTypeDescription }}</td>
+            <td>{{ income.recurringType.description }}</td>
             <td>{{ income.startDateString }}</td>
             <td>{{ income.endDateString }}</td>
             <td>
@@ -53,9 +53,9 @@
 
         <tbody>
           <tr *ngFor="let expense of expenses">
-            <td>{{ expense.expenseTypeDescription }}</td>
+            <td>{{ expense.expenseType.description }}</td>
             <td>{{ expense.amount }}</td>
-            <td>{{ expense.recurringTypeDescription }}</td>
+            <td>{{ expense.recurringType.description }}</td>
             <td>{{ expense.startDateString }}</td>
             <td>{{ expense.endDateString }}</td>
             <td>

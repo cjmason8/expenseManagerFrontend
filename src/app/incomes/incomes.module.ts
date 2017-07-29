@@ -9,6 +9,8 @@ import { IncomeFormComponent } from './income-form/income-form.component';
 
 import {MaterializeModule} from "angular2-materialize";
 
+import {MdCardModule, MdInputModule, MdButtonModule, MaterialModule, MdAutocompleteModule, MdOptionModule} from '@angular/material';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -16,7 +18,13 @@ import {MaterializeModule} from "angular2-materialize";
     ReactiveFormsModule,
     RouterModule,
     HttpModule,
-    MaterializeModule
+    MaterializeModule,
+    MdCardModule,
+    MdInputModule,
+    MdButtonModule,
+    MaterialModule,
+    MdAutocompleteModule,
+    MdOptionModule
   ],
   declarations: [
     IncomeFormComponent
