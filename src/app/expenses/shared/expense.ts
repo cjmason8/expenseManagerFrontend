@@ -4,7 +4,7 @@ export class Expense {
   amount: number;
   dueDateString: string;
   paid: boolean;
-  recurringTypeId: string;
+  recurringType: string;
   startDateString: string;
   endDateString: string;
   notes: string;

@@ -5,10 +5,16 @@
       <tr>
         <td>
           <div class="input-field col s12">
-            <select id="expenseType" [(ngModel)]="expense.expenseType" formControlName="expenseType" materialize="material_select" [materializeSelectOptions]="expenseTypes">
-              <option value="" disabled selected>Choose your option</option>
-              <option *ngFor="let item of expenseTypes" [value]="item.value">{{item.description}}</option>
-            </select>
+            <md-input-container floatPlaceholder="never">
+              <input mdInput [mdAutocomplete]="reactiveAuto" [formControl]="stateCtrl" [(ngModel)]="expense.expenseType" formControlName="expenseType">
+            </md-input-container>
+
+            <md-autocomplete #reactiveAuto="mdAutocomplete" [displayWith]="displayFn">
+              <md-option *ngFor="let state of reactiveExpenseTypes | async" [value]="state">
+                <span>{{ state.description }}</span>
+              </md-option>
+            </md-autocomplete>
+
             <label for="expenseType"
                    [class.active]="expense.expenseType">
               Expense Type
@@ -51,8 +57,8 @@
       <tr>
         <td>
           <div class="input-field col s12">
-            <input id="recurring" type="checkbox" formControlName="recurring" (click)="showHideRecurring()"
-            >
+            <input id="recurring" type="checkbox" formControlName="recurring" (click)="showHideRecurring()">
+
             <label for="recurring">
               Recurring
             </label>
@@ -109,12 +115,18 @@
       <tr>
         <td>
           <div class="input-field col s12">
-            <select id="recurringTypeId" [(ngModel)]="expense.recurringTypeId" formControlName="recurringTypeId" materialize="material_select" [materializeSelectOptions]="recurringTypes">
-              <option value="" disabled selected>Choose your option</option>
-              <option *ngFor="let item of recurringTypes" [value]="item.value">{{item.description}}</option>
-            </select>
+            <md-input-container floatPlaceholder="never">
+              <input mdInput [mdAutocomplete]="reactiveAuto2" [formControl]="stateCtrl2" [(ngModel)]="expense.recurringType" formControlName="recurringType">
+            </md-input-container>
+
+            <md-autocomplete #reactiveAuto2="mdAutocomplete" [displayWith]="displayFn">
+              <md-option *ngFor="let state of reactiveRecurringTypes | async" [value]="state">
+                <span>{{ state.description }}</span>
+              </md-option>
+            </md-autocomplete>            
+
             <label for="recurringType"
-                   [class.active]="expense.recurringTypeId">
+                   [class.active]="expense.recurringType">
               Recurring Type
             </label>
           </div>
