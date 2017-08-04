@@ -1,23 +1,23 @@
 <h5>{{ title }}</h5>
 <div class="row">
-  <form materialize class="col s12" [formGroup]="form" (ngSubmit)="save()">
+  <form class="col s12" [formGroup]="form" (ngSubmit)="save()">
     <table cellspacing="0" cellpadding="0" width="80%">
       <tr>
         <td>
           <div class="input-field col s12">
             <md-input-container floatPlaceholder="never">
-              <input mdInput [mdAutocomplete]="reactiveAuto5" [formControl]="stateCtrl" [(ngModel)]="income.incomeType" formControlName="incomeType" size="30">
+              <input mdInput [mdAutocomplete]="reactiveAuto" [formControl]="stateCtrl" [(ngModel)]="transaction.transactionType" formControlName="transactionType" size="30">
             </md-input-container>
 
-            <md-autocomplete #reactiveAuto5="mdAutocomplete" [displayWith]="displayFn">
-              <md-option *ngFor="let income of reactiveIncomeTypes | async" [value]="income">
-                <span>{{ income.description }}</span>
+            <md-autocomplete #reactiveAuto="mdAutocomplete" [displayWith]="displayFn">
+              <md-option *ngFor="let state of filteredTransactionTypes | async" [value]="state">
+                <span>{{ state.description }}</span>
               </md-option>
             </md-autocomplete>
 
-            <label for="incomeType"
-                   [class.active]="income.incomeType">
-              Income Type
+            <label for="transactionType"
+                   [class.active]="transaction.transactionType">
+              {{transactionType}} Type
             </label>
           </div>
         </td>
@@ -28,24 +28,32 @@
       </tr>
       <tr>
         <td>
-          <div class="input-field col s12">
+          <div class="input-field col s8">
             <input id="amount" type="text" class="validate"
-                   [(ngModel)]="income.amount" formControlName="amount"
+                   [(ngModel)]="transaction.amount" formControlName="amount"
                    [class.invalid]="form.controls['amount'].touched && !form.controls['amount'].valid"
             >
             <label for="amount"
-                   [class.active]="income.amount"
+                   [class.active]="transaction.amount"
                    data-error="Amount needs to be numeric with zero or two decimal places">
               Amount
             </label>
           </div>
+          <div class="col s4" id="paidDiv" name="paidDiv" style="display: none">
+            <input id="paid" type="checkbox"
+                   [(ngModel)]="transaction.paid" formControlName="paid"
+            >
+            <label for="paid">
+              Paid
+            </label>
+          </div>                              
         </td>
         <td>
           <div class="input-field col s12">
 
           </div>
-        </td>
-      </tr>
+        </td>        
+      </tr>      
       <tr>
         <td>
           <div class="col s12">
@@ -65,30 +73,34 @@
       <tr>
         <td>
           <div class="input-field col s12" id="dueDateDiv">
-            <input id="dueDateString" type="text" class="validate"
-                   [(ngModel)]="income.dueDateString" formControlName="dueDateString"
-                   [class.invalid]="form.controls['dueDateString'].touched && !form.controls['dueDateString'].valid"
-            >
+            <md-input-container>
+              <input mdInput [mdDatepicker]="dueDatePicker" [(ngModel)]="transaction.dueDateString" formControlName="dueDateString">
+              <button mdSuffix [mdDatepickerToggle]="dueDatePicker"></button>
+            </md-input-container>
+            <md-datepicker #dueDatePicker></md-datepicker>
+
             <label for="dueDateString"
-                   [class.active]="income.dueDateString"
+                   [class.active]="transaction.dueDateString"
                    data-error="Due Date is required">
-              Due Date(dd-MM-yyyy)
+              Due Date
             </label>
+          </div>
+          <div class="input-field col s12">
+
           </div>
         </td>
         <td>
           <div class="input-field col s12">
-
-          </div>
+          </div>          
         </td>
       </tr>
       <tr>
         <td>
           <div class="input-field col s12">
             <input id="notes" type="text" class="validate"
-                   [(ngModel)]="income.notes" formControlName="notes">
+                   [(ngModel)]="transaction.notes" formControlName="notes">
             <label for="notes"
-                   [class.active]="income.notes">
+                   [class.active]="transaction.notes">
               Notes
             </label>
           </div>
@@ -98,25 +110,25 @@
 
           </div>
         </td>
-      </tr>      
-    </table>
-    <br/>
+      </tr>
+      </table>
+      <br/>
       <table id="recurringTable" style="display: none">
       <tr>
         <td>
           <div class="input-field col s12">
             <md-input-container floatPlaceholder="never">
-              <input mdInput [mdAutocomplete]="reactiveAuto2" [formControl]="stateCtrl2" [(ngModel)]="income.recurringType" formControlName="recurringType">
+              <input mdInput [mdAutocomplete]="reactiveAuto2" [formControl]="stateCtrl2" [(ngModel)]="transaction.recurringType" formControlName="recurringType">
             </md-input-container>
 
             <md-autocomplete #reactiveAuto2="mdAutocomplete" [displayWith]="displayFn">
-              <md-option *ngFor="let state of reactiveRecurringTypes | async" [value]="state">
+              <md-option *ngFor="let state of filteredRecurringTypes | async" [value]="state">
                 <span>{{ state.description }}</span>
               </md-option>
-            </md-autocomplete>
+            </md-autocomplete>            
 
             <label for="recurringType"
-                   [class.active]="income.recurringType">
+                   [class.active]="transaction.recurringType">
               Recurring Type
             </label>
           </div>
@@ -129,12 +141,14 @@
       <tr>
         <td>
           <div class="input-field col s12">
-            <input id="startDateString" type="text" class="validate"
-                   [(ngModel)]="income.startDateString" formControlName="startDateString"
-                   [class.invalid]="form.controls['startDateString'].touched && !form.controls['startDateString'].valid"
-            >
+            <md-input-container>
+              <input mdInput [mdDatepicker]="startDatePicker" [(ngModel)]="transaction.startDateString" formControlName="startDateString">
+              <button mdSuffix [mdDatepickerToggle]="startDatePicker"></button>
+            </md-input-container>
+            <md-datepicker #startDatePicker></md-datepicker>
+
             <label for="startDateString"
-                   [class.active]="income.startDateString"
+                   [class.active]="transaction.startDateString"
                    data-error="Start Date is required">
               Start Date
             </label>
@@ -142,12 +156,14 @@
         </td>
         <td>
           <div class="input-field col s12">
-            <input id="endDateString" type="text" class="validate"
-                   [(ngModel)]="income.endDateString" formControlName="endDateString"
-                   [class.invalid]="form.controls['endDateString'].touched && !form.controls['endDateString'].valid"
-            >
+            <md-input-container>
+              <input mdInput [mdDatepicker]="endDatePicker" [(ngModel)]="transaction.endDateString" formControlName="endDateString">
+              <button mdSuffix [mdDatepickerToggle]="endDatePicker"></button>
+            </md-input-container>
+            <md-datepicker #endDatePicker></md-datepicker>
+
             <label for="endDateString"
-                   [class.active]="income.endDateString">
+                   [class.active]="transaction.endDateString">
               End Date
             </label>
           </div>

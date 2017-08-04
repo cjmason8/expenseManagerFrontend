@@ -16,8 +16,7 @@ import { refDatasRouting } from "./ref-data/ref-datas.routing";
 import { incomesRouting } from "./incomes/incomes.routing";
 import { loginRouting } from "./login/login.routing";
 import { logoutRouting } from "./logout/logout.routing";
-import { ExpensesModule } from "./expenses/expenses.module";
-import { IncomesModule } from "./incomes/incomes.module";
+import { TransactionsModule } from "./shared/transactions.module";
 import { RefDatasModule } from "./ref-data/ref-datas.module";
 import { LoginModule } from "./login/login.module";
 import { HomeModule } from "./home/home.module";
@@ -36,8 +35,7 @@ import { AuthenticateService } from './shared/authenticate.service';
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
-    ExpensesModule,
-    IncomesModule,
+    TransactionsModule,
     LoginModule,
     RefDatasModule,
     HomeModule,

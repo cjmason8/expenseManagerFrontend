@@ -1,11 +1,11 @@
 <h5>{{ title }}</h5>
 <div class="row">
-  <form materialize class="col s12" [formGroup]="form" (ngSubmit)="save()">
+  <form class="col s12" [formGroup]="form" (ngSubmit)="save()">
     <table cellspacing="0" cellpadding="0" width="80%">
       <tr>
         <td>
           <div class="input-field col s12">
-            <select id="type" [(ngModel)]="refData.type" formControlName="type" materialize="material_select">
+            <select id="type" [(ngModel)]="refData.type" formControlName="type">
               <option value="" disabled selected>Choose your option</option>
               <option value="EXPENSE_TYPE">Expense Type</option>
               <option value="INCOME_TYPE">Income Type</option>

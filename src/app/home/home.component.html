@@ -27,7 +27,7 @@
 
         <tbody>
           <tr *ngFor="let income of incomes">
-            <td>{{ income.incomeType.description }}</td>
+            <td>{{ income.transactionType.description }}</td>
             <td>{{ income.amount }}</td>
             <td>{{ income.dueDateString }}</td>
             <td>{{ income.notes }}</td>
@@ -77,7 +77,7 @@
 
         <tbody>
           <tr *ngFor="let expense of expenses">
-            <td>{{ expense.expenseType.description }}</td>
+            <td>{{ expense.transactionType.description }}</td>
             <td>{{ expense.amount }}</td>
             <td>{{ expense.dueDateString }}</td>
             <td>{{ expense.paid ? "PAID" : "" }}</td>

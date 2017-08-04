@@ -1,13 +1,5 @@
-export class Income {
-  id: number;
-  incomeType: string;
-  amount: number;
-  dueDateString: string;
-  recurringType: string;
-  startDateString: string;
-  endDateString: string;
-  notes: string;
+import { Transaction } from '../../shared/transaction';
 
-  constructor() {
-  }
+export class Income extends Transaction {
+
 }

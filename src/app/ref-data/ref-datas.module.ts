@@ -8,16 +8,13 @@ import { RefDatasComponent } from './ref-datas.component';
 import { RefDatasService } from './shared/ref-datas.service';
 import { RefDataFormComponent } from './ref-data-form/ref-data-form.component';
 
-import {MaterializeModule} from "angular2-materialize";
-
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    HttpModule,
-    MaterializeModule
+    HttpModule
   ],
   declarations: [
     RefDatasComponent,
