@@ -1,10 +1,16 @@
-<form (submit)="gotoWeek()">
+<form [formGroup]="form" (submit)="gotoWeek()">
 <table width="50%">
   <tr>
     <td width="50%">Displaying {{ expenses.length }} expenses for week beginning {{thisWeek}}.</td>
     <td width="15%"><a [routerLink]="['/', previousWeek]"><i class="material-icons">navigate_before</i>Prev</a></td>
     <td width="15%"><a [routerLink]="['/', nextWeek]">Next<i class="material-icons">navigate_next</i></a></td>
-    <td width="20%"><input id="dateString" name="dateString" size="15" type="text" class="validate" (blur)="gotoWeek()" /></td>
+    <td width="20%">
+      <md-input-container>
+        <input mdInput [mdDatepicker]="gotoDatePicker" [(ngModel)]="dateString" formControlName="dateString" id="dateString">
+        <button mdSuffix [mdDatepickerToggle]="gotoDatePicker"></button>
+      </md-input-container>
+      <md-datepicker #gotoDatePicker (blur)="gotoWeek()"></md-datepicker>
+    </td>
   </tr>
 </table>
 </form>

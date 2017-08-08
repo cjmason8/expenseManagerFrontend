@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 
@@ -8,8 +8,10 @@ import { RefDatasService } from '../shared/ref-datas.service';
 import { AuthenticateService } from '../../shared/authenticate.service';
 import { BasicValidators } from '../../shared/basic-validators';
 
+import {MdSelectChange} from '@angular/material';
+
 @Component({
-  selector: 'app-expense-form',
+  selector: 'app-ref-data-form',
   templateUrl: './ref-data-form.component.html',
   styleUrls: ['./ref-data-form.component.css'],
   providers: [CookieService]
@@ -19,6 +21,28 @@ export class RefDataFormComponent implements OnInit {
   form: FormGroup;
   title: string;
   refData: RefData = new RefData();
+
+  drinksRequired = false;
+  pokemonRequired = false;
+  drinksDisabled = false;
+  pokemonDisabled = false;
+  showSelect = false;
+  currentDrink: string;
+  currentPokemon: string[];
+  currentPokemonFromGroup: string;
+  currentDigimon: string;
+  latestChangeEvent: MdSelectChange;
+  floatPlaceholder: string = 'auto';
+  foodControl = new FormControl('pizza-1');
+  topHeightCtrl = new FormControl(0);
+  drinksTheme = 'primary';
+  pokemonTheme = 'primary';
+
+  types = [
+      {value: 'EXPENSE_TYPE', viewValue: 'Expense Type'},
+      {value: 'INCOME_TYPE', viewValue: 'Income Type'},
+      {value: 'RECURRING_TYPE', viewValue: 'Recurring Type'}
+  ];
 
   constructor(
     formBuilder: FormBuilder,
@@ -36,6 +60,7 @@ export class RefDataFormComponent implements OnInit {
         Validators.required
       ]]
     });
+
   }
 
   ngOnInit() {

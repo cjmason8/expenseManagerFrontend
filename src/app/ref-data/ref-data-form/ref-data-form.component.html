@@ -5,16 +5,11 @@
       <tr>
         <td>
           <div class="input-field col s12">
-            <select id="type" [(ngModel)]="refData.type" formControlName="type">
-              <option value="" disabled selected>Choose your option</option>
-              <option value="EXPENSE_TYPE">Expense Type</option>
-              <option value="INCOME_TYPE">Income Type</option>
-              <option value="RECURRING_TYPE">Recurring Type</option>
-            </select>
-            <label for="type"
-                   [class.active]="refData.type">
-              Type
-            </label>
+            <md-select placeholder="Type" [(ngModel)]="refData.type" formControlName="type" size="30">
+                <md-option *ngFor="let type of types" [value]="type.value" [disabled]="type.disabled">
+                  {{ type.viewValue }}
+                </md-option>
+          </md-select>
           </div>
         </td>
         <td>

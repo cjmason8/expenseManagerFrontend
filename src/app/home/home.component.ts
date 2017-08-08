@@ -9,6 +9,7 @@ import {Income} from "../incomes/shared/income";
 import { Login } from '../login/shared/login';
 import { LoginService } from '../login/shared/login.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   providers: [CookieService]
 })
 export class HomeComponent implements OnInit {
-
+  dateString: string;
   private expenses: Expense[] = [];
   private unpaidExpenses: Expense[] = [];
   private incomes: Income[] = [];
@@ -29,9 +30,16 @@ export class HomeComponent implements OnInit {
   private unpaidExpenseTotal: String;
   private difference: String;
 
-  constructor(private expensesService: ExpensesService, private route: ActivatedRoute, private router: Router,
+  form: FormGroup;
+
+  constructor(private formBuilder: FormBuilder, private expensesService: ExpensesService, private route: ActivatedRoute, private router: Router,
     private _cookieService:CookieService, private incomesService: IncomesService, private homeService: HomeService,
-    private authenticateService: AuthenticateService) { }
+    private authenticateService: AuthenticateService) {
+      this.form = formBuilder.group({
+      dateString: ['', []],
+      datePic: ['', []]
+    });
+     }
 
   ngOnInit() {
     this.authenticateService.authenticate(this._cookieService.get('token'));
@@ -88,7 +96,8 @@ export class HomeComponent implements OnInit {
   }
 
   gotoWeek() {
-    this.router.navigate(['' + document.forms[0]['dateString'].value]);
+    console.log(this.dateString);
+    this.router.navigate(['' + this.form.controls['dateString'].value]);
     document.forms[0]['dateString'].value = "";
   }
 
