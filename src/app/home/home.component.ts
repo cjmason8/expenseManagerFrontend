@@ -10,6 +10,7 @@ import { Login } from '../login/shared/login';
 import { LoginService } from '../login/shared/login.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -96,9 +97,10 @@ export class HomeComponent implements OnInit {
   }
 
   gotoWeek() {
-    console.log(this.dateString);
-    this.router.navigate(['' + this.form.controls['dateString'].value]);
-    document.forms[0]['dateString'].value = "";
+    var datePipe = new DatePipe('en-au');
+    if (this.dateString && this.dateString != '') {
+      this.router.navigate(['' + datePipe.transform(this.dateString, 'dd-MM-yyyy')]);
+    }
   }
 
 }

@@ -18,6 +18,7 @@ import 'rxjs/add/operator/map';
   providers: []
 })
 export class TransactionFormComponent {
+  id: any;
   transactionType: string;
   transactionTypeName: string;
   stateCtrl: FormControl;
@@ -62,15 +63,6 @@ export class TransactionFormComponent {
 
     this.stateCtrl = new FormControl({code: 'CA', name: 'California'});
     this.stateCtrl2 = new FormControl({code: 'CA', name: 'California'});
-    this.filteredTransactionTypes = this.stateCtrl.valueChanges
-        .startWith(this.stateCtrl.value)
-        .map(val => this.displayFn(val))
-        .map(name => this.filterTransactionTypes(name));
-    this.filteredRecurringTypes = this.stateCtrl2.valueChanges
-        .startWith(this.stateCtrl2.value)
-        .map(val => this.displayFn(val))
-        .map(name => this.filterRecurringTypes(name));
-
   }
 
   displayFn(value: any): string {
@@ -99,27 +91,37 @@ export class TransactionFormComponent {
     return !this.form.valid || (!this.form.controls['dueDateString'].value && !this.form.controls['recurring'] && !this.form.controls['recurring'].value);
   }
 
-  init(): number {
+  init() {
     this.authenticateService.authenticate(this._cookieService.get('token'));
 
-    this.refDatasService.getTypes('recurringType')
-       .subscribe(data => this.recurringTypes = data);
-
     this.refDatasService.getTypes(this.transactionTypeName)
-       .subscribe(data => this.transactionTypes = data);
+       .subscribe(data => {
+         this.transactionTypes = data;
+
+        this.filteredTransactionTypes = this.stateCtrl.valueChanges
+           .startWith(this.stateCtrl.value)
+           .map(val => this.displayFn(val))
+           .map(name => this.filterTransactionTypes(name));
+        });
+
+    this.refDatasService.getTypes('recurringType')
+       .subscribe(data => {
+         this.recurringTypes = data;
+
+        this.filteredRecurringTypes = this.stateCtrl2.valueChanges
+           .startWith(this.stateCtrl2.value)
+           .map(val => this.displayFn(val))
+           .map(name => this.filterRecurringTypes(name));
+       });
 
     var id = this.route.params.subscribe(params => {
       var id = params['id'];
-
       this.title = id ? 'Edit ' + this.transactionType : 'New ' + this.transactionType;
 
-      if (!id)
-        return -1;
-      else
-        return id;
+      if (id)
+        this.id = id;
     });
 
-    return -1;
   }
 
   showHideRecurring() {

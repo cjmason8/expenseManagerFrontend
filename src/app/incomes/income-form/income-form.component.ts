@@ -39,10 +39,10 @@ export class IncomeFormComponent extends TransactionFormComponent implements OnI
   }
 
   ngOnInit() {
-    var id = super.init();
+    super.init();
 
-    if (id != -1) {  
-      this.incomesService.getIncome(id)
+    if (this.id) {  
+      this.incomesService.getIncome(this.id)
         .subscribe(
           income => {
             this.transaction = income;

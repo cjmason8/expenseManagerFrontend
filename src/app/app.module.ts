@@ -11,11 +11,6 @@ import { RecurringComponent } from './home/recurring.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { LogoutComponent } from './logout/logout.component';
 import { routing } from './app.routing';
-import { expensesRouting } from "./expenses/expenses.routing";
-import { refDatasRouting } from "./ref-data/ref-datas.routing";
-import { incomesRouting } from "./incomes/incomes.routing";
-import { loginRouting } from "./login/login.routing";
-import { logoutRouting } from "./logout/logout.routing";
 import { TransactionsModule } from "./shared/transactions.module";
 import { RefDatasModule } from "./ref-data/ref-datas.module";
 import { LoginModule } from "./login/login.module";
@@ -39,11 +34,6 @@ import { AuthenticateService } from './shared/authenticate.service';
     LoginModule,
     RefDatasModule,
     HomeModule,
-    expensesRouting,
-    refDatasRouting,
-    incomesRouting,
-    loginRouting,
-    logoutRouting,
     routing
   ],
   providers: [AuthenticateService],

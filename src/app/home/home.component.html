@@ -6,10 +6,10 @@
     <td width="15%"><a [routerLink]="['/', nextWeek]">Next<i class="material-icons">navigate_next</i></a></td>
     <td width="20%">
       <md-input-container>
-        <input mdInput [mdDatepicker]="gotoDatePicker" [(ngModel)]="dateString" formControlName="dateString" id="dateString">
+        <input mdInput [mdDatepicker]="gotoDatePicker" [(ngModel)]="dateString" formControlName="dateString" id="dateString" (ngModelChange)="gotoWeek()">
         <button mdSuffix [mdDatepickerToggle]="gotoDatePicker"></button>
       </md-input-container>
-      <md-datepicker #gotoDatePicker (blur)="gotoWeek()"></md-datepicker>
+      <md-datepicker #gotoDatePicker></md-datepicker>
     </td>
   </tr>
 </table>

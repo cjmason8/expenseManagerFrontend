@@ -41,10 +41,10 @@ export class ExpenseFormComponent extends TransactionFormComponent implements On
   }
 
   ngOnInit() {
-    var id = super.init();
+    super.init();
 
-    if (id != -1) {  
-      this.expensesService.getExpense(id)
+    if (this.id) {  
+      this.expensesService.getExpense(this.id)
         .subscribe(
           expense => {
             this.transaction = expense;
