@@ -12,6 +12,8 @@ import { LoginFormComponent } from "./login/login.component";
 import { LogoutComponent } from "./logout/logout.component";
 
 const appRoutes: Routes = [
+  { path: 'login', component: LoginFormComponent },
+  { path: 'logout', component: LogoutComponent },  
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: ':weekString', component: HomeComponent },
   { path: 'not-found', component: NotFoundComponent },
@@ -23,8 +25,6 @@ const appRoutes: Routes = [
   { path: 'refdatas/all', component: RefDatasComponent },
   { path: 'refdatas/new', component: RefDataFormComponent },
   { path: 'refdatas/:id', component: RefDataFormComponent },
-  { path: 'login', component: LoginFormComponent },
-  { path: 'logout', component: LogoutComponent, pathMatch: 'full' },
   { path: '**', redirectTo: 'not-found' }
 ];
 
