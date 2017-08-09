@@ -100,6 +100,7 @@ export class HomeComponent implements OnInit {
     var datePipe = new DatePipe('en-au');
     if (this.dateString && this.dateString != '') {
       this.router.navigate(['' + datePipe.transform(this.dateString, 'dd-MM-yyyy')]);
+      this.dateString = '';
     }
   }
 
