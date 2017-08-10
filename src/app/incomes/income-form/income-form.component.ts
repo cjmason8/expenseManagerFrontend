@@ -18,11 +18,9 @@ import 'rxjs/add/operator/map';
   selector: 'app-income-form',
   templateUrl: '../../shared/transaction-form.component.html',
   styleUrls: ['../../shared/transaction-form.component.css'],
-  providers: [CookieService]
+  providers: []
 })
 export class IncomeFormComponent extends TransactionFormComponent implements OnInit {
-  transaction: Income = new Income();
-
   constructor(
     formBuilder: FormBuilder,
     router: Router,
@@ -36,10 +34,11 @@ export class IncomeFormComponent extends TransactionFormComponent implements OnI
 
     this.transactionType = 'Income';
     this.transactionTypeName = 'incomeType';
+    this.transaction = new Income();
   }
 
   ngOnInit() {
-    super.init();
+    super.ngOnInit();
 
     if (this.id) {  
       this.incomesService.getIncome(this.id)

@@ -1,13 +1,13 @@
 <nav class="background-color: blue">
-  <div class="nav-wrapper">
+  <div class="nav-wrapper" *ngIf="isAuthenticated()">
     <a routerLink="" class="brand-logo">Expense Manager</a>
-    <ul id="nav-mobile" class="right hide-on-med-and-down" *ngIf="isAdmin">
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li><a routerLink="/refdatas/all" routerLinkActive="active">Ref Data</a></li>
     </ul>    
-    <ul id="nav-mobile" class="right hide-on-med-and-down" *ngIf="isAdmin">
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li><a routerLink="/recurring/all" routerLinkActive="active">Recurring</a></li>
     </ul>    
-    <ul id="nav-mobile" class="right hide-on-med-and-down" *ngIf="loggedIn">
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li><a routerLink="/logout" routerLinkActive="active">Logout</a></li>
     </ul>
   </div>

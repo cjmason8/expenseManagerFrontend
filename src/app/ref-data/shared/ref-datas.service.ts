@@ -11,27 +11,11 @@ import { environment } from '../../../environments/environment'
 @Injectable()
 export class RefDatasService {
 
-  private url: string = environment.backendEndPoint;
   private refDatasUrl: string = environment.backendEndPoint + "/refDatas";
-  private usersUrl: string = environment.backendEndPoint + "/users";
 
   constructor(private http: Http,
       private router: Router,
       private route: ActivatedRoute) { }
-
-  authenticate(token){
-    if (!token) {
-      this.router.navigate(['login']);
-    }
-
-    return this.http.get(this.getAuthenticateUrl(token))
-      .map(res => res.json())
-      .subscribe(result => {
-        if (result.status === 'failed') {
-          this.router.navigate(['login']);
-        }
-      });;
-  }
 
   addRefData(refData){
     var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
@@ -66,10 +50,6 @@ export class RefDatasService {
 
   private getRefDataUrl(id){
     return this.refDatasUrl + "/" + id;
-  }
-
-  private getAuthenticateUrl(token){
-    return this.usersUrl + "/" + token + "/authenticate";
   }
 
   getTypes(type){

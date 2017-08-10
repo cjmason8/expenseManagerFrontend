@@ -9,11 +9,10 @@ import { IncomeFormComponent } from "./incomes/income-form/income-form.component
 import { RefDatasComponent } from './ref-data/ref-datas.component';
 import { RefDataFormComponent } from "./ref-data/ref-data-form/ref-data-form.component";
 import { LoginFormComponent } from "./login/login.component";
-import { LogoutComponent } from "./logout/logout.component";
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginFormComponent },
-  { path: 'logout', component: LogoutComponent },  
+  { path: 'logout', component: LoginFormComponent },  
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: ':weekString', component: HomeComponent },
   { path: 'not-found', component: NotFoundComponent },

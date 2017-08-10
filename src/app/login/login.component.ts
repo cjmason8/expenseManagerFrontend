@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import {CookieService} from 'angular2-cookie/core';
+import { CookieService } from 'angular2-cookie/core';
+import { AuthenticateService } from '../shared/authenticate.service';
 
 import { Login } from './shared/login';
-import { LoginService } from './shared/login.service';
 import { BasicValidators } from '../shared/basic-validators';
 import { HomeComponent } from '../home/home.component';
 import { environment } from '../../environments/environment'
@@ -13,7 +13,7 @@ import { environment } from '../../environments/environment'
   selector: 'app-login-form',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [CookieService]
+  providers: []
 })
 export class LoginFormComponent implements OnInit {
 
@@ -25,8 +25,8 @@ export class LoginFormComponent implements OnInit {
     formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private loginService: LoginService,
-    private _cookieService:CookieService
+    private _cookieService:CookieService,
+    private authenticateService:AuthenticateService
   ) {
     this.form = formBuilder.group({
       userName: ['', [
@@ -41,12 +41,13 @@ export class LoginFormComponent implements OnInit {
   ngOnInit() {
     this._cookieService.put('token', null);
     this._cookieService.put('roles', null);
+    this.authenticateService.authenticated = false;
   }
 
   loginUser() {
     var result;
 
-    result = this.loginService.loginUser(this.login);
+    result = this.authenticateService.loginUser(this.login);
 
     result.subscribe(data => {
       if (data.loginStatus === 'success') {

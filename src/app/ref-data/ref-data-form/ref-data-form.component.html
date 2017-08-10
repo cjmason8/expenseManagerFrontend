@@ -36,8 +36,27 @@
 
           </div>
         </td>
-      </tr>      
+      </tr>
+      <tr>
+        <td>
+          <div class="input-field col s12">
+            <textarea [(ngModel)]="refData.metaDataChunk" formControlName="metaDataChunk">
+            </textarea>
+            <label for="metaDataChunk"
+                   [class.active]="refData.metaDataChunk">
+              Metadata
+            </label>
+          </div>
+        </td>
+        <td>
+          <div class="input-field col s12">
+
+          </div>
+        </td>
+      </tr>
     </table>
+
+
     <p></p>
     <button class="btn waves-effect waves-light" type="submit"
             [disabled]="!form.valid">

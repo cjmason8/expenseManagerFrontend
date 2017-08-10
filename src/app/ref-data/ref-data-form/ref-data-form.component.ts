@@ -6,6 +6,7 @@ import {CookieService} from 'angular2-cookie/core';
 import { RefData } from '../shared/ref-data';
 import { RefDatasService } from '../shared/ref-datas.service';
 import { AuthenticateService } from '../../shared/authenticate.service';
+import { AuthenticateComponent } from '../../shared/authenticate.component';
 import { BasicValidators } from '../../shared/basic-validators';
 
 import {MdSelectChange} from '@angular/material';
@@ -14,9 +15,9 @@ import {MdSelectChange} from '@angular/material';
   selector: 'app-ref-data-form',
   templateUrl: './ref-data-form.component.html',
   styleUrls: ['./ref-data-form.component.css'],
-  providers: [CookieService]
+  providers: []
 })
-export class RefDataFormComponent implements OnInit {
+export class RefDataFormComponent extends AuthenticateComponent {
 
   form: FormGroup;
   title: string;
@@ -49,14 +50,18 @@ export class RefDataFormComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private refDatasService: RefDatasService,
-    private authenticateService: AuthenticateService,
-    private _cookieService:CookieService
+    authenticateService: AuthenticateService,
+    _cookieService:CookieService
   ) {
+    super(authenticateService, _cookieService);
     this.form = formBuilder.group({
       type: ['', [
         Validators.required
       ]],
       description: ['', [
+        Validators.required
+      ]],
+      metaDataChunk: ['', [
         Validators.required
       ]]
     });
@@ -64,7 +69,7 @@ export class RefDataFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authenticateService.authenticate(this._cookieService.get('token'));
+    super.ngOnInit();
 
     var id = this.route.params.subscribe(params => {
       var id = params['id'];

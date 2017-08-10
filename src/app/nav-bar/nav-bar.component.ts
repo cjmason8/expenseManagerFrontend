@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import {CookieService} from 'angular2-cookie/core';
+import { CookieService } from 'angular2-cookie/core';
+import { AuthenticateService } from '../shared/authenticate.service';
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css'],
-  providers: [CookieService]
+  providers: []
 })
 export class NavBarComponent implements OnInit {
   loggedIn: boolean = false;
   isAdmin: boolean = false;
 
-  constructor(private _cookieService:CookieService) { }
+  constructor(private _cookieService:CookieService, private authenticateService:AuthenticateService) { }
 
   ngOnInit() {
      var roles = this._cookieService.get('roles');
@@ -26,6 +27,10 @@ export class NavBarComponent implements OnInit {
      else {
        console.log('NO ROLES!!!!');
      }
+  }
+
+  isAuthenticated() {
+    return this.authenticateService.authenticated === true;
   }
 
 }

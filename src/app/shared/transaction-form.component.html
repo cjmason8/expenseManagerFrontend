@@ -6,17 +6,19 @@
         <td>
           <div class="input-field col s12">
             <md-input-container floatPlaceholder="never">
-              <input mdInput [mdAutocomplete]="reactiveAuto" [formControl]="stateCtrl" [(ngModel)]="transaction.transactionType" formControlName="transactionType" size="30">
+              <input mdInput [mdAutocomplete]="reactiveAuto" [formControl]="stateCtrl" [(ngModel)]="transaction.transactionType" 
+              formControlName="transactionType" size="30" (blur)="validateTransactionType()" [class.invalid]="form.controls['transactionType'].touched && !form.controls['transactionType'].valid">
             </md-input-container>
 
             <md-autocomplete #reactiveAuto="mdAutocomplete" [displayWith]="displayFn">
-              <md-option *ngFor="let state of filteredTransactionTypes | async" [value]="state">
+              <md-option *ngFor="let state of filteredTransactionTypes | async" [value]="state" (onSelectionChange)="selectTransactionType(state)">
                 <span>{{ state.description }}</span>
               </md-option>
             </md-autocomplete>
 
             <label for="transactionType"
-                   [class.active]="transaction.transactionType">
+                   [class.active]="transaction.transactionType"
+                   data-error="Invalid entry">
               {{transactionType}} Type
             </label>
           </div>
@@ -102,6 +104,23 @@
             <label for="notes"
                    [class.active]="transaction.notes">
               Notes
+            </label>
+          </div>
+        </td>
+        <td>
+          <div class="input-field col s12">
+
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="input-field col s12">
+            <textarea [(ngModel)]="transaction.metaDataChunk" formControlName="metaDataChunk">
+            </textarea>
+            <label for="metaDataChunk"
+                   [class.active]="transaction.metaDataChunk">
+              Metadata
             </label>
           </div>
         </td>

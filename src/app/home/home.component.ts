@@ -1,24 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import {CookieService} from 'angular2-cookie/core';
-import { ExpensesService } from '../expenses/shared/expenses.service';
-import { IncomesService } from '../incomes/shared/incomes.service';
+import { CookieService } from 'angular2-cookie/core';
 import { AuthenticateService } from '../shared/authenticate.service';
 import { HomeService } from './shared/home.service';
-import {Expense} from "../expenses/shared/expense";
-import {Income} from "../incomes/shared/income";
-import { Login } from '../login/shared/login';
-import { LoginService } from '../login/shared/login.service';
+import { Expense } from "../expenses/shared/expense";
+import { Income } from "../incomes/shared/income";
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { AuthenticateComponent } from '../shared/authenticate.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  providers: [CookieService]
+  providers: []
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent extends AuthenticateComponent {
   dateString: string;
   private expenses: Expense[] = [];
   private unpaidExpenses: Expense[] = [];
@@ -33,9 +30,10 @@ export class HomeComponent implements OnInit {
 
   form: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private expensesService: ExpensesService, private route: ActivatedRoute, private router: Router,
-    private _cookieService:CookieService, private incomesService: IncomesService, private homeService: HomeService,
-    private authenticateService: AuthenticateService) {
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router,
+    _cookieService:CookieService, private homeService: HomeService,
+    authenticateService: AuthenticateService) {
+      super(authenticateService, _cookieService);
       this.form = formBuilder.group({
       dateString: ['', []],
       datePic: ['', []]
@@ -43,7 +41,7 @@ export class HomeComponent implements OnInit {
      }
 
   ngOnInit() {
-    this.authenticateService.authenticate(this._cookieService.get('token'));
+    super.ngOnInit();
 
     this.route.params.subscribe(params => {
       this.homeService.getTransactionsForWeek(params['weekString'])
@@ -58,42 +56,24 @@ export class HomeComponent implements OnInit {
           this.unpaidExpenseTotal = data.unpaidExpenseTotal;
           this.difference = data.difference;
           this.unpaidExpenses = data.unpaidExpenses;
-          if (this.unpaidExpenses && this.unpaidExpenses.length > 0) {
-            document.getElementById("unpaidExpensesTable").style.display = "block";
-          }
-          else {
-            document.getElementById("unpaidExpensesTable").style.display = "none";
+          if (document.getElementById("unpaidExpensesTable")) {
+            if (this.unpaidExpenses && this.unpaidExpenses.length > 0) {
+              document.getElementById("unpaidExpensesTable").style.display = "block";
+            }
+            else {
+              document.getElementById("unpaidExpensesTable").style.display = "none";
+            }
           }
         });
     });
   }
 
-  deleteExpense(expense){
-    if (confirm("Are you sure you want to delete " + expense.expenseTypeDescription + " for " + expense.dueDateString + "?")) {
-      var index = this.expenses.indexOf(expense);
-      this.expenses.splice(index, 1);
-      this.expensesService.deleteExpense(expense.id)
-        .subscribe(null,
-          err => {
-            alert("Could not delete expense.");
-            // Revert the view back to its original state
-            this.expenses.splice(index, 0, expense);
-          });
-    }
+  deleteExpense(expense) {
+    this.homeService.deleteExpense(expense, this.expenses);
   }
 
-  deleteIncome(income){
-    if (confirm("Are you sure you want to delete " + income.incomeTypeDescription + " for " + income.dueDateString + "?")) {
-      var index = this.expenses.indexOf(income);
-      this.incomes.splice(index, 1);
-      this.incomesService.deleteIncome(income.id)
-        .subscribe(null,
-          err => {
-            alert("Could not delete expense.");
-            // Revert the view back to its original state
-            this.incomes.splice(index, 0, income);
-          });
-    }
+  deleteIncome(income) {
+    this.homeService.deleteIncome(income, this.incomes);
   }
 
   gotoWeek() {

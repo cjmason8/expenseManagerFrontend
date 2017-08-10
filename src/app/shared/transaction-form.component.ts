@@ -5,8 +5,10 @@ import {CookieService} from 'angular2-cookie/core';
 
 import { RefData } from '../ref-data/shared/ref-data';
 import { AuthenticateService } from '../shared/authenticate.service';
+import { AuthenticateComponent } from '../shared/authenticate.component';
 import { RefDatasService } from '../ref-data/shared/ref-datas.service';
 import { BasicValidators } from '../shared/basic-validators';
+import { customValidator } from './custom.validator';
 
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
@@ -17,7 +19,8 @@ import 'rxjs/add/operator/map';
   styleUrls: ['./transaction-form.component.css'],
   providers: []
 })
-export class TransactionFormComponent {
+export class TransactionFormComponent extends AuthenticateComponent {
+  transaction: any;
   id: any;
   transactionType: string;
   transactionTypeName: string;
@@ -37,16 +40,17 @@ export class TransactionFormComponent {
     private formBuilder: FormBuilder,
     private routerParam: Router,
     private routeParam: ActivatedRoute,
-    private authenticateService: AuthenticateService,
+    authenticateService: AuthenticateService,
     private refDatasService: RefDatasService,
-    private _cookieService: CookieService
+    _cookieService: CookieService
   ) {
+    super(authenticateService, _cookieService);
     this.route = routeParam;
     this.router = routerParam;
 
     this.form = formBuilder.group({
       transactionType: ['', [
-        Validators.required
+        Validators.required, customValidator(this.transaction)
       ]],
       amount: ['', [
         Validators.required,
@@ -58,7 +62,10 @@ export class TransactionFormComponent {
       recurringType: ['', []],
       startDateString: ['', []],
       endDateString: ['', []],
-      notes: ['', []]
+      notes: ['', []],
+      metaDataChunk: ['', [
+        Validators.required
+      ]]
     });
 
     this.stateCtrl = new FormControl({code: 'CA', name: 'California'});
@@ -91,8 +98,8 @@ export class TransactionFormComponent {
     return !this.form.valid || (!this.form.controls['dueDateString'].value && !this.form.controls['recurring'] && !this.form.controls['recurring'].value);
   }
 
-  init() {
-    this.authenticateService.authenticate(this._cookieService.get('token'));
+  ngOnInit() {
+    super.ngOnInit();
 
     this.refDatasService.getTypes(this.transactionTypeName)
        .subscribe(data => {
@@ -132,6 +139,19 @@ export class TransactionFormComponent {
     else {
       document.getElementById('recurringTable').style.display = 'none';
       document.getElementById('dueDateDiv').style.display = 'block';
+    }
+  }
+
+  selectTransactionType(selectedItem) {
+    console.log('in here');
+    this.transaction.metaDataChunk = selectedItem.metaDataChunk;
+  }
+
+  validateTransactionType() {
+    console.log('in here333333');
+    if (this.transaction.transactionType) {
+      console.log('in here44444444');
+      this.form.controls['transactionType'].setErrors({"incorrectValue":"true"});
     }
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {RefDatasService} from "./shared/ref-datas.service";
 import { AuthenticateService } from '../shared/authenticate.service';
+import { AuthenticateComponent } from '../shared/authenticate.component';
 import {RefData} from "./shared/ref-data";
 import {CookieService} from 'angular2-cookie/core';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -9,18 +10,19 @@ import { Router, ActivatedRoute } from '@angular/router';
  selector: 'app-ref-datas',
  templateUrl: './ref-datas.component.html',
  styleUrls: ['./ref-datas.component.css'],
- providers: [CookieService]
+ providers: []
 })
-export class RefDatasComponent implements OnInit {
+export class RefDatasComponent extends AuthenticateComponent {
 
   private refDatas: RefData[] = [];
 
-  constructor(private authenticateService: AuthenticateService, private refDatasService: RefDatasService, 
-  private route: ActivatedRoute,
-    private _cookieService:CookieService) { }
+  constructor(authenticateService: AuthenticateService, private refDatasService: RefDatasService, 
+  private route: ActivatedRoute, _cookieService:CookieService) { 
+      super(authenticateService, _cookieService);
+    }
 
  ngOnInit() {
-    this.authenticateService.authenticate(this._cookieService.get('token'));
+    super.ngOnInit();
 
     this.route.params.subscribe(params => {
       this.refDatasService.getRefDatas()

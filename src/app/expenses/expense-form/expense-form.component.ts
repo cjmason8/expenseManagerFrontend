@@ -19,11 +19,9 @@ import 'rxjs/add/operator/map';
   selector: 'app-expense-form',
   templateUrl: '../../shared/transaction-form.component.html',
   styleUrls: ['../../shared/transaction-form.component.css'],
-  providers: [CookieService]
+  providers: []
 })
 export class ExpenseFormComponent extends TransactionFormComponent implements OnInit {
-  transaction: Expense = new Expense();
-
   constructor(
     formBuilder: FormBuilder,
     router: Router,
@@ -37,11 +35,12 @@ export class ExpenseFormComponent extends TransactionFormComponent implements On
 
     this.transactionType = 'Expense';
     this.transactionTypeName = 'expenseType';
+    this.transaction = new Expense();
 
   }
 
   ngOnInit() {
-    super.init();
+    super.ngOnInit();
 
     if (this.id) {  
       this.expensesService.getExpense(this.id)
