@@ -1,0 +1,41 @@
+<h5>{{ title }}</h5>
+<div class="row">
+  <form class="col s12" [formGroup]="form" (ngSubmit)="save()">
+    <table cellspacing="0" cellpadding="0" width="80%">
+      <tr>
+        <td>
+          <div class="input-field col s12">
+            <md-input-container floatPlaceholder="never">
+              <input mdInput [mdAutocomplete]="reactiveAuto" [formControl]="stateCtrl" [(ngModel)]="donation.cause" 
+              [class.invalid]="causeInValid()" (blur)="causeTouched = true"
+              formControlName="cause" size="30">
+              <label for="cause"
+                   [class.active]="donation.cause">
+                {{transactionType}} Type
+              </label>
+              <div *ngIf="causeInValid()" style="color: red">Please select a value</div>
+            </md-input-container>
+
+            <md-autocomplete #reactiveAuto="mdAutocomplete" [displayWith]="displayFn">
+              <md-option *ngFor="let causeVal of filteredCauses | async" [value]="causeVal" (onSelectionChange)="selectCause(causeVal)">
+                <span>{{ causeVal.description }}</span>
+              </md-option>
+            </md-autocomplete>
+
+          </div>
+        </td>
+        <td>
+          <div class="input-field col s12">
+          </div>
+        </td>        
+      </tr>
+    </table>
+
+
+    <p></p>
+    <button class="btn waves-effect waves-light" type="submit"
+            [disabled]="!form.valid">
+      Submit<i class="material-icons right">send</i>
+    </button>
+  </form>
+</div>
