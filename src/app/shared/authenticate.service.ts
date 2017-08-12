@@ -31,6 +31,7 @@ export class AuthenticateService {
         if (result.status === 'failed') {
           this.authenticated = false;
           this.router.navigate(['login']);
+          return;
         }
 
         this.authenticated = true;
