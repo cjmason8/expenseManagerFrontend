@@ -7,17 +7,17 @@
           <div class="input-field col s12">
             <md-input-container floatPlaceholder="never">
               <input mdInput [mdAutocomplete]="reactiveAuto" [formControl]="stateCtrl" [(ngModel)]="donation.cause" 
-              [class.invalid]="causeInValid()" (blur)="causeTouched = true"
+              [class.invalid]="causeInvalid()" (blur)="causeTouched = true"
               formControlName="cause" size="30">
               <label for="cause"
                    [class.active]="donation.cause">
-                {{transactionType}} Type
+                Cause
               </label>
-              <div *ngIf="causeInValid()" style="color: red">Please select a value</div>
+              <div *ngIf="causeInvalid()" style="color: red">Please select a value</div>
             </md-input-container>
 
             <md-autocomplete #reactiveAuto="mdAutocomplete" [displayWith]="displayFn">
-              <md-option *ngFor="let causeVal of filteredCauses | async" [value]="causeVal" (onSelectionChange)="selectCause(causeVal)">
+              <md-option *ngFor="let causeVal of filteredCauses | async" [value]="causeVal">
                 <span>{{ causeVal.description }}</span>
               </md-option>
             </md-autocomplete>

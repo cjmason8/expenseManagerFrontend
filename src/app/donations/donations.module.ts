@@ -8,7 +8,9 @@ import { DonationsComponent } from './donations.component';
 import { DonationsService } from './shared/donations.service';
 import { DonationFormComponent } from './donation-form/donation-form.component';
 
-import {MdSelectModule} from '@angular/material';
+import {MdInputModule, MdButtonModule, MaterialModule, 
+  MdAutocompleteModule, MdOptionModule, MdDatepickerModule, MdNativeDateModule,
+  DateAdapter, NativeDateAdapter, MD_DATE_FORMATS} from '@angular/material';
 
 @NgModule({
   imports: [
@@ -17,7 +19,13 @@ import {MdSelectModule} from '@angular/material';
     ReactiveFormsModule,
     RouterModule,
     HttpModule,
-    MdSelectModule
+    MdInputModule,
+    MdButtonModule,
+    MaterialModule,
+    MdAutocompleteModule,
+    MdOptionModule,
+    MdDatepickerModule,
+    MdNativeDateModule
   ],
   declarations: [
     DonationsComponent,

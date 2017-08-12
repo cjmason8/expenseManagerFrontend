@@ -18,7 +18,7 @@ import { BasicValidators } from '../../shared/basic-validators';
   providers: []
 })
 export class DonationFormComponent extends AuthenticateComponent {
-
+  causeTouched: boolean = false;
   form: FormGroup;
   title: string;
   donation: Donation = new Donation();
@@ -46,6 +46,8 @@ export class DonationFormComponent extends AuthenticateComponent {
         Validators.required
       ]]
     });
+
+    this.stateCtrl = new FormControl({code: 'CA', name: 'California'});
 
   }
 
@@ -106,5 +108,9 @@ export class DonationFormComponent extends AuthenticateComponent {
     }
 
     return this.causes;
+  }
+
+  causeInvalid() {
+    return this.causeTouched && !this.donation.cause; 
   }
 }

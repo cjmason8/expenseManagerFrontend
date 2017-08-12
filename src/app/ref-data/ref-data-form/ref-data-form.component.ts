@@ -40,6 +40,7 @@ export class RefDataFormComponent extends AuthenticateComponent {
   pokemonTheme = 'primary';
 
   types = [
+      {value: 'CAUSE', viewValue: 'Cause'},
       {value: 'EXPENSE_TYPE', viewValue: 'Expense Type'},
       {value: 'INCOME_TYPE', viewValue: 'Income Type'},
       {value: 'RECURRING_TYPE', viewValue: 'Recurring Type'}
@@ -61,9 +62,7 @@ export class RefDataFormComponent extends AuthenticateComponent {
       description: ['', [
         Validators.required
       ]],
-      metaDataChunk: ['', [
-        Validators.required
-      ]]
+      metaDataChunk: ['', []]
     });
 
   }

@@ -1,6 +1,8 @@
+import {RefData} from "../../ref-data/shared/ref-data";
+
 export class Donation {
   id: number;
-  cause: string;
+  cause: RefData;
   amount: number;
   dueDateString: string;
   notes: string;

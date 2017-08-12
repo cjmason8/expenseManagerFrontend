@@ -7,7 +7,12 @@
           <div class="input-field col s12">
             <md-input-container floatPlaceholder="never">
               <input mdInput [mdAutocomplete]="reactiveAuto" [formControl]="stateCtrl" [(ngModel)]="transaction.transactionType" 
-              formControlName="transactionType" size="30" (blur)="validateTransactionType()" [class.invalid]="form.controls['transactionType'].touched && !form.controls['transactionType'].valid">
+              formControlName="transactionType" size="30" [class.invalid]="transactionTypeInvalid()" (blur)="transactionTypeTouched = true">
+              <label for="transactionType"
+                   [class.active]="transaction.transactionType">
+              {{transactionType}} Type
+            </label>
+            <div *ngIf="transactionTypeInvalid()" style="color: red">Please select a value</div>
             </md-input-container>
 
             <md-autocomplete #reactiveAuto="mdAutocomplete" [displayWith]="displayFn">
@@ -16,11 +21,7 @@
               </md-option>
             </md-autocomplete>
 
-            <label for="transactionType"
-                   [class.active]="transaction.transactionType"
-                   data-error="Invalid entry">
-              {{transactionType}} Type
-            </label>
+            
           </div>
         </td>
         <td>
@@ -137,7 +138,13 @@
         <td>
           <div class="input-field col s12">
             <md-input-container floatPlaceholder="never">
-              <input mdInput [mdAutocomplete]="reactiveAuto2" [formControl]="stateCtrl2" [(ngModel)]="transaction.recurringType" formControlName="recurringType">
+              <input mdInput [mdAutocomplete]="reactiveAuto2" [formControl]="stateCtrl2" [(ngModel)]="transaction.recurringType" formControlName="recurringType"
+              [class.invalid]="recurringTypeInvalid()" (blur)="recurringTypeTouched = true">
+              <label for="recurringType"
+                   [class.active]="transaction.recurringType">
+              Recurring Type
+            </label>
+            <div *ngIf="recurringTypeInvalid()" style="color: red">Please select a value</div>
             </md-input-container>
 
             <md-autocomplete #reactiveAuto2="mdAutocomplete" [displayWith]="displayFn">
@@ -146,10 +153,7 @@
               </md-option>
             </md-autocomplete>            
 
-            <label for="recurringType"
-                   [class.active]="transaction.recurringType">
-              Recurring Type
-            </label>
+            
           </div>
         </td>
         <td>

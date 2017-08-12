@@ -1,9 +1,11 @@
+import {RefData} from "../ref-data/shared/ref-data";
+
 export class Transaction {
   id: number;
-  treansactionType: string;
+  treansactionType: RefData;
   amount: number;
   dueDateString: string;
-  recurringType: string;
+  recurringType: RefData;
   startDateString: string;
   endDateString: string;
   notes: string;

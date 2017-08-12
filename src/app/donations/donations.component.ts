@@ -14,7 +14,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class DonationsComponent extends AuthenticateComponent {
 
-  //private donations: Donation[] = [];
+  private donations: Donation[] = [];
 
   constructor(authenticateService: AuthenticateService, private donationsService: DonationsService, 
   private route: ActivatedRoute, _cookieService:CookieService) { 
@@ -22,28 +22,28 @@ export class DonationsComponent extends AuthenticateComponent {
     }
 
  ngOnInit() {
-    // super.ngOnInit();
+    super.ngOnInit();
 
-    // this.route.params.subscribe(params => {
-    //   this.donationsService.getDonations()
-    //     .subscribe(data => {
-    //       this.donations = data;
-    //     });
-    // });
+    this.route.params.subscribe(params => {
+      this.donationsService.getDonations()
+        .subscribe(data => {
+          this.donations = data;
+        });
+    });
  }
 
   deleteDonation(donation){
-    // if (confirm("Are you sure you want to delete " + donation.causeDescription + "?")) {
-    //   var index = this.donations.indexOf(donation);
-    //   this.donations.splice(index, 1);
-    //   this.donationsService.deleteDonation(donation.id)
-    //     .subscribe(null,
-    //       err => {
-    //         alert("Could not delete donation.");
-    //         // Revert the view back to its original state
-    //         this.donations.splice(index, 0, donation);
-    //       });
-    // }
+    if (confirm("Are you sure you want to delete " + donation.causeDescription + "?")) {
+      var index = this.donations.indexOf(donation);
+      this.donations.splice(index, 1);
+      this.donationsService.deleteDonation(donation.id)
+        .subscribe(null,
+          err => {
+            alert("Could not delete donation.");
+            // Revert the view back to its original state
+            this.donations.splice(index, 0, donation);
+          });
+    }
   }
 
 }

@@ -8,12 +8,13 @@ import { ExpenseFormComponent } from "./expenses/expense-form/expense-form.compo
 import { IncomeFormComponent } from "./incomes/income-form/income-form.component";
 import { RefDatasComponent } from './ref-data/ref-datas.component';
 import { RefDataFormComponent } from "./ref-data/ref-data-form/ref-data-form.component";
+import { DonationFormComponent } from "./donations/donation-form/donation-form.component";
+import { DonationsComponent } from "./donations/donations.component";
 import { LoginFormComponent } from "./login/login.component";
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginFormComponent },
   { path: 'logout', component: LoginFormComponent },  
-  { path: '', pathMatch: 'full', component: HomeComponent },
   { path: ':weekString', component: HomeComponent },
   { path: 'not-found', component: NotFoundComponent },
   { path: 'recurring/all', component: RecurringComponent },
@@ -24,6 +25,10 @@ const appRoutes: Routes = [
   { path: 'refdatas/all', component: RefDatasComponent },
   { path: 'refdatas/new', component: RefDataFormComponent },
   { path: 'refdatas/:id', component: RefDataFormComponent },
+  { path: 'donations/all', component: DonationsComponent },
+  { path: 'donations/new', component: DonationFormComponent },
+  { path: 'donations/:id', component: DonationFormComponent },
+{ path: '', pathMatch: 'full', component: HomeComponent },  
   { path: '**', redirectTo: 'not-found' }
 ];
 

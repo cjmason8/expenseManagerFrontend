@@ -15,6 +15,7 @@ import { TransactionsModule } from "./shared/transactions.module";
 import { RefDatasModule } from "./ref-data/ref-datas.module";
 import { LoginModule } from "./login/login.module";
 import { HomeModule } from "./home/home.module";
+import { DonationsModule } from "./donations/donations.module";
 
 import { AuthenticateService } from './shared/authenticate.service';
 
@@ -33,6 +34,7 @@ import { AuthenticateService } from './shared/authenticate.service';
     LoginModule,
     RefDatasModule,
     HomeModule,
+    DonationsModule,
     routing
   ],
   providers: [AuthenticateService, CookieService],

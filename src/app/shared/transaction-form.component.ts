@@ -20,6 +20,8 @@ import 'rxjs/add/operator/map';
   providers: []
 })
 export class TransactionFormComponent extends AuthenticateComponent {
+  transactionTypeTouched: boolean = false;
+  recurringTypeTouched: boolean = false;
   transaction: any;
   id: any;
   transactionType: string;
@@ -147,12 +149,12 @@ export class TransactionFormComponent extends AuthenticateComponent {
     this.transaction.metaDataChunk = selectedItem.metaDataChunk;
   }
 
-  validateTransactionType() {
-    console.log('in here333333');
-    if (this.transaction.transactionType) {
-      console.log('in here44444444');
-      this.form.controls['transactionType'].setErrors({"incorrectValue":"true"});
-    }
+  transactionTypeInvalid() {
+    return this.transactionTypeTouched && !this.transaction.transactionType; 
+  }
+
+  recurringTypeInvalid() {
+    return this.recurringTypeTouched && !this.transaction.recurringType; 
   }
 
 }
