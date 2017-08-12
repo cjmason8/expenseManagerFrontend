@@ -65,9 +65,7 @@ export class TransactionFormComponent extends AuthenticateComponent {
       startDateString: ['', []],
       endDateString: ['', []],
       notes: ['', []],
-      metaDataChunk: ['', [
-        Validators.required
-      ]]
+      metaDataChunk: ['', []]
     });
 
     this.stateCtrl = new FormControl({code: 'CA', name: 'California'});
