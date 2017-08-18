@@ -29,6 +29,80 @@
           </div>
         </td>        
       </tr>
+      <tr>
+        <td>
+          <div class="input-field col s12">
+            <input id="description" type="text" class="validate"
+                   [(ngModel)]="donation.description" formControlName="description"
+                   [class.invalid]="form.controls['description'].touched && !form.controls['description'].valid"
+            >
+            <label for="description"
+                   [class.active]="donation.description"
+                   data-error="Description is Required">
+              Description
+            </label>
+          </div>
+        </td>
+        <td>
+          <div class="input-field col s12">
+
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="input-field col s12" id="dueDateDiv">
+            <md-input-container>
+              <input mdInput [mdDatepicker]="dueDatePicker" [(ngModel)]="donation.dueDateString" formControlName="dueDateString">
+              <button mdSuffix [mdDatepickerToggle]="dueDatePicker"></button>
+            </md-input-container>
+            <md-datepicker #dueDatePicker></md-datepicker>
+
+            <label for="dueDateString"
+                   [class.active]="donation.dueDateString"
+                   data-error="Due Date is required">
+              Due Date
+            </label>
+          </div>
+          <div class="input-field col s12">
+
+          </div>
+        </td>
+        <td>
+          <div class="input-field col s12">
+          </div>          
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="input-field col s12">
+            <input id="notes" type="text" class="validate"
+                   [(ngModel)]="donation.notes" formControlName="notes" />
+            <label for="notes"
+                   [class.active]="donation.notes">
+              Notes
+            </label>
+          </div>
+        </td>
+        <td>
+          <div class="input-field col s12">
+
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="input-field col s12">
+            <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".pdf,.doc,.docx">
+
+          </div>
+        </td>
+        <td>
+          <div class="input-field col s12">
+
+          </div>
+        </td>
+      </tr>      
     </table>
 
 

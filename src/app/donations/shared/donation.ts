@@ -6,6 +6,7 @@ export class Donation {
   amount: number;
   dueDateString: string;
   notes: string;
+  documentation: File
 
   constructor() {
   }

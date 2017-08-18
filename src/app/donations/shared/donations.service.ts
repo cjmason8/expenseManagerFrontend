@@ -46,7 +46,12 @@ export class DonationsService {
   getDonations(){
     return this.http.get(this.donationsUrl)
       .map(res => res.json());
-  }  
+  } 
+
+  uploadFile(formData, options) {
+    return this.http.post(this.donationsUrl + '/uploadFile', formData, options)
+          .map(res => res.json());
+  } 
 
   private getDonationUrl(id){
     return this.donationsUrl + "/" + id;

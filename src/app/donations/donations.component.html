@@ -6,6 +6,8 @@
   <thead>
   <tr>
     <th data-field="name">Cause</th>
+    <th data-field="name">Description</th>
+    <th data-field="name">Due Date</th>
     <th data-field="name">Edit</th>
     <th data-field="name">Delete</th>
   </tr>
@@ -14,6 +16,8 @@
   <tbody>
     <tr *ngFor="let donation of donations">
       <td>{{ donation.cause.description }}</td>
+      <td>{{ donation.description }}</td>
+      <td>{{ donation.dueDateString }}</td>
       <td>
         <a [routerLink]="['/donations', donation.id]">
           <i class="material-icons">mode_edit</i>

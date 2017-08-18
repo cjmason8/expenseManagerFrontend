@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
+import {Headers, RequestOptions, Request, RequestMethod, RequestOptionsArgs} from '@angular/http';
 
 import { RefData } from '../../ref-data/shared/ref-data';
 import { Donation } from '../shared/donation';
@@ -44,7 +45,11 @@ export class DonationFormComponent extends AuthenticateComponent {
     this.form = formBuilder.group({
       cause: ['', [
         Validators.required
-      ]]
+      ]],
+      dueDateString: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      notes: ['', []],
+      documentation: ['', []]
     });
 
     this.stateCtrl = new FormControl({code: 'CA', name: 'California'});
@@ -112,5 +117,27 @@ export class DonationFormComponent extends AuthenticateComponent {
 
   causeInvalid() {
     return this.causeTouched && !this.donation.cause; 
+  }
+
+  fileChange(event) {
+    let fileList: FileList = event.target.files;
+    if(fileList.length > 0) {
+      let file: File = fileList[0];
+      let formData:FormData = new FormData();
+      formData.append('uploadFile', file, file.name);
+      let headers = new Headers();
+      /** No need to include Content-Type in Angular 4 */
+      headers.append('Content-Type', 'multipart/form-data');
+      headers.append('Accept', 'application/json');
+      let options = new RequestOptions({ headers: headers });
+      this.donationsService.uploadFile(formData, options)
+        .subscribe(
+          filePath => this.donation.documentation = filePath,
+          response => {
+            if (response.status == 404) {
+              this.router.navigate(['NotFound']);
+            }
+          });
+    }
   }
 }

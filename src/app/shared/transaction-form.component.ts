@@ -8,7 +8,6 @@ import { AuthenticateService } from '../shared/authenticate.service';
 import { AuthenticateComponent } from '../shared/authenticate.component';
 import { RefDatasService } from '../ref-data/shared/ref-datas.service';
 import { BasicValidators } from '../shared/basic-validators';
-import { customValidator } from './custom.validator';
 
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
@@ -52,7 +51,7 @@ export class TransactionFormComponent extends AuthenticateComponent {
 
     this.form = formBuilder.group({
       transactionType: ['', [
-        Validators.required, customValidator(this.transaction)
+        Validators.required
       ]],
       amount: ['', [
         Validators.required,
