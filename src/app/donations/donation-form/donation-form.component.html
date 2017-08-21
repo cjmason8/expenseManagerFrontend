@@ -93,8 +93,12 @@
       <tr>
         <td>
           <div class="input-field col s12">
-            <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".pdf,.doc,.docx">
-
+            <table width="100%">
+              <tr>
+                <td width="20%"><input type="file" (change)="fileChange($event)" placeholder="Upload File" accept=".pdf,.doc,.docx"></td>
+                <td width="50%">{{donation.documentationFilePath}} <button type="button" (click)="viewDocumentation()">View</button></td>
+              </tr>
+            </table>
           </div>
         </td>
         <td>

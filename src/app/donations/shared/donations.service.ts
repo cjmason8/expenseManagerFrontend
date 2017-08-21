@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, RequestOptions, Http } from '@angular/http';
+import { Headers, RequestOptions, ResponseContentType, Http } from '@angular/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -52,6 +52,17 @@ export class DonationsService {
     return this.http.post(this.donationsUrl + '/uploadFile', formData, options)
           .map(res => res.json());
   } 
+
+  getFile(id) {
+    var headers = new Headers({ 'Content-Type': 'application/pdf', 'Accept': 'application/pdf' });
+
+    let options = new RequestOptions({ headers: headers });
+    options.responseType = ResponseContentType.Blob;
+    return this.http.get(this.donationsUrl + '/getFile/' + id, options)
+          .map((res) => {
+            return new Blob([res.blob()], { type: 'application/pdf' })
+        });
+  }   
 
   private getDonationUrl(id){
     return this.donationsUrl + "/" + id;

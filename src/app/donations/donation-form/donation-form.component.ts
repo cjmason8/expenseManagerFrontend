@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 import {Headers, RequestOptions, Request, RequestMethod, RequestOptionsArgs} from '@angular/http';
+import { FileSaver } from 'file-saver'; 
 
 import { RefData } from '../../ref-data/shared/ref-data';
 import { Donation } from '../shared/donation';
@@ -11,6 +12,8 @@ import { AuthenticateService } from '../../shared/authenticate.service';
 import { AuthenticateComponent } from '../../shared/authenticate.component';
 import { RefDatasService } from '../../ref-data/shared/ref-datas.service';
 import { BasicValidators } from '../../shared/basic-validators';
+
+import 'rxjs/Rx';
 
 @Component({
   selector: 'app-donation-form',
@@ -126,18 +129,25 @@ export class DonationFormComponent extends AuthenticateComponent {
       let formData:FormData = new FormData();
       formData.append('uploadFile', file, file.name);
       let headers = new Headers();
-      /** No need to include Content-Type in Angular 4 */
-      headers.append('Content-Type', 'multipart/form-data');
-      headers.append('Accept', 'application/json');
       let options = new RequestOptions({ headers: headers });
       this.donationsService.uploadFile(formData, options)
         .subscribe(
-          filePath => this.donation.documentation = filePath,
+          filePath => this.donation.documentationFilePath = filePath.filePath,
           response => {
             if (response.status == 404) {
               this.router.navigate(['NotFound']);
             }
           });
     }
+  }
+
+  viewDocumentation() {
+      this.donationsService.getFile(this.donation.id)
+        .subscribe((res) => {
+          //saveAs(res, "myPDF.pdf");
+
+          var fileURL = URL.createObjectURL(res);
+          window.open(fileURL);
+        });
   }
 }
