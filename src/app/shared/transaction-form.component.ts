@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
+import { FileUploadService } from './file.upload.service';
+import {Headers, RequestOptions} from '@angular/http';
 
 import { RefData } from '../ref-data/shared/ref-data';
 import { AuthenticateService } from '../shared/authenticate.service';
@@ -43,7 +45,8 @@ export class TransactionFormComponent extends AuthenticateComponent {
     private routeParam: ActivatedRoute,
     authenticateService: AuthenticateService,
     private refDatasService: RefDatasService,
-    _cookieService: CookieService
+    _cookieService: CookieService,
+    private fileUploadService: FileUploadService
   ) {
     super(authenticateService, _cookieService);
     this.route = routeParam;
@@ -152,6 +155,35 @@ export class TransactionFormComponent extends AuthenticateComponent {
 
   recurringTypeInvalid() {
     return this.recurringTypeTouched && !this.transaction.recurringType; 
+  }
+
+  fileChange(event) {
+    let fileList: FileList = event.target.files;
+    if(fileList.length > 0) {
+      let file: File = fileList[0];
+      let formData:FormData = new FormData();
+      formData.append('uploadFile', file, file.name);
+      let headers = new Headers();
+      let options = new RequestOptions({ headers: headers });
+      let type = this.transactionType.toLowerCase() + 's';
+      this.fileUploadService.uploadFile(formData, options, type)
+        .subscribe(
+          filePath => this.transaction.documentationFilePath = filePath.filePath,
+          response => {
+            if (response.status == 404) {
+              this.router.navigate(['NotFound']);
+            }
+          });
+    }
+  }
+
+  viewDocumentation() {
+      let type = this.transactionType.toLowerCase() + 's';
+      this.fileUploadService.getFile(this.transaction.id, type)
+        .subscribe((res) => {
+          var fileURL = URL.createObjectURL(res);
+          window.open(fileURL);
+        });
   }
 
 }

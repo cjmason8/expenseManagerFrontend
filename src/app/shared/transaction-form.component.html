@@ -131,6 +131,23 @@
           </div>
         </td>
       </tr>
+      <tr>
+        <td>
+          <div class="input-field col s12">
+            <table width="100%">
+              <tr>
+                <td width="20%"><input type="file" (change)="fileChange($event)" placeholder="Upload File" accept=".pdf,.doc,.docx"></td>
+                <td width="50%">{{transaction.documentationFilePath}} <button type="button" (click)="viewDocumentation()">View</button></td>
+              </tr>
+            </table>
+          </div>
+        </td>
+        <td>
+          <div class="input-field col s12">
+
+          </div>
+        </td>
+      </tr>      
       </table>
       <br/>
       <table id="recurringTable" style="display: none">

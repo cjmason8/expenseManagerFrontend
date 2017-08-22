@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
+import { FileUploadService } from '../../shared/file.upload.service';
+import {Headers, RequestOptions} from '@angular/http';
 
 import { Income } from '../shared/income';
 import { IncomesService } from '../shared/incomes.service';
@@ -28,9 +30,10 @@ export class IncomeFormComponent extends TransactionFormComponent implements OnI
     private incomesService: IncomesService,
     authenticateService: AuthenticateService,
     refDatasService: RefDatasService,
-    _cookieService:CookieService
+    _cookieService:CookieService,
+    fileUploadService: FileUploadService,    
   ) {
-    super(formBuilder, router, route, authenticateService, refDatasService, _cookieService);
+    super(formBuilder, router, route, authenticateService, refDatasService, _cookieService, fileUploadService);
 
     this.transactionType = 'Income';
     this.transactionTypeName = 'incomeType';

@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
-import {Headers, RequestOptions, Request, RequestMethod, RequestOptionsArgs} from '@angular/http';
+import {Headers, RequestOptions} from '@angular/http';
 import { FileSaver } from 'file-saver'; 
 
 import { RefData } from '../../ref-data/shared/ref-data';
 import { Donation } from '../shared/donation';
 import { DonationsService } from '../shared/donations.service';
+import { FileUploadService } from '../../shared/file.upload.service';
 import { AuthenticateService } from '../../shared/authenticate.service';
 import { AuthenticateComponent } from '../../shared/authenticate.component';
 import { RefDatasService } from '../../ref-data/shared/ref-datas.service';
@@ -41,6 +42,7 @@ export class DonationFormComponent extends AuthenticateComponent {
     private route: ActivatedRoute,
     private refDatasService: RefDatasService,
     private donationsService: DonationsService,
+    private fileUploadService: FileUploadService,
     authenticateService: AuthenticateService,
     _cookieService:CookieService
   ) {
@@ -130,7 +132,7 @@ export class DonationFormComponent extends AuthenticateComponent {
       formData.append('uploadFile', file, file.name);
       let headers = new Headers();
       let options = new RequestOptions({ headers: headers });
-      this.donationsService.uploadFile(formData, options)
+      this.fileUploadService.uploadFile(formData, options, 'donations')
         .subscribe(
           filePath => this.donation.documentationFilePath = filePath.filePath,
           response => {
@@ -142,10 +144,8 @@ export class DonationFormComponent extends AuthenticateComponent {
   }
 
   viewDocumentation() {
-      this.donationsService.getFile(this.donation.id)
+      this.fileUploadService.getFile(this.donation.id, 'donations')
         .subscribe((res) => {
-          //saveAs(res, "myPDF.pdf");
-
           var fileURL = URL.createObjectURL(res);
           window.open(fileURL);
         });

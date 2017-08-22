@@ -9,6 +9,7 @@ export class Transaction {
   startDateString: string;
   endDateString: string;
   notes: string;
+  documentationFilePath: string;
 
   constructor() {
   }
