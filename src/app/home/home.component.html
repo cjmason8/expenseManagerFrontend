@@ -26,6 +26,7 @@
           <th data-field="name">Amount</th>
           <th data-field="name">Due Date</th>
           <th data-field="name">Notes</th>
+          <th data-field="name">View Doc</th>
           <th data-field="name">Edit</th>
           <th data-field="name">Delete</th>
         </tr>
@@ -37,6 +38,11 @@
             <td>{{ income.amount }}</td>
             <td>{{ income.dueDateString }}</td>
             <td>{{ income.notes }}</td>
+            <td>
+                <a (click)="viewDocumentation(income.id, 'incomes')" class="pointer">
+                  <i class="material-icons">ic_open_in_browser</i>
+                </a>
+            </td>
             <td>
               <a [routerLink]="['/incomes', income.id]">
                 <i class="material-icons">mode_edit</i>
@@ -76,6 +82,7 @@
           <th data-field="name">Due Date</th>
           <th data-field="name">Paid</th>
           <th data-field="name">Notes</th>
+          <th data-field="name">View Doc</th>
           <th data-field="name">Edit</th>
           <th data-field="name">Delete</th>
         </tr>
@@ -86,8 +93,19 @@
             <td>{{ expense.transactionType.description }}</td>
             <td>{{ expense.amount }}</td>
             <td>{{ expense.dueDateString }}</td>
-            <td>{{ expense.paid ? "PAID" : "" }}</td>
+            <td><a *ngIf="!expense.paid" (click)="payExpense(expense.id)" class="pointer">
+                  <i class="material-icons">ic_check_box_outline_blank</i>
+                </a>
+                <a *ngIf="expense.paid" (click)="unPayExpense(expense.id)" class="pointer">
+                  <i class="material-icons">ic_check_box</i>
+                </a>
+                </td>
             <td>{{ expense.notes }}</td>
+            <td>
+                <a (click)="viewDocumentation(expense.id, 'expenses')" class="pointer">
+                  <i class="material-icons">ic_open_in_browser</i>
+                </a>
+            </td>
             <td>
               <a [routerLink]="['/expenses', expense.id]">
                 <i class="material-icons">mode_edit</i>

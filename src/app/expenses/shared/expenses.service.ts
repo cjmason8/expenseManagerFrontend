@@ -23,6 +23,18 @@ export class ExpensesService {
       .map(res => res.json());
   }
 
+  payExpense(id){
+    let reqUrl = this.expensesUrl + "/pay/" + id;
+    return this.http.get(reqUrl)
+      .map(res => res.json());
+  }
+
+  unPayExpense(id){
+    let reqUrl = this.expensesUrl + "/unpay/" + id;
+    return this.http.get(reqUrl)
+      .map(res => res.json());
+  }  
+
   addExpense(expense){
     var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
     var options = new RequestOptions({ headers: headers });

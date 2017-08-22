@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { CookieService } from 'angular2-cookie/core';
 import { AuthenticateService } from '../shared/authenticate.service';
 import { HomeService } from './shared/home.service';
@@ -8,6 +8,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { AuthenticateComponent } from '../shared/authenticate.component';
+import { FileUploadService } from '../shared/file.upload.service';
+import { ExpensesService } from '../expenses/shared/expenses.service';
 
 @Component({
   selector: 'app-home',
@@ -32,7 +34,8 @@ export class HomeComponent extends AuthenticateComponent {
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router,
     _cookieService:CookieService, private homeService: HomeService,
-    authenticateService: AuthenticateService) {
+    authenticateService: AuthenticateService, private fileUploadService: FileUploadService,
+    private expensesService: ExpensesService, private zone: NgZone) {
       super(authenticateService, _cookieService);
       this.form = formBuilder.group({
       dateString: ['', []],
@@ -82,6 +85,32 @@ export class HomeComponent extends AuthenticateComponent {
       this.router.navigate(['' + datePipe.transform(this.dateString, 'dd-MM-yyyy')]);
       this.dateString = '';
     }
+  }
+
+  viewDocumentation(id, type) {
+      this.fileUploadService.getFile(id, type)
+        .subscribe((res) => {
+          var fileURL = URL.createObjectURL(res);
+          window.open(fileURL);
+        });
+  }
+
+  payExpense(id) {
+      this.expensesService.payExpense(id)
+        .subscribe((res) => {
+          this.zone.runOutsideAngular(() => {
+            location.reload();
+        });
+        });
+  }
+
+  unPayExpense(id) {
+      this.expensesService.unPayExpense(id)
+        .subscribe((res) => {
+          this.zone.runOutsideAngular(() => {
+            location.reload();
+        });
+        });
   }
 
 }

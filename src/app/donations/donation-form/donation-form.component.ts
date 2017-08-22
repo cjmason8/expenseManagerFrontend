@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 import {Headers, RequestOptions} from '@angular/http';
-import { FileSaver } from 'file-saver'; 
 
 import { RefData } from '../../ref-data/shared/ref-data';
 import { Donation } from '../shared/donation';
