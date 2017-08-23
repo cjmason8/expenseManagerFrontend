@@ -95,21 +95,17 @@ export class HomeComponent extends AuthenticateComponent {
         });
   }
 
-  payExpense(id) {
-      this.expensesService.payExpense(id)
+  payExpense(expense) {
+      this.expensesService.payExpense(expense.id)
         .subscribe((res) => {
-          this.zone.runOutsideAngular(() => {
-            location.reload();
-        });
+        expense.paid = true;
         });
   }
 
-  unPayExpense(id) {
-      this.expensesService.unPayExpense(id)
+  unPayExpense(expense) {
+      this.expensesService.unPayExpense(expense.id)
         .subscribe((res) => {
-          this.zone.runOutsideAngular(() => {
-            location.reload();
-        });
+          expense.paid = false;
         });
   }
 

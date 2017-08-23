@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RecurringComponent } from './home/recurring.component';
 import { ExpenseFormComponent } from "./expenses/expense-form/expense-form.component";
+import { ExpensesComponent } from "./expenses/expenses.component";
 import { IncomeFormComponent } from "./incomes/income-form/income-form.component";
 import { RefDatasComponent } from './ref-data/ref-datas.component';
 import { RefDataFormComponent } from "./ref-data/ref-data-form/ref-data-form.component";
@@ -18,6 +19,7 @@ const appRoutes: Routes = [
   { path: ':weekString', component: HomeComponent },
   { path: 'not-found', component: NotFoundComponent },
   { path: 'recurring/all', component: RecurringComponent },
+  { path: 'expenses/search', component: ExpensesComponent },
   { path: 'expenses/new', component: ExpenseFormComponent },
   { path: 'expenses/:id', component: ExpenseFormComponent },  
   { path: 'incomes/new', component: IncomeFormComponent },

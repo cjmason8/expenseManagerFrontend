@@ -2,6 +2,9 @@
   <div class="nav-wrapper" *ngIf="isAuthenticated()">
     <a routerLink="" class="brand-logo">Expense Manager</a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a routerLink="/logout" routerLinkActive="active">Logout</a></li>
+    </ul>    
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li><a routerLink="/refdatas/all" routerLinkActive="active">Ref Data</a></li>
     </ul>    
     <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -9,9 +12,9 @@
     </ul>    
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li><a routerLink="/donations/all" routerLinkActive="active">Donations</a></li>
-    </ul>        
+    </ul>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><a routerLink="/logout" routerLinkActive="active">Logout</a></li>
+      <li><a routerLink="/expenses/search" routerLinkActive="active">Search</a></li>
     </ul>
   </div>
 </nav>

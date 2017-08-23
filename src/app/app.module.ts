@@ -12,6 +12,7 @@ import { RecurringComponent } from './home/recurring.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { routing } from './app.routing';
 import { TransactionsModule } from "./shared/transactions.module";
+import { ExpensesModule } from "./expenses/expenses.module";
 import { RefDatasModule } from "./ref-data/ref-datas.module";
 import { LoginModule } from "./login/login.module";
 import { HomeModule } from "./home/home.module";
@@ -36,6 +37,7 @@ import { FileUploadService } from './shared/file.upload.service';
     RefDatasModule,
     HomeModule,
     DonationsModule,
+    ExpensesModule,
     routing
   ],
   providers: [FileUploadService, AuthenticateService, CookieService],

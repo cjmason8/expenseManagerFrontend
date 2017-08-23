@@ -1,0 +1,82 @@
+<div class="row">
+  <form class="col s12" [formGroup]="form" (ngSubmit)="search()">
+    <table cellspacing="0" cellpadding="0" width="80%">
+      <tr>
+        <td>
+          <div class="input-field col s12">
+            <md-input-container floatPlaceholder="never">
+              <input mdInput [mdAutocomplete]="reactiveAuto" [formControl]="stateCtrl" [(ngModel)]="expenseType" formControlName="expenseType"
+              size="30" [class.invalid]="expenseTypeInvalid()" (blur)="expenseTypeTouched = true">
+              <label for="expenseType"
+                   [class.active]="expenseType">
+              Expense Type
+            </label>
+            <div *ngIf="expenseTypeInvalid()" style="color: red">Please select a value</div>
+            </md-input-container>
+
+            <md-autocomplete #reactiveAuto="mdAutocomplete" [displayWith]="displayFn">
+              <md-option *ngFor="let state of filteredExpenseTypes | async" [value]="state">
+                <span>{{ state.description }}</span>
+              </md-option>
+            </md-autocomplete>
+          </div>
+        </td>
+        <td>
+          <div class="input-field col s12">
+          </div>
+        </td>        
+      </tr>
+    </table>
+    <p></p>
+    <button class="btn waves-effect waves-light" type="submit"
+            [disabled]="validateForm()">
+      Submit<i class="material-icons right">send</i>
+    </button>
+  </form>
+</div>
+
+<table width="100%">
+  <thead>
+  <tr>
+    <th data-field="name" wisth="30%">Name</th>
+    <th data-field="name" wisth="10%">Amount</th>
+    <th data-field="name" wisth="10%">Due Date</th>
+    <th data-field="name" wisth="5%">Paid</th>
+    <th data-field="name" wisth="30%">Notes</th>
+    <th data-field="name" wisth="5%">View</th>
+    <th data-field="name" width="5%"></th>
+    <th data-field="name" wisth="5%"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let expense of expenses">
+      <td>{{ expense.transactionType.description }}</td>
+      <td>{{ expense.amount }}</td>
+      <td>{{ expense.dueDateString }}</td>
+      <td><a *ngIf="!expense.paid" (click)="payExpense(expense)" class="pointer">
+            <i class="material-icons">check_box_outline_blank</i>
+          </a>
+          <a *ngIf="expense.paid" (click)="unPayExpense(expense)" class="pointer">
+            <i class="material-icons">check_box</i>
+          </a>
+          </td>
+      <td>{{ expense.notes }}</td>
+      <td>
+          <a *ngIf="expense.documentationFilePath" (click)="viewDocumentation(expense.id, 'expenses')" class="pointer">
+            <i class="material-icons">open_in_browser</i>
+          </a>
+      </td>
+      <td>
+        <a [routerLink]="['/expenses', expense.id]">
+          <i class="material-icons">mode_edit</i>
+        </a>
+      </td>
+      <td>
+        <a (click)="deleteExpense(expense)" class="pointer">
+          <i class="material-icons">delete</i>
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -56,6 +56,13 @@ export class ExpensesService {
       .map(res => res.json());
   }
 
+  findExpenses(expenseType) {
+    var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    var options = new RequestOptions({ headers: headers });
+    return this.http.post(this.expensesUrl + '/search', JSON.stringify(expenseType), options)
+      .map(res => res.json());
+  } 
+
   private getExpenseUrl(id){
     return this.expensesUrl + "/" + id;
   }
