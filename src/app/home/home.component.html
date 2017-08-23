@@ -161,7 +161,7 @@
 
               <tbody>
                 <tr *ngFor="let expense of unpaidExpenses">
-                  <td>{{ expense.expenseTypeDescription }}</td>
+                  <td>{{ expense.transactionType.description }}</td>
                   <td>{{ expense.amount }}</td>
                   <td>{{ expense.dueDateString }}</td>
                   <td>{{ expense.paid ? "PAID" : "" }}</td>
