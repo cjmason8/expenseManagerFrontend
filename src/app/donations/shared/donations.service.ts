@@ -56,4 +56,11 @@ export class DonationsService {
     return this.http.get(this.donationsUrl + '/type/' + type)
       .map(res => res.json());
   }
+
+  findDonations(donationSearch) {
+    var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    var options = new RequestOptions({ headers: headers });
+    return this.http.post(this.donationsUrl + '/search', JSON.stringify(donationSearch), options)
+      .map(res => res.json());
+  } 
 }

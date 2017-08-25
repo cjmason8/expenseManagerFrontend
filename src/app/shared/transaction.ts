@@ -2,7 +2,7 @@ import {RefData} from "../ref-data/shared/ref-data";
 
 export class Transaction {
   id: number;
-  treansactionType: RefData;
+  transactionType: RefData;
   amount: number;
   dueDateString: string;
   recurringType: RefData;
@@ -10,6 +10,7 @@ export class Transaction {
   endDateString: string;
   notes: string;
   documentationFilePath: string;
+  metaDataChunk: string;
 
   constructor() {
   }

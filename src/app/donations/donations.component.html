@@ -1,3 +1,81 @@
+<div class="row">
+  <form class="col s12" [formGroup]="form" (ngSubmit)="search()">
+    <table class="col s12" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>
+          <div class="input-field col s12">
+            <md-input-container floatPlaceholder="never">
+              <input mdInput [mdAutocomplete]="reactiveAuto" [formControl]="stateCtrl" [(ngModel)]="donationSearch.cause"
+              formControlName="cause" size="30">
+              <label for="cause"
+                   [class.active]="donationSearch.cause">
+                Cause
+              </label>
+            </md-input-container>
+
+            <md-autocomplete #reactiveAuto="mdAutocomplete" [displayWith]="displayFn">
+              <md-option *ngFor="let causeVal of filteredCauses | async" [value]="causeVal">
+                <span>{{ causeVal.description }}</span>
+              </md-option>
+            </md-autocomplete>
+
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="input-field col s12">
+            <textarea [(ngModel)]="donationSearch.metaDataChunk" formControlName="metaDataChunk">
+            </textarea>
+            <label for="metaDataChunk"
+                   [class.active]="donationSearch.metaDataChunk">
+              Metadata
+            </label>
+          </div>
+        </td>
+        <td>
+          <div class="input-field col s12">
+
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="input-field col s4">
+            <md-input-container>
+              <input mdInput [mdDatepicker]="startDatePicker" [(ngModel)]="donationSearch.startDate" formControlName="startDate">
+              <button mdSuffix [mdDatepickerToggle]="startDatePicker"></button>
+            </md-input-container>
+            <md-datepicker #startDatePicker></md-datepicker>
+
+            <label for="startDate"
+                  [class.active]="donationSearch.startDate">
+              Start Date
+            </label>
+          </div>
+          <div class="input-field col s4">
+            <md-input-container>
+              <input mdInput [mdDatepicker]="endDatePicker" [(ngModel)]="donationSearch.endDate" formControlName="endDate">
+              <button mdSuffix [mdDatepickerToggle]="endDatePicker"></button>
+            </md-input-container>
+            <md-datepicker #endDatePicker></md-datepicker>
+
+            <label for="endDate"
+                  [class.active]="donationSearch.endDate">
+              End Date
+            </label>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <p></p>
+    <button class="btn waves-effect waves-light" type="submit"
+            [disabled]="validateForm()">
+      Submit<i class="material-icons right">send</i>
+    </button>
+  </form>
+</div>
+
 <p>
   Displaying {{ donations.length }} donations
 </p>

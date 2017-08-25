@@ -18,9 +18,9 @@ import { RefData } from '../ref-data/shared/ref-data';
 export class ExpensesComponent extends AuthenticateComponent {
 
   private expenses: Expense[] = [];
+  private expense: Expense = new Expense();
 
   expenseTypeTouched: boolean = false;
-  expenseType: RefData;
   stateCtrl: FormControl;
   form: FormGroup;
   title: string;
@@ -35,9 +35,10 @@ export class ExpensesComponent extends AuthenticateComponent {
       super(authenticateService, _cookieService);
 
       this.form = formBuilder.group({
-      expenseType: ['', [
-        Validators.required
-      ]]
+      expenseType: ['', []],
+      startDateString: ['', []],
+      endDateString: ['', []],
+      metaDataChunk: ['', []]
     });
     }
 
@@ -85,15 +86,15 @@ export class ExpensesComponent extends AuthenticateComponent {
   }
 
   expenseTypeInvalid() {
-    return this.expenseTypeTouched && !this.expenseType; 
+    return this.expenseTypeTouched && !this.expense.transactionType; 
   }
 
   validateForm() {
-    return !this.form.valid;
+    return !this.expense.transactionType && !this.expense.startDateString && !this.expense.endDateString && !this.expense.metaDataChunk;
   }
 
   search() {
-    var result = this.expensesService.findExpenses(this.expenseType);
+    var result = this.expensesService.findExpenses(this.expense);
 
     result.subscribe(data => {
       this.expenses = data;

@@ -53,6 +53,7 @@ export class DonationFormComponent extends AuthenticateComponent {
       dueDateString: ['', [Validators.required]],
       description: ['', [Validators.required]],
       notes: ['', []],
+      metaDataChunk: ['', []],
       documentation: ['', []]
     });
 

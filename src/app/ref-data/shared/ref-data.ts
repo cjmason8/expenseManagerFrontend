@@ -4,6 +4,7 @@ export class RefData {
   type: string;
   typeDescription: string;
   description: string;
+  metaDataChunk: string;
 
   constructor() {
   }

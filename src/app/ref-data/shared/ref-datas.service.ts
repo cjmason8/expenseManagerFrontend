@@ -56,4 +56,11 @@ export class RefDatasService {
     return this.http.get(this.refDatasUrl + '/type/' + type)
       .map(res => res.json());
   }
+
+  findRefDatas(refData) {
+    var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    var options = new RequestOptions({ headers: headers });
+    return this.http.post(this.refDatasUrl + '/search', JSON.stringify(refData), options)
+      .map(res => res.json());
+  } 
 }

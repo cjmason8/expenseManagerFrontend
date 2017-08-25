@@ -145,7 +145,6 @@ export class TransactionFormComponent extends AuthenticateComponent {
   }
 
   selectTransactionType(selectedItem) {
-    console.log('in here');
     this.transaction.metaDataChunk = selectedItem.metaDataChunk;
   }
 

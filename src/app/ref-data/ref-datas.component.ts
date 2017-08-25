@@ -5,6 +5,7 @@ import { AuthenticateComponent } from '../shared/authenticate.component';
 import {RefData} from "./shared/ref-data";
 import {CookieService} from 'angular2-cookie/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
  selector: 'app-ref-datas',
@@ -15,24 +16,39 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class RefDatasComponent extends AuthenticateComponent {
 
   private refDatas: RefData[] = [];
+  private refData: RefData = new RefData();
 
-  constructor(authenticateService: AuthenticateService, private refDatasService: RefDatasService, 
+  form: FormGroup;
+  title: string;
+  types = [
+      {value: null, viewValue: 'Please Select'},    
+      {value: 'CAUSE', viewValue: 'Cause'},
+      {value: 'EXPENSE_TYPE', viewValue: 'Expense Type'},
+      {value: 'INCOME_TYPE', viewValue: 'Income Type'},
+      {value: 'RECURRING_TYPE', viewValue: 'Recurring Type'}
+  ];
+
+  constructor(private formBuilder: FormBuilder, 
+  authenticateService: AuthenticateService, private refDatasService: RefDatasService, 
   private route: ActivatedRoute, _cookieService:CookieService) { 
       super(authenticateService, _cookieService);
+
+      this.form = formBuilder.group({
+      type: ['', []],
+      description: ['', []],
+      metaDataChunk: ['', []]
+    });
     }
 
  ngOnInit() {
     super.ngOnInit();
-
-    this.route.params.subscribe(params => {
-      this.refDatasService.getRefDatas()
-        .subscribe(data => {
-          this.refDatas = data;
-        });
-    });
  }
 
-  deleteRefData(refData){
+validateForm() {
+    return !this.refData.type && !this.refData.description && !this.refData.metaDataChunk;
+}
+
+deleteRefData(refData){
     if (confirm("Are you sure you want to delete " + refData.description + "?")) {
       var index = this.refDatas.indexOf(refData);
       this.refDatas.splice(index, 1);
@@ -44,6 +60,14 @@ export class RefDatasComponent extends AuthenticateComponent {
             this.refDatas.splice(index, 0, refData);
           });
     }
+  }
+
+  search() {
+    var result = this.refDatasService.findRefDatas(this.refData);
+
+    result.subscribe(data => {
+      this.refDatas = data;
+    });
   }
 
 }

@@ -23,22 +23,6 @@ export class RefDataFormComponent extends AuthenticateComponent {
   title: string;
   refData: RefData = new RefData();
 
-  drinksRequired = false;
-  pokemonRequired = false;
-  drinksDisabled = false;
-  pokemonDisabled = false;
-  showSelect = false;
-  currentDrink: string;
-  currentPokemon: string[];
-  currentPokemonFromGroup: string;
-  currentDigimon: string;
-  latestChangeEvent: MdSelectChange;
-  floatPlaceholder: string = 'auto';
-  foodControl = new FormControl('pizza-1');
-  topHeightCtrl = new FormControl(0);
-  drinksTheme = 'primary';
-  pokemonTheme = 'primary';
-
   types = [
       {value: 'CAUSE', viewValue: 'Cause'},
       {value: 'EXPENSE_TYPE', viewValue: 'Expense Type'},
