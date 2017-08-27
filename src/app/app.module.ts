@@ -19,7 +19,7 @@ import { HomeModule } from "./home/home.module";
 import { DonationsModule } from "./donations/donations.module";
 
 import { AuthenticateService } from './shared/authenticate.service';
-import { FileUploadService } from './shared/file.upload.service';
+import { DocumentService } from './shared/document.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,7 @@ import { FileUploadService } from './shared/file.upload.service';
     ExpensesModule,
     routing
   ],
-  providers: [FileUploadService, AuthenticateService, CookieService],
+  providers: [DocumentService, AuthenticateService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

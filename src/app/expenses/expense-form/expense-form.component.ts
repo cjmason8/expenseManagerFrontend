@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
-import { FileUploadService } from '../../shared/file.upload.service';
+import { DocumentService } from '../../shared/document.service';
 
 import { Expense } from '../shared/expense';
 import { RefData } from '../../ref-data/shared/ref-data';
@@ -28,12 +28,12 @@ export class ExpenseFormComponent extends TransactionFormComponent implements On
     router: Router,
     route: ActivatedRoute,
     private expensesService: ExpensesService,
-    fileUploadService: FileUploadService,
+    documentService: DocumentService,
     authenticateService: AuthenticateService,
     refDatasService: RefDatasService,
     _cookieService:CookieService
   ) {
-    super(formBuilder, router, route, authenticateService, refDatasService, _cookieService, fileUploadService);
+    super(formBuilder, router, route, authenticateService, refDatasService, _cookieService, documentService);
 
     this.transactionType = 'Expense';
     this.transactionTypeName = 'expenseType';

@@ -10,7 +10,7 @@ import { CookieService } from 'angular2-cookie/core';
 import { environment } from '../../environments/environment'
 
 @Injectable()
-export class FileUploadService {
+export class DocumentService {
 
   authenticated: boolean = false;
 
@@ -20,7 +20,7 @@ export class FileUploadService {
       private _cookieService:CookieService) { }
 
   uploadFile(formData, options, type) {
-    return this.http.post(environment.backendEndPoint + '/file/upload?type=' + type, formData, options)
+    return this.http.post(environment.backendEndPoint + '/document/upload?type=' + type, formData, options)
           .map(res => res.json());
   } 
 
@@ -29,7 +29,7 @@ export class FileUploadService {
 
     let options = new RequestOptions({ headers: headers });
     options.responseType = ResponseContentType.Blob;
-    return this.http.get(environment.backendEndPoint + '/file/get/' + type + '/' + id, options)
+    return this.http.get(environment.backendEndPoint + '/document/get/' + type + '/' + id, options)
           .map((res) => {
             return new Blob([res.blob()], { type: 'application/pdf' })
         });

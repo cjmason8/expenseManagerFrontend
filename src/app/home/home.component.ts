@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { AuthenticateComponent } from '../shared/authenticate.component';
-import { FileUploadService } from '../shared/file.upload.service';
+import { DocumentService } from '../shared/document.service';
 import { ExpensesService } from '../expenses/shared/expenses.service';
 
 @Component({
@@ -34,7 +34,7 @@ export class HomeComponent extends AuthenticateComponent {
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router,
     _cookieService:CookieService, private homeService: HomeService,
-    authenticateService: AuthenticateService, private fileUploadService: FileUploadService,
+    authenticateService: AuthenticateService, private documentService: DocumentService,
     private expensesService: ExpensesService, private zone: NgZone) {
       super(authenticateService, _cookieService);
       this.form = formBuilder.group({
@@ -88,7 +88,7 @@ export class HomeComponent extends AuthenticateComponent {
   }
 
   viewDocumentation(id, type) {
-      this.fileUploadService.getFile(id, type)
+      this.documentService.getFile(id, type)
         .subscribe((res) => {
           var fileURL = URL.createObjectURL(res);
           window.open(fileURL);
