@@ -7,7 +7,7 @@ import {Headers, RequestOptions} from '@angular/http';
 import { RefData } from '../../ref-data/shared/ref-data';
 import { Donation } from '../shared/donation';
 import { DonationsService } from '../shared/donations.service';
-import { FileUploadService } from '../../shared/file.upload.service';
+import { DocumentsService } from '../../documents/shared/documents.service';
 import { AuthenticateService } from '../../shared/authenticate.service';
 import { AuthenticateComponent } from '../../shared/authenticate.component';
 import { RefDatasService } from '../../ref-data/shared/ref-datas.service';
@@ -28,10 +28,6 @@ export class DonationFormComponent extends AuthenticateComponent {
   donation: Donation = new Donation();
   causes: Array<RefData>;
 
-  showSelect = false;
-  floatPlaceholder: string = 'auto';
-  topHeightCtrl = new FormControl(0);
-
   filteredCauses: any;
   stateCtrl: FormControl;
 
@@ -41,7 +37,7 @@ export class DonationFormComponent extends AuthenticateComponent {
     private route: ActivatedRoute,
     private refDatasService: RefDatasService,
     private donationsService: DonationsService,
-    private fileUploadService: FileUploadService,
+    private documentsService: DocumentsService,
     authenticateService: AuthenticateService,
     _cookieService:CookieService
   ) {
@@ -132,7 +128,7 @@ export class DonationFormComponent extends AuthenticateComponent {
       formData.append('uploadFile', file, file.name);
       let headers = new Headers();
       let options = new RequestOptions({ headers: headers });
-      this.fileUploadService.uploadFile(formData, options, 'donations')
+      this.documentsService.uploadFile(formData, options, 'donations')
         .subscribe(
           filePath => this.donation.documentationFilePath = filePath.filePath,
           response => {
@@ -144,7 +140,7 @@ export class DonationFormComponent extends AuthenticateComponent {
   }
 
   viewDocumentation() {
-      this.fileUploadService.getFile(this.donation.id, 'donations')
+      this.documentsService.getFile(this.donation.id, 'donations')
         .subscribe((res) => {
           var fileURL = URL.createObjectURL(res);
           window.open(fileURL);

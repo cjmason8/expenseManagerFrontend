@@ -8,8 +8,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
  selector: 'app-donations',
- templateUrl: './donations.component.html',
- styleUrls: ['./donations.component.css'],
+ templateUrl: './documents.component.html',
+ styleUrls: ['./documents.component.css'],
  providers: []
 })
 export class DocumentsComponent extends AuthenticateComponent {
@@ -24,11 +24,20 @@ export class DocumentsComponent extends AuthenticateComponent {
     super.ngOnInit();
 
     this.route.params.subscribe(params => {
-      this.documentsService.getDocuments()
+      this.documentsService.getDocuments("filofax")
         .subscribe(data => {
           this.documents = data;
         });
     });
  }
+
+//  viewDocumentation() {
+//     let type = this.transactionType.toLowerCase() + 's';
+//     this.documentService.getFile(this.transaction.id, type)
+//       .subscribe((res) => {
+//         var fileURL = URL.createObjectURL(res);
+//         window.open(fileURL);
+//       });
+//   }
 
 }

@@ -1,41 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule }  from '@angular/router';
-import { HttpModule }  from '@angular/http';
 
-import { DonationsComponent } from './donations.component';
-import { DonationsService } from './shared/donations.service';
-import { DonationFormComponent } from './donation-form/donation-form.component';
-
-import {MdInputModule, MdButtonModule, MaterialModule, 
-  MdAutocompleteModule, MdOptionModule, MdDatepickerModule, MdNativeDateModule,
-  DateAdapter, NativeDateAdapter, MD_DATE_FORMATS} from '@angular/material';
+import { DocumentsComponent } from './documents.component';
+import { DocumentsService } from './shared/documents.service';
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
-    HttpModule,
-    MdInputModule,
-    MdButtonModule,
-    MaterialModule,
-    MdAutocompleteModule,
-    MdOptionModule,
-    MdDatepickerModule,
-    MdNativeDateModule
+    CommonModule
   ],
   declarations: [
-    DonationsComponent,
-    DonationFormComponent
+    DocumentsComponent
   ],
   exports: [
-    DonationsComponent
+    DocumentsComponent
   ],
   providers: [
-    DonationsService
+    DocumentsService
   ]
 })
-export class DonationsModule { }
+export class DocumentsModule { }

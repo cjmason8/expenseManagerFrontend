@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
-import { FileUploadService } from './file.upload.service';
+import { DocumentsService } from '../documents/shared/documents.service';
 import {Headers, RequestOptions} from '@angular/http';
 
 import { RefData } from '../ref-data/shared/ref-data';
@@ -46,7 +46,7 @@ export class TransactionFormComponent extends AuthenticateComponent {
     authenticateService: AuthenticateService,
     private refDatasService: RefDatasService,
     _cookieService: CookieService,
-    private fileUploadService: FileUploadService
+    private documentsService: DocumentsService
   ) {
     super(authenticateService, _cookieService);
     this.route = routeParam;
@@ -165,7 +165,7 @@ export class TransactionFormComponent extends AuthenticateComponent {
       let headers = new Headers();
       let options = new RequestOptions({ headers: headers });
       let type = this.transactionType.toLowerCase() + 's';
-      this.fileUploadService.uploadFile(formData, options, type)
+      this.documentsService.uploadFile(formData, options, type)
         .subscribe(
           filePath => this.transaction.documentationFilePath = filePath.filePath,
           response => {
@@ -178,7 +178,7 @@ export class TransactionFormComponent extends AuthenticateComponent {
 
   viewDocumentation() {
       let type = this.transactionType.toLowerCase() + 's';
-      this.fileUploadService.getFile(this.transaction.id, type)
+      this.documentsService.getFile(this.transaction.id, type)
         .subscribe((res) => {
           var fileURL = URL.createObjectURL(res);
           window.open(fileURL);

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, RequestOptions, Http } from '@angular/http';
+import { Headers, RequestOptions, Http, ResponseContentType } from '@angular/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -17,8 +17,27 @@ export class DocumentsService {
       private router: Router,
       private route: ActivatedRoute) { }
 
-  getDocuments(){
-    return this.http.get(this.documentsUrl)
+  uploadFile(formData, options, type) {
+    return this.http.post(this.documentsUrl + '/upload?type=' + type, formData, options)
+          .map(res => res.json());
+  } 
+
+  getFile(id, type) {
+    var headers = new Headers({ 'Content-Type': 'application/pdf', 'Accept': 'application/pdf' });
+
+    let options = new RequestOptions({ headers: headers });
+    options.responseType = ResponseContentType.Blob;
+    return this.http.get(this.documentsUrl + '/get/' + type + '/' + id, options)
+          .map((res) => {
+            return new Blob([res.blob()], { type: 'application/pdf' })
+        });
+  } 
+
+  getDocuments(folderPath){
+    var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    var options = new RequestOptions({ headers: headers });
+    return this.http.post(this.documentsUrl, folderPath, options)
       .map(res => res.json());
   }
+
 }

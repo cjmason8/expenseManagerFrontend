@@ -17,9 +17,10 @@ import { RefDatasModule } from "./ref-data/ref-datas.module";
 import { LoginModule } from "./login/login.module";
 import { HomeModule } from "./home/home.module";
 import { DonationsModule } from "./donations/donations.module";
+import { DocumentsModule } from "./documents/documents.module";
 
 import { AuthenticateService } from './shared/authenticate.service';
-import { DocumentService } from './shared/document.service';
+import { DocumentsService } from './documents/shared/documents.service';
 
 @NgModule({
   declarations: [
@@ -37,10 +38,11 @@ import { DocumentService } from './shared/document.service';
     RefDatasModule,
     HomeModule,
     DonationsModule,
+    DocumentsModule,
     ExpensesModule,
     routing
   ],
-  providers: [DocumentService, AuthenticateService, CookieService],
+  providers: [DocumentsService, AuthenticateService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

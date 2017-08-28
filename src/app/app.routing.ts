@@ -11,6 +11,7 @@ import { RefDatasComponent } from './ref-data/ref-datas.component';
 import { RefDataFormComponent } from "./ref-data/ref-data-form/ref-data-form.component";
 import { DonationFormComponent } from "./donations/donation-form/donation-form.component";
 import { DonationsComponent } from "./donations/donations.component";
+import { DocumentsComponent } from "./documents/documents.component";
 import { LoginFormComponent } from "./login/login.component";
 
 const appRoutes: Routes = [
@@ -30,6 +31,7 @@ const appRoutes: Routes = [
   { path: 'donations/all', component: DonationsComponent },
   { path: 'donations/new', component: DonationFormComponent },
   { path: 'donations/:id', component: DonationFormComponent },
+  { path: 'documents/all', component: DocumentsComponent },
 { path: '', pathMatch: 'full', component: HomeComponent },  
   { path: '**', redirectTo: 'not-found' }
 ];
