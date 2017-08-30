@@ -24,20 +24,28 @@ export class DocumentsComponent extends AuthenticateComponent {
     super.ngOnInit();
 
     this.route.params.subscribe(params => {
-      this.documentsService.getDocuments("filofax")
+      this.documentsService.getDocuments("root")
         .subscribe(data => {
           this.documents = data;
         });
     });
  }
 
-//  viewDocumentation() {
-//     let type = this.transactionType.toLowerCase() + 's';
-//     this.documentService.getFile(this.transaction.id, type)
-//       .subscribe((res) => {
-//         var fileURL = URL.createObjectURL(res);
-//         window.open(fileURL);
-//       });
-//   }
+ viewDocumentation(filePath) {
+    this.documentsService.getFileByPath(filePath)
+      .subscribe((res) => {
+        var fileURL = URL.createObjectURL(res);
+        window.open(fileURL);
+      });
+  }
+
+  openFolder(folderPath) {
+    this.route.params.subscribe(params => {
+      this.documentsService.getDocuments(folderPath)
+        .subscribe(data => {
+          this.documents = data;
+        });
+    });
+  }
 
 }

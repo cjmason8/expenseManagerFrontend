@@ -1,17 +1,15 @@
 <table>
-  <thead>
-  <tr>
-    <th data-field="name">Cause</th>
-    <th data-field="name">Description</th>
-    <th data-field="name">Due Date</th>
-  </tr>
-  </thead>
-
   <tbody>
     <tr *ngFor="let document of documents">
       <td>{{ document.fileName }}</td>
-      <td>{{ document.filePath }}</td>
-      <td>{{ document.folder }}</td>
+      <td>
+          <a *ngIf="!document.folder" (click)="viewDocumentation(document.filePath)" class="pointer">
+            <i class="material-icons">open_in_browser</i>
+          </a>
+          <a *ngIf="document.folder" (click)="openFolder(document.filePath)" class="pointer">
+            <i class="material-icons">folder_open</i>
+          </a>          
+      </td>
     </tr>
   </tbody>
 </table>

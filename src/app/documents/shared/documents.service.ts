@@ -33,6 +33,17 @@ export class DocumentsService {
         });
   } 
 
+  getFileByPath(filePath) {
+    var headers = new Headers({ 'Content-Type': 'application/pdf', 'Accept': 'application/pdf' });
+
+    let options = new RequestOptions({ headers: headers });
+    options.responseType = ResponseContentType.Blob;
+    return this.http.post(this.documentsUrl + '/getByPath/', filePath, options)
+          .map((res) => {
+            return new Blob([res.blob()], { type: 'application/pdf' })
+        });
+  }   
+
   getDocuments(folderPath){
     var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
     var options = new RequestOptions({ headers: headers });
