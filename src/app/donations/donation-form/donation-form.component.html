@@ -113,7 +113,7 @@
             <table width="100%">
               <tr>
                 <td width="20%"><input type="file" (change)="fileChange($event)" placeholder="Upload File" accept=".pdf,.doc,.docx"></td>
-                <td width="50%">{{donation.documentationFilePath}} <button type="button" (click)="viewDocumentation()">View</button></td>
+                <td width="50%">{{uploading}}{{donation.documentationFilePath}} <button type="button" (click)="viewDocumentation()">View</button></td>
               </tr>
             </table>
           </div>

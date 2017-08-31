@@ -17,8 +17,12 @@ export class DocumentsService {
       private router: Router,
       private route: ActivatedRoute) { }
 
-  uploadFile(formData, options, type) {
-    return this.http.post(this.documentsUrl + '/upload?type=' + type, formData, options)
+  uploadFile(formData, options, type, path?) {
+    let url = this.documentsUrl + '/upload?type=' + type;
+    if (path) {
+      url += '&path=' + path;
+    }
+    return this.http.post(url, formData, options)
           .map(res => res.json());
   } 
 
@@ -50,5 +54,12 @@ export class DocumentsService {
     return this.http.post(this.documentsUrl, folderPath, options)
       .map(res => res.json());
   }
+
+    createDirectory(directory, options) {
+    let url = this.documentsUrl + '/directory/create';
+
+    return this.http.post(url, directory, options)
+          .map(res => res.json());
+  } 
 
 }

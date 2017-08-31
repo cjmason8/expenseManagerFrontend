@@ -24,6 +24,7 @@ export class TransactionFormComponent extends AuthenticateComponent {
   transactionTypeTouched: boolean = false;
   recurringTypeTouched: boolean = false;
   transaction: any;
+  uploading: string;
   id: any;
   transactionType: string;
   transactionTypeName: string;
@@ -165,9 +166,13 @@ export class TransactionFormComponent extends AuthenticateComponent {
       let headers = new Headers();
       let options = new RequestOptions({ headers: headers });
       let type = this.transactionType.toLowerCase() + 's';
+      this.uploading = "UPLOADING...";
       this.documentsService.uploadFile(formData, options, type)
         .subscribe(
-          filePath => this.transaction.documentationFilePath = filePath.filePath,
+          filePath => {
+            this.transaction.documentationFilePath = filePath.filePath;
+            this.uploading = "";
+          },
           response => {
             if (response.status == 404) {
               this.router.navigate(['NotFound']);

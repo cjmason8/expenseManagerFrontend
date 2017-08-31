@@ -13,8 +13,6 @@ import { AuthenticateComponent } from '../../shared/authenticate.component';
 import { RefDatasService } from '../../ref-data/shared/ref-datas.service';
 import { BasicValidators } from '../../shared/basic-validators';
 
-import 'rxjs/Rx';
-
 @Component({
   selector: 'app-donation-form',
   templateUrl: './donation-form.component.html',
@@ -27,6 +25,7 @@ export class DonationFormComponent extends AuthenticateComponent {
   title: string;
   donation: Donation = new Donation();
   causes: Array<RefData>;
+  uploading: string = '';
 
   filteredCauses: any;
   stateCtrl: FormControl;
@@ -128,9 +127,13 @@ export class DonationFormComponent extends AuthenticateComponent {
       formData.append('uploadFile', file, file.name);
       let headers = new Headers();
       let options = new RequestOptions({ headers: headers });
+      this.uploading = "UPLOADING...";
       this.documentsService.uploadFile(formData, options, 'donations')
         .subscribe(
-          filePath => this.donation.documentationFilePath = filePath.filePath,
+          filePath => {
+            this.uploading = '';
+            this.donation.documentationFilePath = filePath.filePath;
+          },
           response => {
             if (response.status == 404) {
               this.router.navigate(['NotFound']);

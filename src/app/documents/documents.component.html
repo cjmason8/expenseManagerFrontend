@@ -1,3 +1,5 @@
+<h5>{{ !currentFolderPath?"//":currentFolderPath.replace('root', '').replace('/docs/expenseManager/filofax/', '/') }}</h5>
+
 <table>
   <tbody>
     <tr *ngFor="let document of documents">
@@ -13,3 +15,34 @@
     </tr>
   </tbody>
 </table>
+
+<div class="row">
+  <form class="col s12" [formGroup]="form">
+    <table cellspacing="0" cellpadding="0" width="80%">
+      <tr>
+        <td>
+          <div class="input-field col s12">
+            <table width="100%">
+              <tr>
+                <td>
+                  Create Directory <input type="text" name="directory" id="directory" formControlName="directory" [(ngModel)]="directory">
+                  <button class="btn waves-effect waves-light" type="button" (click)="createDirectory()">
+                    Create<i class="material-icons right">send</i>
+                  </button>
+                </td>
+              </tr>            
+              <tr>
+                <td>Upload Document <input type="file" (change)="fileChange($event)" placeholder="Upload File" accept=".pdf,.doc,.docx"> {{uploading}}</td>
+              </tr>
+            </table>
+          </div>
+        </td>
+        <td>
+          <div class="input-field col s12">
+
+          </div>
+        </td>
+      </tr>      
+    </table>
+  </form>
+</div>
