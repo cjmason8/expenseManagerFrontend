@@ -1,48 +1,63 @@
-<h5>{{ !currentFolderPath?"//":currentFolderPath.replace('root', '').replace('/docs/expenseManager/filofax/', '/') }}</h5>
-
-<table>
-  <tbody>
-    <tr *ngFor="let document of documents">
-      <td>{{ document.fileName }}</td>
-      <td>
-          <a *ngIf="!document.folder" (click)="viewDocumentation(document.filePath)" class="pointer">
-            <i class="material-icons">open_in_browser</i>
-          </a>
-          <a *ngIf="document.folder" (click)="openFolder(document.filePath)" class="pointer">
-            <i class="material-icons">folder_open</i>
-          </a>          
-      </td>
-    </tr>
-  </tbody>
+<table cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="40%">
+      <table>
+        <tr>
+          <td width="5%">
+            <a *ngIf="currentFolderPath !== 'root'" (click)="openFolder('root')" class="pointer">
+              <i class="material-icons">home</i>
+            </a>
+          </td>
+          <td width="5%">
+            <a *ngIf="currentFolderPath !== 'root'" (click)="openParentFolder()" class="pointer">
+              <i class="material-icons">arrow_back</i>
+            </a>
+          </td>
+          <td width="30%"><h5>{{ !currentFolderPath || currentFolderPath === 'root' || currentFolderPath === '/docs/expenseManager/filofax'?"/":currentFolderPath.replace('/docs/expenseManager/filofax/', '/') }}</h5></td>
+        </tr>
+      </table>
+    </td>
+    <td width="60%">
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top">
+      <table>
+        <tbody>
+          <tr *ngFor="let document of documents">
+            <td *ngIf="!document.folder" width="60%" class="fileClass">{{ document.fileName }}</td>
+            <td *ngIf="document.folder" width="60%" class="folderClass">{{ document.fileName }}</td>
+            <td width="10%">
+                <a *ngIf="!document.folder" (click)="viewDocumentation(document.filePath)" class="pointer">
+                  <i class="material-icons">open_in_browser</i>
+                </a>
+                <a *ngIf="document.folder" (click)="openFolder(document.filePath)" class="pointer">
+                  <i class="material-icons">folder_open</i>
+                </a>          
+            </td>
+            <td width="30%"></td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
+    <td style="vertical-align:top">
+      <div class="row">
+        <form class="col s12" [formGroup]="form">
+          <table>
+            <tr>
+              <td>
+                Create Directory <input type="text" name="directory" id="directory" formControlName="directory" [(ngModel)]="directory">
+                <button class="btn waves-effect waves-light" type="button" (click)="createDirectory()">
+                  Create<i class="material-icons right">send</i>
+                </button>
+              </td>
+            </tr>            
+            <tr>
+              <td>Upload Document&nbsp;&nbsp;&nbsp;&nbsp;<input type="file" (change)="fileChange($event)" placeholder="Upload File" accept=".pdf,.doc,.docx,.xls,xlsx"> {{uploading}}</td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </td>    
+  </tr>
 </table>
-
-<div class="row">
-  <form class="col s12" [formGroup]="form">
-    <table cellspacing="0" cellpadding="0" width="80%">
-      <tr>
-        <td>
-          <div class="input-field col s12">
-            <table width="100%">
-              <tr>
-                <td>
-                  Create Directory <input type="text" name="directory" id="directory" formControlName="directory" [(ngModel)]="directory">
-                  <button class="btn waves-effect waves-light" type="button" (click)="createDirectory()">
-                    Create<i class="material-icons right">send</i>
-                  </button>
-                </td>
-              </tr>            
-              <tr>
-                <td>Upload Document <input type="file" (change)="fileChange($event)" placeholder="Upload File" accept=".pdf,.doc,.docx"> {{uploading}}</td>
-              </tr>
-            </table>
-          </div>
-        </td>
-        <td>
-          <div class="input-field col s12">
-
-          </div>
-        </td>
-      </tr>      
-    </table>
-  </form>
-</div>

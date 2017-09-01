@@ -42,6 +42,11 @@ export class RefDatasComponent extends AuthenticateComponent {
 
  ngOnInit() {
     super.ngOnInit();
+
+    this.refDatasService.getRefDatas()
+      .subscribe(data => {
+        this.refDatas = data;
+      });
  }
 
 validateForm() {

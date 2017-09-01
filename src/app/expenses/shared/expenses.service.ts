@@ -61,7 +61,12 @@ export class ExpensesService {
     var options = new RequestOptions({ headers: headers });
     return this.http.post(this.expensesUrl + '/search', JSON.stringify(expense), options)
       .map(res => res.json());
-  } 
+  }
+
+  getExpenses() {
+    return this.http.get(this.expensesUrl)
+      .map(res => res.json());
+  }     
 
   private getExpenseUrl(id){
     return this.expensesUrl + "/" + id;

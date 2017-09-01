@@ -1,7 +1,7 @@
 <form [formGroup]="form" (submit)="gotoWeek()">
 <table width="100%">
   <tr>
-    <td width="50%">Displaying {{ expenses.length }} expenses for week beginning {{thisWeek}}.</td>
+    <td width="50%">Week beginning {{thisWeek}}.</td>
     <td width="15%"><a [routerLink]="['/', previousWeek]"><i class="material-icons">navigate_before</i>Prev</a></td>
     <td width="15%"><a [routerLink]="['/', nextWeek]">Next<i class="material-icons">navigate_next</i></a></td>
     <td width="20%">
@@ -39,7 +39,7 @@
             <td>{{ income.dueDateString }}</td>
             <td>{{ income.notes }}</td>
             <td>
-                <a *ngIf="income.documentationFilePath" (click)="viewDocumentation(income.id, 'incomes')" class="pointer">
+                <a *ngIf="income.documentationFilePath" (click)="viewDocumentation(income.id, 'incomes', income.documentationFilePath)" class="pointer">
                   <i class="material-icons">ic_open_in_browser</i>
                 </a>
             </td>
@@ -103,7 +103,7 @@
             </td>
             <td>{{ expense.notes }}</td>
             <td>
-                <a *ngIf="expense.documentationFilePath" (click)="viewDocumentation(expense.id, 'expenses')" class="pointer">
+                <a *ngIf="expense.documentationFilePath" (click)="viewDocumentation(expense.id, 'expenses', expense.documentationFilePath)" class="pointer">
                   <i class="material-icons">open_in_browser</i>
                 </a>
             </td>

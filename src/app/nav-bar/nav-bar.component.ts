@@ -33,4 +33,12 @@ export class NavBarComponent implements OnInit {
     return this.authenticateService.authenticated === true;
   }
 
+  getUserGreeting() {
+    if (this.authenticateService.user) {
+      return "Hi " + this.authenticateService.user[0].toLocaleUpperCase() + this.authenticateService.user.substring(1);
+    }
+
+    return "";
+  }
+
 }

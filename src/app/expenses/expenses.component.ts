@@ -8,6 +8,7 @@ import {CookieService} from 'angular2-cookie/core';
 import { RefDatasService } from '../ref-data/shared/ref-datas.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RefData } from '../ref-data/shared/ref-data';
+import {DocumentsService} from "../documents/shared/documents.service";
 
 @Component({
  selector: 'app-expenses',
@@ -30,7 +31,7 @@ export class ExpensesComponent extends AuthenticateComponent {
 
   constructor(private formBuilder: FormBuilder, 
     authenticateService: AuthenticateService, private expensesService: ExpensesService, 
-    _cookieService:CookieService,
+    _cookieService:CookieService, private documentsService: DocumentsService,
     private refDatasService: RefDatasService,) { 
       super(authenticateService, _cookieService);
 
@@ -54,6 +55,11 @@ export class ExpensesComponent extends AuthenticateComponent {
            .map(val => this.displayFn(val))
            .map(name => this.filterExpenseTypes(name));
         });
+
+    this.expensesService.getExpenses()
+      .subscribe(data => {
+        this.expenses = data;
+      });
 
     this.stateCtrl = new FormControl({code: 'CA', name: 'California'});
   }
@@ -99,6 +105,14 @@ export class ExpensesComponent extends AuthenticateComponent {
     result.subscribe(data => {
       this.expenses = data;
     });
+  }
+
+  viewDocumentation(filePath) {
+    this.documentsService.getFileByPath(filePath)
+      .subscribe((res) => {
+        var fileURL = URL.createObjectURL(res);
+        window.open(fileURL);
+      });
   }
 
 }

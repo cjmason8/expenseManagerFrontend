@@ -142,8 +142,8 @@ export class DonationFormComponent extends AuthenticateComponent {
     }
   }
 
-  viewDocumentation() {
-      this.documentsService.getFile(this.donation.id, 'donations')
+  viewDocumentation(filePath) {
+      this.documentsService.getFile(this.donation.id, 'donations', filePath)
         .subscribe((res) => {
           var fileURL = URL.createObjectURL(res);
           window.open(fileURL);

@@ -1,3 +1,14 @@
 .pointer {
     cursor: pointer;
 }
+
+ table { table-layout: fixed; }
+ table th, table td { overflow: hidden; }
+
+ .fileClass {
+    color: purple;
+ }
+
+ .folderClass {
+    color: green;
+ }

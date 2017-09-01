@@ -62,6 +62,10 @@ export class DocumentsComponent extends AuthenticateComponent {
     });
   }
 
+  openParentFolder() {
+    this.openFolder(this.currentFolderPath.substring(0, this.currentFolderPath.lastIndexOf('/')));
+  }
+
   fileChange(event) {
     let fileList: FileList = event.target.files;
     if(fileList.length > 0) {

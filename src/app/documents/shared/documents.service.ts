@@ -26,25 +26,39 @@ export class DocumentsService {
           .map(res => res.json());
   } 
 
-  getFile(id, type) {
-    var headers = new Headers({ 'Content-Type': 'application/pdf', 'Accept': 'application/pdf' });
+  getFile(id, type, filePath) {
+    let mediaType = 'application/pdf';
+    if (filePath.endsWith('doc') || filePath.endsWith('docx')) {
+      mediaType = 'application/msword';
+    }
+    else if(filePath.endsWith('xls') || filePath.endsWith('xlsx')) {
+      mediaType = 'application/vnd.ms-excel';
+    }
+    var headers = new Headers({ 'Content-Type': mediaType, 'Accept': mediaType });
 
     let options = new RequestOptions({ headers: headers });
     options.responseType = ResponseContentType.Blob;
     return this.http.get(this.documentsUrl + '/get/' + type + '/' + id, options)
           .map((res) => {
-            return new Blob([res.blob()], { type: 'application/pdf' })
+            return new Blob([res.blob()], { type: mediaType })
         });
   } 
 
   getFileByPath(filePath) {
-    var headers = new Headers({ 'Content-Type': 'application/pdf', 'Accept': 'application/pdf' });
+    let mediaType = 'application/pdf';
+    if (filePath.endsWith('doc') || filePath.endsWith('docx')) {
+      mediaType = 'application/msword';
+    }
+    else if(filePath.endsWith('xls') || filePath.endsWith('xlsx')) {
+      mediaType = 'application/vnd.ms-excel';
+    }
+    var headers = new Headers({ 'Content-Type': mediaType, 'Accept': mediaType });
 
     let options = new RequestOptions({ headers: headers });
     options.responseType = ResponseContentType.Blob;
     return this.http.post(this.documentsUrl + '/getByPath/', filePath, options)
           .map((res) => {
-            return new Blob([res.blob()], { type: 'application/pdf' })
+            return new Blob([res.blob()], { type: mediaType })
         });
   }   
 
@@ -55,7 +69,7 @@ export class DocumentsService {
       .map(res => res.json());
   }
 
-    createDirectory(directory, options) {
+  createDirectory(directory, options) {
     let url = this.documentsUrl + '/directory/create';
 
     return this.http.post(url, directory, options)

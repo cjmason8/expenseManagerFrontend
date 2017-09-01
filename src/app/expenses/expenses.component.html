@@ -76,6 +76,9 @@
     </button>
   </form>
 </div>
+<p>
+  Displaying {{ expenses.length }} expenses (results are limited to 20 records, refine search if you can't find what you are looking for)
+</p>
 <table width="50%">
   <thead>
   <tr>
@@ -104,7 +107,7 @@
           </td>
       <td>{{ expense.notes }}</td>
       <td>
-          <a *ngIf="expense.documentationFilePath" (click)="viewDocumentation(expense.id, 'expenses')" class="pointer">
+          <a *ngIf="expense.documentationFilePath" (click)="viewDocumentation(expense.documentationFilePath)" class="pointer">
             <i class="material-icons">open_in_browser</i>
           </a>
       </td>

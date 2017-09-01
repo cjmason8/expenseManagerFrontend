@@ -181,9 +181,9 @@ export class TransactionFormComponent extends AuthenticateComponent {
     }
   }
 
-  viewDocumentation() {
+  viewDocumentation(filePath) {
       let type = this.transactionType.toLowerCase() + 's';
-      this.documentsService.getFile(this.transaction.id, type)
+      this.documentsService.getFile(this.transaction.id, type, filePath)
         .subscribe((res) => {
           var fileURL = URL.createObjectURL(res);
           window.open(fileURL);

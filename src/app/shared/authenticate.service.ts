@@ -13,13 +13,14 @@ import { environment } from '../../environments/environment'
 export class AuthenticateService {
 
   authenticated: boolean = false;
+  user: string = "";
 
   constructor(private http: Http,
       private router: Router,
       private route: ActivatedRoute,
       private _cookieService:CookieService) { }
 
-  authenticate(token){
+  authenticate(token) {
     if (!token) {
       this.authenticated = false;
       this.router.navigate(['login']);
@@ -34,15 +35,21 @@ export class AuthenticateService {
           return;
         }
 
+        this.user = result.user;
         this.authenticated = true;
       });
   }
 
-  loginUser(login){
+  loginUser(login) {
     var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
     var options = new RequestOptions({ headers: headers });
     return this.http.post(environment.backendEndPoint + "/login", JSON.stringify(login), options)
-      .map(res => res.json());
+      .map(res => {
+        let result = res.json();
+        this.user = result.user;
+
+        return result;
+      });
   }
 
 }

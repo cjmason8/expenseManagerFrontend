@@ -87,8 +87,8 @@ export class HomeComponent extends AuthenticateComponent {
     }
   }
 
-  viewDocumentation(id, type) {
-      this.documentsService.getFile(id, type)
+  viewDocumentation(id, type, filePath) {
+      this.documentsService.getFile(id, type, filePath)
         .subscribe((res) => {
           var fileURL = URL.createObjectURL(res);
           window.open(fileURL);

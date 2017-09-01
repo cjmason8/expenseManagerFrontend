@@ -77,7 +77,7 @@
 </div>
 
 <p>
-  Displaying {{ donations.length }} donations
+  Displaying {{ donations.length }} donations (results are limited to 20 records, refine search if you can't find what you are looking for)
 </p>
 
 <table>
@@ -86,6 +86,7 @@
     <th data-field="name">Cause</th>
     <th data-field="name">Description</th>
     <th data-field="name">Due Date</th>
+    <th data-field="name">View</th>
     <th data-field="name">Edit</th>
     <th data-field="name">Delete</th>
   </tr>
@@ -96,6 +97,11 @@
       <td>{{ donation.cause.description }}</td>
       <td>{{ donation.description }}</td>
       <td>{{ donation.dueDateString }}</td>
+      <td>
+          <a *ngIf="donation.documentationFilePath" (click)="viewDocumentation(donation.documentationFilePath)" class="pointer">
+            <i class="material-icons">open_in_browser</i>
+          </a>
+      </td>
       <td>
         <a [routerLink]="['/donations', donation.id]">
           <i class="material-icons">mode_edit</i>
