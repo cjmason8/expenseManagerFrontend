@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {DonationsService} from "./shared/donations.service";
 import { AuthenticateService } from '../shared/authenticate.service';
-import { AuthenticateComponent } from '../shared/authenticate.component';
+import { FileComponent } from '../shared/file.component';
 import { DonationSearch } from "./shared/donation-search";
 import { Donation } from "./shared/donation";
 import {CookieService} from 'angular2-cookie/core';
@@ -17,7 +17,7 @@ import {DocumentsService} from "../documents/shared/documents.service";
  styleUrls: ['./donations.component.css'],
  providers: []
 })
-export class DonationsComponent extends AuthenticateComponent {
+export class DonationsComponent extends FileComponent {
   causeTouched: boolean = false;
   form: FormGroup;
 
@@ -30,9 +30,9 @@ export class DonationsComponent extends AuthenticateComponent {
   stateCtrl: FormControl;
 
   constructor(formBuilder: FormBuilder, authenticateService: AuthenticateService, private donationsService: DonationsService, 
-  private route: ActivatedRoute, _cookieService:CookieService, private documentsService: DocumentsService,
+  private route: ActivatedRoute, router: Router, _cookieService:CookieService, documentsService: DocumentsService,
   private refDatasService:RefDatasService) { 
-      super(authenticateService, _cookieService);
+      super(authenticateService, _cookieService, documentsService, router);
 
       this.form = formBuilder.group({
       cause: ['', []],
@@ -106,14 +106,6 @@ export class DonationsComponent extends AuthenticateComponent {
     result.subscribe(data => {
       this.donations = data;
     });
-  }
-
-  viewDocumentation(filePath) {
-    this.documentsService.getFileByPath(filePath)
-      .subscribe((res) => {
-        var fileURL = URL.createObjectURL(res);
-        window.open(fileURL);
-      });
   }
 
 }

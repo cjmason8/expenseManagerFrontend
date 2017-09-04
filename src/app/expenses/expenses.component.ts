@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import {ExpensesService} from "./shared/expenses.service";
 import { AuthenticateService } from '../shared/authenticate.service';
-import { AuthenticateComponent } from '../shared/authenticate.component';
+import { FileComponent } from '../shared/file.component';
 import { Expense } from "./shared/expense";
 import {CookieService} from 'angular2-cookie/core';
 import { RefDatasService } from '../ref-data/shared/ref-datas.service';
@@ -16,7 +16,7 @@ import {DocumentsService} from "../documents/shared/documents.service";
  styleUrls: ['./expenses.component.css'],
  providers: []
 })
-export class ExpensesComponent extends AuthenticateComponent {
+export class ExpensesComponent extends FileComponent {
 
   private expenses: Expense[] = [];
   private expense: Expense = new Expense();
@@ -28,12 +28,15 @@ export class ExpensesComponent extends AuthenticateComponent {
   expenseTypes: Array<RefData>;
 
   filteredExpenseTypes: any;
+  type: string;
+  data: any;
+  options: any;
 
   constructor(private formBuilder: FormBuilder, 
     authenticateService: AuthenticateService, private expensesService: ExpensesService, 
-    _cookieService:CookieService, private documentsService: DocumentsService,
+    _cookieService:CookieService, documentsService: DocumentsService, router: Router,
     private refDatasService: RefDatasService,) { 
-      super(authenticateService, _cookieService);
+      super(authenticateService, _cookieService, documentsService, router);
 
       this.form = formBuilder.group({
       expenseType: ['', []],
@@ -41,7 +44,20 @@ export class ExpensesComponent extends AuthenticateComponent {
       endDateString: ['', []],
       metaDataChunk: ['', []]
     });
-    }
+
+    this.type = 'bar';
+    this.options = {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
+      }
+    };
+  }
 
   ngOnInit() {
     super.ngOnInit();
@@ -100,19 +116,11 @@ export class ExpensesComponent extends AuthenticateComponent {
   }
 
   search() {
-    var result = this.expensesService.findExpenses(this.expense);
-
-    result.subscribe(data => {
-      this.expenses = data;
+    this.expensesService.findExpenses(this.expense)
+    .subscribe(data => {
+      this.expenses = data.expenseDtos;
+      this.data = data.expenseGraphDto;
     });
-  }
-
-  viewDocumentation(filePath) {
-    this.documentsService.getFileByPath(filePath)
-      .subscribe((res) => {
-        var fileURL = URL.createObjectURL(res);
-        window.open(fileURL);
-      });
   }
 
 }

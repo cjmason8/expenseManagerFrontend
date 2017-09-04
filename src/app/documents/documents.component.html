@@ -13,7 +13,7 @@
               <i class="material-icons">arrow_back</i>
             </a>
           </td>
-          <td width="30%"><h5>{{ !currentFolderPath || currentFolderPath === 'root' || currentFolderPath === '/docs/expenseManager/filofax'?"/":currentFolderPath.replace('/docs/expenseManager/filofax/', '/') }}</h5></td>
+          <td width="30%"><h5>{{ getDirectory() }}</h5></td>
         </tr>
       </table>
     </td>

@@ -9,7 +9,7 @@ import { Donation } from '../shared/donation';
 import { DonationsService } from '../shared/donations.service';
 import { DocumentsService } from '../../documents/shared/documents.service';
 import { AuthenticateService } from '../../shared/authenticate.service';
-import { AuthenticateComponent } from '../../shared/authenticate.component';
+import { FileComponent } from '../../shared/file.component';
 import { RefDatasService } from '../../ref-data/shared/ref-datas.service';
 import { BasicValidators } from '../../shared/basic-validators';
 
@@ -19,28 +19,28 @@ import { BasicValidators } from '../../shared/basic-validators';
   styleUrls: ['./donation-form.component.css'],
   providers: []
 })
-export class DonationFormComponent extends AuthenticateComponent {
+export class DonationFormComponent extends FileComponent {
   causeTouched: boolean = false;
   form: FormGroup;
   title: string;
   donation: Donation = new Donation();
   causes: Array<RefData>;
-  uploading: string = '';
 
   filteredCauses: any;
   stateCtrl: FormControl;
 
   constructor(
     formBuilder: FormBuilder,
-    private router: Router,
+    router: Router,
     private route: ActivatedRoute,
     private refDatasService: RefDatasService,
     private donationsService: DonationsService,
-    private documentsService: DocumentsService,
+    documentsService: DocumentsService,
     authenticateService: AuthenticateService,
     _cookieService:CookieService
   ) {
-    super(authenticateService, _cookieService);
+    super(authenticateService, _cookieService, documentsService, router);
+    this.fileType = 'donations';
     this.form = formBuilder.group({
       cause: ['', [
         Validators.required
@@ -82,7 +82,7 @@ export class DonationFormComponent extends AuthenticateComponent {
           donation => this.donation = donation,
           response => {
             if (response.status == 404) {
-              this.router.navigate(['NotFound']);
+              this.goto('NotFound');
             }
           });
     });
@@ -98,7 +98,7 @@ export class DonationFormComponent extends AuthenticateComponent {
     }
 
     result.subscribe(data => {
-      this.router.navigate(['donations/all']);
+      this.goto('donations/all');
     });
   }
 
@@ -119,34 +119,8 @@ export class DonationFormComponent extends AuthenticateComponent {
     return this.causeTouched && !this.donation.cause; 
   }
 
-  fileChange(event) {
-    let fileList: FileList = event.target.files;
-    if(fileList.length > 0) {
-      let file: File = fileList[0];
-      let formData:FormData = new FormData();
-      formData.append('uploadFile', file, file.name);
-      let headers = new Headers();
-      let options = new RequestOptions({ headers: headers });
-      this.uploading = "UPLOADING...";
-      this.documentsService.uploadFile(formData, options, 'donations')
-        .subscribe(
-          filePath => {
-            this.uploading = '';
-            this.donation.documentationFilePath = filePath.filePath;
-          },
-          response => {
-            if (response.status == 404) {
-              this.router.navigate(['NotFound']);
-            }
-          });
-    }
+  postFileChange(filePath) {
+    this.donation.documentationFilePath = filePath;
   }
 
-  viewDocumentation(filePath) {
-      this.documentsService.getFile(this.donation.id, 'donations', filePath)
-        .subscribe((res) => {
-          var fileURL = URL.createObjectURL(res);
-          window.open(fileURL);
-        });
-  }
 }

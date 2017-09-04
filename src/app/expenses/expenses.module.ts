@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule }  from '@angular/router';
 import { HttpModule }  from '@angular/http';
+import { ChartModule } from 'angular2-chartjs';
 
 import { ExpensesComponent } from './expenses.component';
 
@@ -23,7 +24,8 @@ import {MdInputModule, MdButtonModule, MaterialModule,
     MdAutocompleteModule,
     MdOptionModule,
     MdDatepickerModule,
-    MdNativeDateModule
+    MdNativeDateModule,
+    ChartModule
   ],
   declarations: [
     ExpensesComponent

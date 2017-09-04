@@ -39,7 +39,7 @@
             <td>{{ income.dueDateString }}</td>
             <td>{{ income.notes }}</td>
             <td>
-                <a *ngIf="income.documentationFilePath" (click)="viewDocumentation(income.id, 'incomes', income.documentationFilePath)" class="pointer">
+                <a *ngIf="income.documentationFilePath" (click)="viewDocumentation(income.documentationFilePath)" class="pointer">
                   <i class="material-icons">ic_open_in_browser</i>
                 </a>
             </td>
@@ -103,7 +103,7 @@
             </td>
             <td>{{ expense.notes }}</td>
             <td>
-                <a *ngIf="expense.documentationFilePath" (click)="viewDocumentation(expense.id, 'expenses', expense.documentationFilePath)" class="pointer">
+                <a *ngIf="expense.documentationFilePath" (click)="viewDocumentation(expense.documentationFilePath)" class="pointer">
                   <i class="material-icons">open_in_browser</i>
                 </a>
             </td>

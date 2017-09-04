@@ -7,7 +7,7 @@ import {Headers, RequestOptions} from '@angular/http';
 
 import { RefData } from '../ref-data/shared/ref-data';
 import { AuthenticateService } from '../shared/authenticate.service';
-import { AuthenticateComponent } from '../shared/authenticate.component';
+import { FileComponent } from '../shared/file.component';
 import { RefDatasService } from '../ref-data/shared/ref-datas.service';
 import { BasicValidators } from '../shared/basic-validators';
 
@@ -20,7 +20,7 @@ import 'rxjs/add/operator/map';
   styleUrls: ['./transaction-form.component.css'],
   providers: []
 })
-export class TransactionFormComponent extends AuthenticateComponent {
+export class TransactionFormComponent extends FileComponent {
   transactionTypeTouched: boolean = false;
   recurringTypeTouched: boolean = false;
   transaction: any;
@@ -37,22 +37,17 @@ export class TransactionFormComponent extends AuthenticateComponent {
 
   filteredTransactionTypes: any;
   filteredRecurringTypes: any;
-  router: Router;
-  route: ActivatedRoute;
 
   constructor(
     private formBuilder: FormBuilder,
-    private routerParam: Router,
-    private routeParam: ActivatedRoute,
+    router: Router,
+    private route: ActivatedRoute,
     authenticateService: AuthenticateService,
     private refDatasService: RefDatasService,
     _cookieService: CookieService,
-    private documentsService: DocumentsService
+    documentsService: DocumentsService
   ) {
-    super(authenticateService, _cookieService);
-    this.route = routeParam;
-    this.router = routerParam;
-
+    super(authenticateService, _cookieService, documentsService, router);
     this.form = formBuilder.group({
       transactionType: ['', [
         Validators.required
@@ -103,6 +98,7 @@ export class TransactionFormComponent extends AuthenticateComponent {
 
   ngOnInit() {
     super.ngOnInit();
+    this.fileType = this.transactionType.toLowerCase() + 's';
 
     this.refDatasService.getTypes(this.transactionTypeName)
        .subscribe(data => {
@@ -157,37 +153,8 @@ export class TransactionFormComponent extends AuthenticateComponent {
     return this.recurringTypeTouched && !this.transaction.recurringType; 
   }
 
-  fileChange(event) {
-    let fileList: FileList = event.target.files;
-    if(fileList.length > 0) {
-      let file: File = fileList[0];
-      let formData:FormData = new FormData();
-      formData.append('uploadFile', file, file.name);
-      let headers = new Headers();
-      let options = new RequestOptions({ headers: headers });
-      let type = this.transactionType.toLowerCase() + 's';
-      this.uploading = "UPLOADING...";
-      this.documentsService.uploadFile(formData, options, type)
-        .subscribe(
-          filePath => {
-            this.transaction.documentationFilePath = filePath.filePath;
-            this.uploading = "";
-          },
-          response => {
-            if (response.status == 404) {
-              this.router.navigate(['NotFound']);
-            }
-          });
-    }
-  }
-
-  viewDocumentation(filePath) {
-      let type = this.transactionType.toLowerCase() + 's';
-      this.documentsService.getFile(this.transaction.id, type, filePath)
-        .subscribe((res) => {
-          var fileURL = URL.createObjectURL(res);
-          window.open(fileURL);
-        });
+  postFileChange(filePath) {
+    this.transaction.documentationFilePath = filePath;
   }
 
 }

@@ -17,11 +17,16 @@ export class DocumentsService {
       private router: Router,
       private route: ActivatedRoute) { }
 
-  uploadFile(formData, options, type, path?) {
+  uploadFile(file, type, path?) {
+    let formData:FormData = new FormData();
+    formData.append('uploadFile', file, file.name);
+    let headers = new Headers();
+    let options = new RequestOptions({ headers: headers });
     let url = this.documentsUrl + '/upload?type=' + type;
     if (path) {
       url += '&path=' + path;
     }
+  
     return this.http.post(url, formData, options)
           .map(res => res.json());
   } 

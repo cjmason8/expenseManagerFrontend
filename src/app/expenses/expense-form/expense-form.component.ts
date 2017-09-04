@@ -34,7 +34,6 @@ export class ExpenseFormComponent extends TransactionFormComponent implements On
     _cookieService:CookieService
   ) {
     super(formBuilder, router, route, authenticateService, refDatasService, _cookieService, documentsService);
-
     this.transactionType = 'Expense';
     this.transactionTypeName = 'expenseType';
     this.transaction = new Expense();

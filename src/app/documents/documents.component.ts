@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import {DocumentsService} from "./shared/documents.service";
 import { AuthenticateService } from '../shared/authenticate.service';
-import { AuthenticateComponent } from '../shared/authenticate.component';
+import { FileComponent } from '../shared/file.component';
 import { Document } from "./shared/document";
 import {CookieService} from 'angular2-cookie/core';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -14,7 +14,7 @@ import {Headers, RequestOptions} from '@angular/http';
  styleUrls: ['./documents.component.css'],
  providers: []
 })
-export class DocumentsComponent extends AuthenticateComponent {
+export class DocumentsComponent extends FileComponent {
   private documents: Document[] = [];
   currentFolderPath: string;
   form: FormGroup;
@@ -22,10 +22,10 @@ export class DocumentsComponent extends AuthenticateComponent {
   uploading: string;
 
   constructor(formBuilder: FormBuilder,
-  authenticateService: AuthenticateService, private documentsService: DocumentsService,
-  private route: ActivatedRoute, _cookieService:CookieService) { 
-      super(authenticateService, _cookieService);
-
+  authenticateService: AuthenticateService, documentsService: DocumentsService,
+  private route: ActivatedRoute, router: Router, _cookieService:CookieService) { 
+      super(authenticateService, _cookieService, documentsService, router);
+      this.fileType = 'documents';
       this.form = formBuilder.group({
         directory: ['', []]
       });
@@ -43,14 +43,6 @@ export class DocumentsComponent extends AuthenticateComponent {
     });
  }
 
- viewDocumentation(filePath) {
-    this.documentsService.getFileByPath(filePath)
-      .subscribe((res) => {
-        var fileURL = URL.createObjectURL(res);
-        window.open(fileURL);
-      });
-  }
-
   openFolder(folderPath) {
     this.documents = [];
     this.route.params.subscribe(params => {
@@ -66,24 +58,11 @@ export class DocumentsComponent extends AuthenticateComponent {
     this.openFolder(this.currentFolderPath.substring(0, this.currentFolderPath.lastIndexOf('/')));
   }
 
-  fileChange(event) {
-    let fileList: FileList = event.target.files;
-    if(fileList.length > 0) {
-      let file: File = fileList[0];
-      let formData:FormData = new FormData();
-      formData.append('uploadFile', file, file.name);
-      let headers = new Headers();
-      let options = new RequestOptions({ headers: headers });
-      this.uploading = "UPLOADING...";
-      this.documentsService.uploadFile(formData, options, 'documents', this.currentFolderPath)
+  postFileChange(filePath) {
+    this.documentsService.getDocuments(this.currentFolderPath)
         .subscribe(data => {
-            this.uploading = "";
-            this.documentsService.getDocuments(this.currentFolderPath)
-          .subscribe(data => {
-            this.documents = data;
-          });
+          this.documents = data;
         });
-    }
   }
 
   createDirectory() {
@@ -100,5 +79,10 @@ export class DocumentsComponent extends AuthenticateComponent {
         });
       });
   }  
+
+  getDirectory() {
+    return !this.currentFolderPath || this.currentFolderPath === 'root' 
+      || this.currentFolderPath === '/docs/expenseManager/filofax'?"/":this.currentFolderPath.replace('/docs/expenseManager/filofax/', '/');
+  }
 
 }

@@ -7,7 +7,7 @@ import { Income } from "../incomes/shared/income";
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-import { AuthenticateComponent } from '../shared/authenticate.component';
+import { FileComponent } from '../shared/file.component';
 import { DocumentsService } from '../documents/shared/documents.service';
 import { ExpensesService } from '../expenses/shared/expenses.service';
 
@@ -17,7 +17,7 @@ import { ExpensesService } from '../expenses/shared/expenses.service';
   styleUrls: ['./home.component.css'],
   providers: []
 })
-export class HomeComponent extends AuthenticateComponent {
+export class HomeComponent extends FileComponent {
   dateString: string;
   private expenses: Expense[] = [];
   private unpaidExpenses: Expense[] = [];
@@ -32,11 +32,11 @@ export class HomeComponent extends AuthenticateComponent {
 
   form: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router,
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, router: Router,
     _cookieService:CookieService, private homeService: HomeService,
-    authenticateService: AuthenticateService, private documentsService: DocumentsService,
+    authenticateService: AuthenticateService, documentsService: DocumentsService,
     private expensesService: ExpensesService, private zone: NgZone) {
-      super(authenticateService, _cookieService);
+      super(authenticateService, _cookieService, documentsService, router);
       this.form = formBuilder.group({
       dateString: ['', []],
       datePic: ['', []]
@@ -85,14 +85,6 @@ export class HomeComponent extends AuthenticateComponent {
       this.router.navigate(['' + datePipe.transform(this.dateString, 'dd-MM-yyyy')]);
       this.dateString = '';
     }
-  }
-
-  viewDocumentation(id, type, filePath) {
-      this.documentsService.getFile(id, type, filePath)
-        .subscribe((res) => {
-          var fileURL = URL.createObjectURL(res);
-          window.open(fileURL);
-        });
   }
 
   payExpense(expense) {
