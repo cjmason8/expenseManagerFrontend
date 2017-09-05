@@ -155,6 +155,7 @@
                 <th data-field="name">Due Date</th>
                 <th data-field="name">Paid</th>
                 <th data-field="name">Notes</th>
+                <th data-field="name">View</th>
                 <th data-field="name">Edit</th>
                 <th data-field="name">Delete</th>
               </tr>
@@ -174,6 +175,11 @@
                     </a>
                   </td>
                   <td>{{ expense.notes }}</td>
+                  <td>
+                      <a *ngIf="expense.documentationFilePath" (click)="viewDocumentation(expense.documentationFilePath)" class="pointer">
+                        <i class="material-icons">open_in_browser</i>
+                      </a>
+                  </td>                  
                   <td>
                     <a [routerLink]="['/expenses', expense.id]">
                       <i class="material-icons">mode_edit</i>
