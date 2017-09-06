@@ -28,9 +28,9 @@ export class FileComponent extends AuthenticateComponent {
     super.ngOnInit();
   }
 
-  fileChange(event) {
+  fileChange(event, path?) {
     this.uploading = "UPLOADING...";
-    this.documentsService.uploadFile(event.target.files[0], this.fileType)
+    this.documentsService.uploadFile(event.target.files[0], this.fileType, path)
       .subscribe(
         filePath => {
           this.uploading = '';
