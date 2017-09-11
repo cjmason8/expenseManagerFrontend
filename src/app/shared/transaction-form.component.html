@@ -136,7 +136,7 @@
           <div class="input-field col s12">
             <table width="100%">
               <tr>
-                <td width="20%"><input type="file" (change)="fileChange($event)" placeholder="Upload File" accept=".pdf,.doc,.docx,.xls,.xlsx"></td>
+                <td width="20%"><input type="file" (change)="fileChange($event)" placeholder="Upload File" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg"></td>
                 <td width="50%">{{uploading}} {{transaction.documentationFilePath}} <button type="button" (click)="viewDocumentation(transaction.documentationFilePath)">View</button></td>
               </tr>
             </table>

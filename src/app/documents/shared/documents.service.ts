@@ -32,13 +32,7 @@ export class DocumentsService {
   } 
 
   getFile(id, type, filePath) {
-    let mediaType = 'application/pdf';
-    if (filePath.endsWith('doc') || filePath.endsWith('docx')) {
-      mediaType = 'application/msword';
-    }
-    else if(filePath.endsWith('xls') || filePath.endsWith('xlsx')) {
-      mediaType = 'application/vnd.ms-excel';
-    }
+    let mediaType = this.getMediaType(filePath);
     var headers = new Headers({ 'Content-Type': mediaType, 'Accept': mediaType });
 
     let options = new RequestOptions({ headers: headers });
@@ -47,9 +41,9 @@ export class DocumentsService {
           .map((res) => {
             return new Blob([res.blob()], { type: mediaType })
         });
-  } 
+  }
 
-  getFileByPath(filePath) {
+  getMediaType(filePath) {
     let mediaType = 'application/pdf';
     if (filePath.endsWith('doc') || filePath.endsWith('docx')) {
       mediaType = 'application/msword';
@@ -57,6 +51,15 @@ export class DocumentsService {
     else if(filePath.endsWith('xls') || filePath.endsWith('xlsx')) {
       mediaType = 'application/vnd.ms-excel';
     }
+    else if(filePath.endsWith('jpg') || filePath.endsWith('jpeg')) {
+      mediaType = 'image/jpeg';
+    }
+
+    return mediaType;
+  }
+
+  getFileByPath(filePath) {
+    let mediaType = this.getMediaType(filePath);
     var headers = new Headers({ 'Content-Type': mediaType, 'Accept': mediaType });
 
     let options = new RequestOptions({ headers: headers });
