@@ -71,7 +71,7 @@ export class DocumentsComponent extends FileComponent {
     let directoryPath = this.currentFolderPath + '/' + this.directory;
     this.documentsService.createDirectory(directoryPath, options)
       .subscribe(data => {
-          this.documentsService.getDocuments(directoryPath)
+          this.documentsService.getDocuments(data.filePath)
         .subscribe(data => {
           this.documents = data;
           this.directory = "";
@@ -82,7 +82,7 @@ export class DocumentsComponent extends FileComponent {
 
   getDirectory() {
     return !this.currentFolderPath || this.currentFolderPath === 'root' 
-      || this.currentFolderPath === '/docs/expenseManager/filofax'?"/":this.currentFolderPath.replace('/docs/expenseManager/filofax/', '/');
+      || this.currentFolderPath === '/docs/expenseManager/filofax'?"/":this.currentFolderPath.replace('/docs/expenseManager/filofax/', '/').replace('root','');
   }
 
 }
