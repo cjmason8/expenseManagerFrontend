@@ -28,10 +28,10 @@
             <td *ngIf="!document.folder" width="60%" class="fileClass">{{ document.fileName }}</td>
             <td *ngIf="document.folder" width="60%" class="folderClass">{{ document.fileName }}</td>
             <td width="10%">
-                <a *ngIf="!document.folder" (click)="viewDocumentation(document.filePath)" class="pointer">
+                <a *ngIf="!document.folder" (click)="viewDocumentation(document.folderPath + '/' + document.fileName)" class="pointer">
                   <i class="material-icons">open_in_browser</i>
                 </a>
-                <a *ngIf="document.folder" (click)="openFolder(document.filePath)" class="pointer">
+                <a *ngIf="document.folder" (click)="openFolder(document.folderPath + '/' + document.fileName)" class="pointer">
                   <i class="material-icons">folder_open</i>
                 </a>          
             </td>
