@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment'
 @Injectable()
 export class DocumentsService {
 
-  private documentsUrl: string = environment.backendEndPoint + "/document";
+  private documentsUrl: string = environment.backendEndPoint + "/documents";
 
   constructor(private http: Http,
       private router: Router,
@@ -73,15 +73,47 @@ export class DocumentsService {
   getDocuments(folderPath){
     var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
     var options = new RequestOptions({ headers: headers });
-    return this.http.post(this.documentsUrl, folderPath, options)
+    return this.http.post(this.documentsUrl + '/list', folderPath, options)
       .map(res => res.json());
   }
 
   createDirectory(directory, options) {
-    let url = this.documentsUrl + '/directory/create';
+    let url = this.documentsUrl + '/directory';
 
     return this.http.post(url, directory, options)
           .map(res => res.json());
   } 
+
+  updateDirectory(directory, options) {
+    let url = this.documentsUrl + '/directory';
+
+    return this.http.put(url, directory, options)
+          .map(res => res.json());
+  }  
+
+  addDocument(document){
+    var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    var options = new RequestOptions({ headers: headers });
+    return this.http.post(this.documentsUrl, JSON.stringify(document), options)
+      .map(res => res.json());
+  }
+
+  updateDocument(document){
+    var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    var options = new RequestOptions({ headers: headers });
+    return this.http.put(this.getDocumentUrl(document.id), JSON.stringify(document), options)
+      .map(res => res.json());
+  }
+
+  deleteDocument(id) {
+    var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    var options = new RequestOptions({ headers: headers });
+    return this.http.delete(this.getDocumentUrl(id), options)
+      .map(res => res.json());    
+  }
+
+  private getDocumentUrl(id){
+    return this.documentsUrl + "/" + id;
+  }
 
 }

@@ -1,7 +1,10 @@
 export class Document {
-  name: string;
+  id: number;
+  fileName: string;
+  originalFileName: string;
   isFolder: boolean;
-  filePath: string;
+  folderPath: string;
+  metaDataChunk: string;
 
   constructor() {
   }
