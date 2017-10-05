@@ -32,9 +32,9 @@ export class FileComponent extends AuthenticateComponent {
     this.uploading = "UPLOADING...";
     this.documentsService.uploadFile(event.target.files[0], this.fileType, path)
       .subscribe(
-        filePath => {
+        res => {
           this.uploading = '';
-          this.postFileChange(filePath.filePath);
+          this.postFileChange(res);
         },
         response => {
           if (response.status == 404) {
@@ -43,8 +43,8 @@ export class FileComponent extends AuthenticateComponent {
         });
   }
 
-  viewDocumentation(filePath) {
-    this.documentsService.getFileByPath(filePath)
+  viewDocumentation(document) {
+    this.documentsService.getFileById(document.id, document.fileName)
       .subscribe((res) => {
         var fileURL = URL.createObjectURL(res);
         window.open(fileURL);
@@ -55,7 +55,7 @@ export class FileComponent extends AuthenticateComponent {
     this.router.navigate([destination]);
   }
 
-  postFileChange(filePath) {
+  postFileChange(document) {
   }
 
 }

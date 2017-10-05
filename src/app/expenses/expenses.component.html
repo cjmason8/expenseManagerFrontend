@@ -5,10 +5,10 @@
         <td>
           <div class="input-field col s4">
             <md-input-container floatPlaceholder="never">
-              <input mdInput [mdAutocomplete]="reactiveAuto" [formControl]="stateCtrl" [(ngModel)]="expense.transactionType" formControlName="expenseType"
+              <input mdInput [mdAutocomplete]="reactiveAuto" [formControl]="stateCtrl" [(ngModel)]="searchParams.transactionType" formControlName="expenseType"
               size="30" [class.invalid]="expenseTypeInvalid()" (blur)="expenseTypeTouched = true">
               <label for="expenseType"
-                  [class.active]="expense.transactionType">
+                  [class.active]="searchParams.transactionType">
               Expense Type
             </label>
             <div *ngIf="expenseTypeInvalid()" style="color: red">Please select a value</div>
@@ -25,10 +25,27 @@
       <tr>
         <td>
           <div class="input-field col s12">
-            <textarea [(ngModel)]="expense.metaDataChunk" formControlName="metaDataChunk">
+            <input id="keyWords" type="text" class="validate"
+                   [(ngModel)]="searchParams.keyWords" formControlName="keyWords">
+            <label for="keyWords"
+                   [class.active]="searchParams.keyWords">
+              keyWords
+            </label>
+          </div>
+        </td>
+        <td>
+          <div class="input-field col s12">
+
+          </div>
+        </td>
+      </tr>      
+      <tr>
+        <td>
+          <div class="input-field col s12">
+            <textarea [(ngModel)]="searchParams.metaDataChunk" formControlName="metaDataChunk">
             </textarea>
             <label for="metaDataChunk"
-                   [class.active]="expense.metaDataChunk">
+                   [class.active]="searchParams.metaDataChunk">
               Metadata
             </label>
           </div>
@@ -43,26 +60,26 @@
         <td>
           <div class="input-field col s4">
             <md-input-container>
-              <input mdInput [mdDatepicker]="startDatePicker" [(ngModel)]="expense.startDateString" formControlName="startDateString">
+              <input mdInput [mdDatepicker]="startDatePicker" [(ngModel)]="searchParams.startDateString" formControlName="startDateString">
               <button mdSuffix [mdDatepickerToggle]="startDatePicker"></button>
             </md-input-container>
             <md-datepicker #startDatePicker></md-datepicker>
 
             <label for="startDateString"
-                  [class.active]="expense.startDateString"
+                  [class.active]="searchParams.startDateString"
                   data-error="Start Date is required">
               Start Date
             </label>
           </div>
           <div class="input-field col s4">
             <md-input-container>
-              <input mdInput [mdDatepicker]="endDatePicker" [(ngModel)]="expense.endDateString" formControlName="endDateString">
+              <input mdInput [mdDatepicker]="endDatePicker" [(ngModel)]="searchParams.endDateString" formControlName="endDateString">
               <button mdSuffix [mdDatepickerToggle]="endDatePicker"></button>
             </md-input-container>
             <md-datepicker #endDatePicker></md-datepicker>
 
             <label for="endDateString"
-                  [class.active]="expense.endDateString">
+                  [class.active]="searchParams.endDateString">
               End Date
             </label>
           </div>
@@ -77,51 +94,91 @@
   </form>
 </div>
 <p>
-  Displaying {{ expenses.length }} expenses (results are limited to 20 records, refine search if you can't find what you are looking for)
+  Displaying {{ expenses.length }} expense(s) and {{ documents.length }} document(s) (results are limited to 20 records, refine search if you can't find what you are looking for)
 </p>
 <chart [type]="type" [data]="data" [options]="options"></chart>
-<table width="50%">
-  <thead>
+<table>
   <tr>
-    <th data-field="name" width="30%">Name</th>
-    <th data-field="name" width="10%">Amount</th>
-    <th data-field="name" width="10%">Due Date</th>
-    <th data-field="name" width="5%">Paid</th>
-    <th data-field="name" width="30%">Notes</th>
-    <th data-field="name" width="5%">View</th>
-    <th data-field="name" width="5%"></th>
-    <th data-field="name" width="5%"></th>
-  </tr>
-  </thead>
+    <td style="vertical-align:top" width="40%">
+      <table>
+        <thead>
+            <tr>
+              <th data-field="name" width="50%">Name</th>
+              <th data-field="name" width="10%">View</th>
+              <th data-field="name" width="10%"></th>
+              <th data-field="name" width="10%"></th>
+            </tr>
+        </thead>        
+        <tbody>
+          <tr *ngFor="let document of documents">
+            <td *ngIf="!document.isFolder" class="fileClass">{{ document.fileName }}</td>
+            <td *ngIf="document.isFolder" class="folderClass">{{ document.fileName }}</td>
+            <td width="10%">
+                <a *ngIf="!document.isFolder" (click)="viewDocumentation(document)" class="pointer">
+                  <i class="material-icons">open_in_browser</i>
+                </a>
+                <a *ngIf="document.isFolder" (click)="openFolder(document.folderPath + '/' + document.fileName)" class="pointer">
+                  <i class="material-icons">folder_open</i>
+                </a>          
+            </td>
+            <td width="10">
+              <a (click)="editDocument(document)" class="pointer">
+                <i class="material-icons">mode_edit</i>
+              </a>
+            </td>
+            <td width="10">
+              <a (click)="deleteDocument(document)" class="pointer">
+                <i class="material-icons">delete</i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
+    <td style="vertical-align:top" width="60%">
+      <table>
+        <thead>
+        <tr>
+          <th data-field="name" width="20%">Name</th>
+          <th data-field="name" width="10%">Amount</th>
+          <th data-field="name" width="15%">Due Date</th>
+          <th data-field="name" width="10%">Paid</th>
+          <th data-field="name" width="30%">Notes</th>
+          <th data-field="name" width="15%" colspan="3">View</th>
+        </tr>
+        </thead>
 
-  <tbody>
-    <tr *ngFor="let expense of expenses">
-      <td>{{ expense.transactionType.description }}</td>
-      <td>{{ expense.amount }}</td>
-      <td>{{ expense.dueDateString }}</td>
-      <td><a *ngIf="!expense.paid" (click)="payExpense(expense)" class="pointer">
-            <i class="material-icons">check_box_outline_blank</i>
-          </a>
-          <a *ngIf="expense.paid" (click)="unPayExpense(expense)" class="pointer">
-            <i class="material-icons">check_box</i>
-          </a>
-          </td>
-      <td>{{ expense.notes }}</td>
-      <td>
-          <a *ngIf="expense.documentationFilePath" (click)="viewDocumentation(expense.documentationFilePath)" class="pointer">
-            <i class="material-icons">open_in_browser</i>
-          </a>
-      </td>
-      <td>
-        <a [routerLink]="['/expenses', expense.id]">
-          <i class="material-icons">mode_edit</i>
-        </a>
-      </td>
-      <td>
-        <a (click)="deleteExpense(expense)" class="pointer">
-          <i class="material-icons">delete</i>
-        </a>
-      </td>
-    </tr>
-  </tbody>
+        <tbody>
+          <tr *ngFor="let expense of expenses">
+            <td>{{ expense.transactionType.description }}</td>
+            <td>{{ expense.amount }}</td>
+            <td>{{ expense.dueDateString }}</td>
+            <td><a *ngIf="!expense.paid" (click)="payExpense(expense)" class="pointer">
+                  <i class="material-icons">check_box_outline_blank</i>
+                </a>
+                <a *ngIf="expense.paid" (click)="unPayExpense(expense)" class="pointer">
+                  <i class="material-icons">check_box</i>
+                </a>
+                </td>
+            <td>{{ expense.notes }}</td>
+            <td>
+                <a *ngIf="expense.document" (click)="viewDocumentation(expense.document)" class="pointer">
+                  <i class="material-icons">open_in_browser</i>
+                </a>
+            </td>
+            <td>
+              <a [routerLink]="['/expenses', expense.id]">
+                <i class="material-icons">mode_edit</i>
+              </a>
+            </td>
+            <td>
+              <a (click)="deleteExpense(expense)" class="pointer">
+                <i class="material-icons">delete</i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
 </table>

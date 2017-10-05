@@ -58,13 +58,13 @@ export class DocumentsService {
     return mediaType;
   }
 
-  getFileByPath(filePath) {
-    let mediaType = this.getMediaType(filePath);
+  getFileById(id, fileName) {
+    let mediaType = this.getMediaType(fileName);
     var headers = new Headers({ 'Content-Type': mediaType, 'Accept': mediaType });
 
     let options = new RequestOptions({ headers: headers });
     options.responseType = ResponseContentType.Blob;
-    return this.http.post(this.documentsUrl + '/getByPath/', filePath, options)
+    return this.http.get(this.documentsUrl + '/get/' + id, options)
           .map((res) => {
             return new Blob([res.blob()], { type: mediaType })
         });

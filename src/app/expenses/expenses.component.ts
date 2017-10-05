@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import {ExpensesService} from "./shared/expenses.service";
+import {SearchService} from "./shared/search.service";
 import { AuthenticateService } from '../shared/authenticate.service';
 import { FileComponent } from '../shared/file.component';
 import { Expense } from "./shared/expense";
+import { Document } from "../documents/shared/document";
+import { SearchParams } from "./shared/searchParams";
 import {CookieService} from 'angular2-cookie/core';
 import { RefDatasService } from '../ref-data/shared/ref-datas.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -19,7 +22,8 @@ import {DocumentsService} from "../documents/shared/documents.service";
 export class ExpensesComponent extends FileComponent {
 
   private expenses: Expense[] = [];
-  private expense: Expense = new Expense();
+  private documents: Document[] = [];
+  private searchParams: SearchParams = new SearchParams();
 
   expenseTypeTouched: boolean = false;
   stateCtrl: FormControl;
@@ -33,13 +37,15 @@ export class ExpensesComponent extends FileComponent {
   options: any;
 
   constructor(private formBuilder: FormBuilder, 
-    authenticateService: AuthenticateService, private expensesService: ExpensesService, 
+    authenticateService: AuthenticateService, private expensesService: ExpensesService,
+     private searchService: SearchService, 
     _cookieService:CookieService, documentsService: DocumentsService, router: Router,
     private refDatasService: RefDatasService,) { 
       super(authenticateService, _cookieService, documentsService, router);
 
       this.form = formBuilder.group({
       expenseType: ['', []],
+      keyWords: ['', []],
       startDateString: ['', []],
       endDateString: ['', []],
       metaDataChunk: ['', []]
@@ -108,17 +114,18 @@ export class ExpensesComponent extends FileComponent {
   }
 
   expenseTypeInvalid() {
-    return this.expenseTypeTouched && !this.expense.transactionType; 
+    return this.expenseTypeTouched && !this.searchParams.transactionType; 
   }
 
   validateForm() {
-    return !this.expense.transactionType && !this.expense.startDateString && !this.expense.endDateString && !this.expense.metaDataChunk;
+    return !this.searchParams.transactionType && !this.searchParams.startDateString && !this.searchParams.endDateString && !this.searchParams.metaDataChunk && !this.searchParams.keyWords;
   }
 
   search() {
-    this.expensesService.findExpenses(this.expense)
+    this.searchService.findSearchResults(this.searchParams)
     .subscribe(data => {
-      this.expenses = data.expenseDtos;
+      this.expenses = data.expenses;
+      this.documents = data.documents;
       this.data = data.expenseGraphDto;
     });
   }

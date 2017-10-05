@@ -39,7 +39,7 @@
             <td>{{ income.dueDateString }}</td>
             <td>{{ income.notes }}</td>
             <td>
-                <a *ngIf="income.documentationFilePath" (click)="viewDocumentation(income.documentationFilePath)" class="pointer">
+                <a *ngIf="income.document" (click)="viewDocumentation(income.document)" class="pointer">
                   <i class="material-icons">ic_open_in_browser</i>
                 </a>
             </td>
@@ -103,7 +103,7 @@
             </td>
             <td>{{ expense.notes }}</td>
             <td>
-                <a *ngIf="expense.documentationFilePath" (click)="viewDocumentation(expense.documentationFilePath)" class="pointer">
+                <a *ngIf="expense.document" (click)="viewDocumentation(expense.document)" class="pointer">
                   <i class="material-icons">open_in_browser</i>
                 </a>
             </td>
@@ -176,7 +176,7 @@
                   </td>
                   <td>{{ expense.notes }}</td>
                   <td>
-                      <a *ngIf="expense.documentationFilePath" (click)="viewDocumentation(expense.documentationFilePath)" class="pointer">
+                      <a *ngIf="expense.document" (click)="viewDocumentation(expense.document)" class="pointer">
                         <i class="material-icons">open_in_browser</i>
                       </a>
                   </td>                  

@@ -1,4 +1,5 @@
 import {RefData} from "../ref-data/shared/ref-data";
+import {Document} from "../documents/shared/document";
 
 export class Transaction {
   id: number;
@@ -9,7 +10,7 @@ export class Transaction {
   startDateString: string;
   endDateString: string;
   notes: string;
-  documentationFilePath: string;
+  documentDto: Document = new Document();
   metaDataChunk: string;
 
   constructor() {

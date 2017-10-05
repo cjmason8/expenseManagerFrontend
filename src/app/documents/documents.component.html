@@ -4,12 +4,12 @@
       <table>
         <tr>
           <td width="5%">
-            <a *ngIf="currentFolderPath !== 'root'" (click)="openFolder('root')" class="pointer">
+            <a *ngIf="currentFolderPath !== '/docs/expenseManager/filofax'" (click)="openFolder('/docs/expenseManager/filofax')" class="pointer">
               <i class="material-icons">home</i>
             </a>
           </td>
           <td width="5%">
-            <a *ngIf="currentFolderPath !== 'root'" (click)="openParentFolder()" class="pointer">
+            <a *ngIf="currentFolderPath !== '/docs/expenseManager/filofax'" (click)="openParentFolder()" class="pointer">
               <i class="material-icons">arrow_back</i>
             </a>
           </td>
@@ -28,7 +28,7 @@
             <td *ngIf="!document.isFolder" width="70%" class="fileClass">{{ document.fileName }}</td>
             <td *ngIf="document.isFolder" width="70%" class="folderClass">{{ document.fileName }}</td>
             <td width="10%">
-                <a *ngIf="!document.isFolder" (click)="viewDocumentation(document.folderPath + '/' + document.fileName)" class="pointer">
+                <a *ngIf="!document.isFolder" (click)="viewDocumentation(document)" class="pointer">
                   <i class="material-icons">open_in_browser</i>
                 </a>
                 <a *ngIf="document.isFolder" (click)="openFolder(document.folderPath + '/' + document.fileName)" class="pointer">

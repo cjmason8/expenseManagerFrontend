@@ -6,6 +6,7 @@ import { HttpModule }  from '@angular/http';
 import { ChartModule } from 'angular2-chartjs';
 
 import { ExpensesComponent } from './expenses.component';
+import { SearchService } from './shared/search.service';
 
 import {MdInputModule, MdButtonModule, MaterialModule, 
   MdAutocompleteModule, MdOptionModule, MdDatepickerModule, MdNativeDateModule,
@@ -34,6 +35,7 @@ import {MdInputModule, MdButtonModule, MaterialModule,
     ExpensesComponent
   ],
   providers: [
+    SearchService
   ]
 })
 export class ExpensesModule { }

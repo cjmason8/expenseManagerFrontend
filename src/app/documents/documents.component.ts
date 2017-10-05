@@ -46,10 +46,10 @@ export class DocumentsComponent extends FileComponent {
     super.ngOnInit();
 
     this.route.params.subscribe(params => {
-      this.documentsService.getDocuments("root")
+      this.documentsService.getDocuments("/docs/expenseManager/filofax")
         .subscribe(data => {
           this.documents = data;
-          this.currentFolderPath = "root";
+          this.currentFolderPath = "/docs/expenseManager/filofax";
         });
     });
  }
@@ -69,9 +69,8 @@ export class DocumentsComponent extends FileComponent {
     this.openFolder(this.currentFolderPath.substring(0, this.currentFolderPath.lastIndexOf('/')));
   }
 
-  postFileChange(filePath) {
-    this.document.folderPath = filePath.substring(0, filePath.lastIndexOf('/'));
-    this.document.fileName = filePath.substring(filePath.lastIndexOf('/') + 1);
+  postFileChange(document) {
+    this.document = document;
     this.document.originalFileName = this.document.fileName;
   }
 
@@ -105,8 +104,8 @@ export class DocumentsComponent extends FileComponent {
   }
 
   getDirectory() {
-    return !this.currentFolderPath || this.currentFolderPath === 'root' 
-      || this.currentFolderPath === '/docs/expenseManager/filofax'?"/":this.currentFolderPath.replace('/docs/expenseManager/filofax/', '/').replace('root','');
+    return !this.currentFolderPath || this.currentFolderPath === '/docs/expenseManager/filofax'?"/"
+            :this.currentFolderPath.replace('/docs/expenseManager/filofax/', '/');
   }
 
   saveFile() {

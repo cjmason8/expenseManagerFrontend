@@ -56,10 +56,10 @@ export class ExpensesService {
       .map(res => res.json());
   }
 
-  findExpenses(expense) {
+  findExpenses(searchParams) {
     var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
     var options = new RequestOptions({ headers: headers });
-    return this.http.post(this.expensesUrl + '/search', JSON.stringify(expense), options)
+    return this.http.post(this.expensesUrl + '/search', JSON.stringify(searchParams), options)
       .map(res => res.json());
   }
 

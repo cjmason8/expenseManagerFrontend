@@ -136,8 +136,13 @@
           <div class="input-field col s12">
             <table width="100%">
               <tr>
-                <td width="20%"><input type="file" (change)="fileChange($event)" placeholder="Upload File" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg"></td>
-                <td width="50%">{{uploading}} {{transaction.documentationFilePath}} <button type="button" (click)="viewDocumentation(transaction.documentationFilePath)">View</button></td>
+                <td><h5>Upload Document</h5></td>
+              </tr>
+              <tr>
+                <td><input #fileElement type="file" id="fileElement" (change)="fileChange($event)" placeholder="Upload File" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg"> {{uploading}} <button type="button" (click)="viewDocumentation(transaction.document)">View</button></td>
+              </tr>
+              <tr>
+                <td>File name: <input type="text" name="fileName" id="fileName" formControlName="fileName" [(ngModel)]="transaction.documentDto.fileName"></td>
               </tr>
             </table>
           </div>

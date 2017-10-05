@@ -63,6 +63,7 @@ export class TransactionFormComponent extends FileComponent {
       startDateString: ['', []],
       endDateString: ['', []],
       notes: ['', []],
+      fileName: ['', []],
       metaDataChunk: ['', []]
     });
 
@@ -153,8 +154,8 @@ export class TransactionFormComponent extends FileComponent {
     return this.recurringTypeTouched && !this.transaction.recurringType; 
   }
 
-  postFileChange(filePath) {
-    this.transaction.documentationFilePath = filePath;
+  postFileChange(document) {
+    this.transaction.documentDto = document;
   }
 
 }
