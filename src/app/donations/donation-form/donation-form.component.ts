@@ -49,7 +49,8 @@ export class DonationFormComponent extends FileComponent {
       description: ['', [Validators.required]],
       notes: ['', []],
       metaDataChunk: ['', []],
-      documentation: ['', []]
+      documentation: ['', []],
+      fileName: ['', []]
     });
 
     this.stateCtrl = new FormControl({code: 'CA', name: 'California'});
@@ -119,8 +120,8 @@ export class DonationFormComponent extends FileComponent {
     return this.causeTouched && !this.donation.cause; 
   }
 
-  postFileChange(filePath) {
-    this.donation.documentationFilePath = filePath;
+  postFileChange(document) {
+    this.donation.documentDto = document;
   }
 
 }

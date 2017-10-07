@@ -6,7 +6,7 @@ export class Donation {
   amount: number;
   dueDateString: string;
   notes: string;
-  documentationFilePath: string;
+  documentDto: Document = new Document();
   metaDataChunk: string;
 
   constructor() {

@@ -98,7 +98,7 @@
       <td>{{ donation.description }}</td>
       <td>{{ donation.dueDateString }}</td>
       <td>
-          <a *ngIf="donation.documentationFilePath" (click)="viewDocumentation(donation.documentationFilePath)" class="pointer">
+          <a *ngIf="donation.documentDto" (click)="viewDocumentation(donation.documentDto)" class="pointer">
             <i class="material-icons">open_in_browser</i>
           </a>
       </td>
