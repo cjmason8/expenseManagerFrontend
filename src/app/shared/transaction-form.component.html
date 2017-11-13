@@ -141,7 +141,7 @@
               <tr>
                 <td><input #fileElement type="file" id="fileElement" (change)="fileChange($event)" placeholder="Upload File" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg"> {{uploading}} <button type="button" (click)="viewDocumentation(transaction.document)">View</button></td>
               </tr>
-              <tr>
+              <tr *ngIf="transaction.documentDto != null">
                 <td>File name: <input type="text" name="fileName" id="fileName" formControlName="fileName" [(ngModel)]="transaction.documentDto.fileName"></td>
               </tr>
             </table>
