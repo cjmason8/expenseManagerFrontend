@@ -16,14 +16,15 @@
       "mobile": false,
       "styles": [
         "styles.css",
-        "../node_modules/materialize-css/dist/css/materialize.css"
+        "../node_modules/materialize-css/dist/css/materialize.css",
+        "css/main.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
         "../node_modules/materialize-css/dist/js/materialize.js"
       ],
+      "environmentSource":"environments/environment.ts",
       "environments": {
-        "source": "environments/environment.ts",
         "dev": "environments/environment.dev.ts",
         "test": "environments/environment.test.ts",
         "prod": "environments/environment.prod.ts"
