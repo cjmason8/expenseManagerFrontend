@@ -62,12 +62,42 @@
           <tr>
             <td>
               <form class="col s12" [formGroup]="directoryForm">
-                <h5>{{directoryAction}} Directory</h5>
-                <input type="text" name="directory" id="directory" formControlName="directory" [(ngModel)]="directory.fileName">
-                <button class="btn waves-effect waves-light" type="button" (click)="actionDirectory()">
-                  {{directoryAction}}<i class="material-icons right">send</i>
-                </button>
-              </form>
+                <table>
+                  <tr>
+                    <td><h5>{{directoryAction}} Directory</h5></td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <div class="input-field col s12">
+                            <input type="text" name="directory" id="directory" formControlName="directory" [(ngModel)]="directory.fileName">
+                            <label for="directory"
+                                  [class.active]="directory.fileName">
+                              Directory
+                            </label>
+                          </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="input-field col s12">
+                        <textarea [(ngModel)]="directory.metaDataChunk" formControlName="directoryMetaDataChunk">
+                        </textarea>
+                        <label for="metaDataChunk"
+                              [class.active]="directory.metaDataChunk">
+                          Metadata
+                        </label>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <button class="btn waves-effect waves-light" type="button" (click)="actionDirectory()">
+                        {{directoryAction}}<i class="material-icons right">send</i>
+                      </button>
+                    </td>
+                  </tr>
+                </table>
+              </form>              
             </td>
           </tr>            
           <tr>

@@ -33,7 +33,8 @@ export class DocumentsComponent extends FileComponent {
       super(authenticateService, _cookieService, documentsService, router);
       this.fileType = 'documents';
       this.directoryForm = formBuilder.group({
-        directory: ['', []]
+        directory: ['', []],
+        directoryMetaDataChunk: ['', []]
       });
       this.fileForm = formBuilder.group({
         metaDataChunk: ['', []],
