@@ -12,8 +12,8 @@ COPY package.json /app/
 WORKDIR /app
 
 RUN npm install
-RUN npm install -g angular-cli
+RUN npm install -g @angular/cli
 
-RUN ng build --environment=test
+RUN ng build
 
 EXPOSE 4200
