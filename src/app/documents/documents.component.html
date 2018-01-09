@@ -4,12 +4,12 @@
       <table>
         <tr>
           <td width="5%">
-            <a *ngIf="currentFolderPath !== '/docs/expenseManager/filofax'" (click)="openFolder('/docs/expenseManager/filofax')" class="pointer">
+            <a *ngIf="documentsService.currentFolderPath !== '/docs/expenseManager/filofax'" (click)="openFolder('/docs/expenseManager/filofax')" class="pointer">
               <i class="material-icons">home</i>
             </a>
           </td>
           <td width="5%">
-            <a *ngIf="currentFolderPath !== '/docs/expenseManager/filofax'" (click)="openParentFolder()" class="pointer">
+            <a *ngIf="documentsService.currentFolderPath !== '/docs/expenseManager/filofax'" (click)="openParentFolder()" class="pointer">
               <i class="material-icons">arrow_back</i>
             </a>
           </td>
@@ -46,6 +46,13 @@
               </a>
             </td>
           </tr>
+          <tr>
+            <td>
+              <button class="btn waves-effect waves-light" type="button" (click)="move()">
+                Move<i class="material-icons right">send</i>
+              </button>
+            </td>
+          </tr>
         </tbody>
       </table>
     </td>
@@ -67,7 +74,7 @@
             <td><h5>Upload Document</h5></td>
           </tr>
           <tr>
-            <td><input #fileElement type="file" id="fileElement" (change)="fileChange($event, currentFolderPath)" placeholder="Upload File" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg"> {{uploading}}</td>
+            <td><input #fileElement type="file" id="fileElement" (change)="fileChange($event, documentsService.currentFolderPath)" placeholder="Upload File" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg"> {{uploading}}</td>
           </tr>
           <tr>
             <td>

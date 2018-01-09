@@ -12,6 +12,7 @@ import { environment } from '../../../environments/environment'
 export class DocumentsService {
 
   private documentsUrl: string = environment.backendEndPoint + "/documents";
+  currentFolderPath: string;
 
   constructor(private http: Http,
       private router: Router,

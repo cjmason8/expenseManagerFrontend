@@ -4,12 +4,12 @@
       <table>
         <tr>
           <td width="5%">
-            <a *ngIf="currentFolderPath !== '/docs/expenseManager/filofax'" (click)="openFolder('/docs/expenseManager/filofax')" class="pointer">
+            <a *ngIf="documentsService.currentFolderPath !== '/docs/expenseManager/filofax'" (click)="openFolder('/docs/expenseManager/filofax')" class="pointer">
               <i class="material-icons">home</i>
             </a>
           </td>
           <td width="5%">
-            <a *ngIf="currentFolderPath !== '/docs/expenseManager/filofax'" (click)="openParentFolder()" class="pointer">
+            <a *ngIf="documentsService.currentFolderPath !== '/docs/expenseManager/filofax'" (click)="openParentFolder()" class="pointer">
               <i class="material-icons">arrow_back</i>
             </a>
           </td>
@@ -21,86 +21,43 @@
     </td>
   </tr>
   <tr>
+      <td><h5>Move Files/Folders</h5></td>
+    </tr>
+  <tr>
     <td style="vertical-align:top">
       <table>
         <tbody>
           <tr *ngFor="let document of documents">
             <td *ngIf="!document.isFolder" width="70%" class="fileClass">{{ document.fileName }}</td>
             <td *ngIf="document.isFolder" width="70%" class="folderClass">{{ document.fileName }}</td>
-            <td width="10%">
-                <a *ngIf="!document.isFolder" (click)="viewDocumentation(document)" class="pointer">
-                  <i class="material-icons">open_in_browser</i>
+            <td>
+                <a *ngIf="!readyToMove(document.id)" (click)="addFileId(document.id)" class="pointer">
+                  <i class="material-icons">check_box_outline_blank</i>
                 </a>
-                <a *ngIf="document.isFolder" (click)="openFolder(document.folderPath + '/' + document.fileName)" class="pointer">
-                  <i class="material-icons">folder_open</i>
-                </a>          
-            </td>
-            <td width="10">
-              <a (click)="editDocument(document)" class="pointer">
-                <i class="material-icons">mode_edit</i>
-              </a>
-            </td>
-            <td width="10">
-              <a (click)="deleteDocument(document)" class="pointer">
-                <i class="material-icons">delete</i>
-              </a>
+                <a *ngIf="readyToMove(document.id)" (click)="removeFileId(document.id)" class="pointer">
+                    <i class="material-icons">check_box</i>
+                  </a>
             </td>
           </tr>
+          <tr>
+            <td>
+                <div class="input-field col s12">
+                  <input type="text" name="directoryTo" id="directoryTo" [(ngModel)]="directoryTo">
+                  <label for="directoryTo">
+                    Move to:
+                  </label>
+                </div>
+            </td>
+          </tr>
+          <tr>
+              <td>
+                <button class="btn waves-effect waves-light" (click)="openParentFolder()">
+                  Move<i class="material-icons right">send</i>
+                </button>
+              </td>
+            </tr>
         </tbody>
       </table>
     </td>
-    <td style="vertical-align:top">
-      <div class="row">
-        <table>
-          <tr>
-            <td>
-              <form class="col s12" [formGroup]="directoryForm">
-                <h5>{{directoryAction}} Directory</h5>
-                <input type="text" name="directory" id="directory" formControlName="directory" [(ngModel)]="directory.fileName">
-                <button class="btn waves-effect waves-light" type="button" (click)="actionDirectory()">
-                  {{directoryAction}}<i class="material-icons right">send</i>
-                </button>
-              </form>
-            </td>
-          </tr>            
-          <tr>
-            <td><h5>Upload Document</h5></td>
-          </tr>
-          <tr>
-            <td><input #fileElement type="file" id="fileElement" (change)="fileChange($event, currentFolderPath)" placeholder="Upload File" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg"> {{uploading}}</td>
-          </tr>
-          <tr>
-            <td>
-              <form class="col s12" [formGroup]="fileForm" (ngSubmit)="saveFile()">
-                <table>
-                  <tr>
-                    <td>File name: <input type="text" name="fileName" id="fileName" formControlName="fileName" [(ngModel)]="document.fileName"></td>
-                  </tr>                  
-                  <tr>
-                    <td>
-                      <div class="input-field col s12">
-                        <textarea [(ngModel)]="document.metaDataChunk" formControlName="metaDataChunk">
-                        </textarea>
-                        <label for="metaDataChunk"
-                              [class.active]="document.metaDataChunk">
-                          Metadata
-                        </label>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <button class="btn waves-effect waves-light" type="submit">
-                        Submit<i class="material-icons right">send</i>
-                      </button>
-                    </td>
-                  </tr>            
-                </table>
-             </form>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </td>    
   </tr>
 </table>

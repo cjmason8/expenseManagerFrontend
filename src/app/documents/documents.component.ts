@@ -17,7 +17,6 @@ import {Headers, RequestOptions} from '@angular/http';
 export class DocumentsComponent extends FileComponent {
   private document: Document = new Document();
   private documents: Document[] = [];
-  currentFolderPath: string;
   directoryForm: FormGroup;
   fileForm: FormGroup;
   directory: Document = new Document();
@@ -49,7 +48,7 @@ export class DocumentsComponent extends FileComponent {
       this.documentsService.getDocuments("/docs/expenseManager/filofax")
         .subscribe(data => {
           this.documents = data;
-          this.currentFolderPath = "/docs/expenseManager/filofax";
+          this.documentsService.currentFolderPath = "/docs/expenseManager/filofax";
         });
     });
  }
@@ -60,13 +59,13 @@ export class DocumentsComponent extends FileComponent {
       this.documentsService.getDocuments(folderPath)
         .subscribe(data => {
           this.documents = data;
-          this.currentFolderPath = folderPath;
+          this.documentsService.currentFolderPath = folderPath;
         });
     });
   }
 
   openParentFolder() {
-    this.openFolder(this.currentFolderPath.substring(0, this.currentFolderPath.lastIndexOf('/')));
+    this.openFolder(this.documentsService.currentFolderPath.substring(0, this.documentsService.currentFolderPath.lastIndexOf('/')));
   }
 
   postFileChange(document) {
@@ -79,14 +78,14 @@ export class DocumentsComponent extends FileComponent {
     let options = new RequestOptions({ headers: headers });
 
     if (this.directoryAction === "Create") {
-      this.directory.folderPath = this.currentFolderPath;
+      this.directory.folderPath = this.documentsService.currentFolderPath;
       this.documentsService.createDirectory(this.directory, options)
         .subscribe(data => {
             this.documentsService.getDocuments(data.filePath)
           .subscribe(data2 => {
             this.documents = data2;
             this.directory = new Document();
-            this.currentFolderPath = data.filePath;
+            this.documentsService.currentFolderPath = data.filePath;
           });
         });
     } else {
@@ -96,7 +95,7 @@ export class DocumentsComponent extends FileComponent {
           .subscribe(data2 => {
             this.documents = data2;
             this.directory = new Document();
-            this.currentFolderPath = data.filePath;
+            this.documentsService.currentFolderPath = data.filePath;
             this.directoryAction = "Create";
           });
         });      
@@ -104,8 +103,8 @@ export class DocumentsComponent extends FileComponent {
   }
 
   getDirectory() {
-    return !this.currentFolderPath || this.currentFolderPath === '/docs/expenseManager/filofax'?"/"
-            :this.currentFolderPath.replace('/docs/expenseManager/filofax/', '/');
+    return !this.documentsService.currentFolderPath || this.documentsService.currentFolderPath === '/docs/expenseManager/filofax'?"/"
+            :this.documentsService.currentFolderPath.replace('/docs/expenseManager/filofax/', '/');
   }
 
   saveFile() {
@@ -162,10 +161,14 @@ export class DocumentsComponent extends FileComponent {
                 .subscribe(data2 => {
                   this.documents = data2;
                   this.directory = new Document();
-                  this.currentFolderPath = data.filePath;
+                  this.documentsService.currentFolderPath = data.filePath;
               });
             });
       }
+  }
+
+  move() {
+    this.router.navigate(['documents/move']);
   }
 
 }

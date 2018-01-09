@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DocumentsComponent } from './documents.component';
+import { DocumentsMoveComponent } from './documents.move.component';
 import { DocumentsService } from './shared/documents.service';
 
 @NgModule({
@@ -12,10 +13,12 @@ import { DocumentsService } from './shared/documents.service';
     ReactiveFormsModule
   ],
   declarations: [
-    DocumentsComponent
+    DocumentsComponent,
+    DocumentsMoveComponent
   ],
   exports: [
-    DocumentsComponent
+    DocumentsComponent,
+    DocumentsMoveComponent
   ],
   providers: [
     DocumentsService
