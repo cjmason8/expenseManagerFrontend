@@ -68,4 +68,13 @@ export class DocumentsMoveComponent extends FileComponent {
  readyToMove(id) {
    return this.documentMove.fileIds.indexOf(id) > -1;
  }
+
+ moveFiles() {
+  var result = this.documentsService.moveFiles(this.documentMove);
+
+  result.subscribe(data => {
+    this.documentsService.currentFolderPath = data.filePath;
+    this.router.navigate(['documents/all']);
+  });    
+}
 }

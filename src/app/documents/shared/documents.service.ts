@@ -99,6 +99,13 @@ export class DocumentsService {
       .map(res => res.json());
   }
 
+  moveFiles(moveFilesDto){
+    var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    var options = new RequestOptions({ headers: headers });
+    return this.http.post(this.documentsUrl + '/move', JSON.stringify(moveFilesDto), options)
+      .map(res => res.json());
+  }
+
   updateDocument(document){
     var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
     var options = new RequestOptions({ headers: headers });
