@@ -74,7 +74,7 @@ export class DocumentsMoveComponent extends FileComponent {
 
   result.subscribe(data => {
     this.documentsService.currentFolderPath = data.filePath;
-    this.router.navigate(['documents/all']);
+    this.router.navigate(['documents/all'], {queryParams: {existingFolder: true}});
   });    
 }
 }

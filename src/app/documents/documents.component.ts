@@ -45,20 +45,28 @@ export class DocumentsComponent extends FileComponent {
  ngOnInit() {
     super.ngOnInit();
 
-    this.route.params.subscribe(params => {
-      this.documentsService.getDocuments("/docs/expenseManager/filofax")
-        .subscribe(data => {
-          this.documents = data;
-          this.documentsService.currentFolderPath = "/docs/expenseManager/filofax";
-        });
+    this.route.queryParams.subscribe(params => {
+      if (params['existingFolder']) {
+        console.log('HERE!!! (' + this.documentsService.currentFolderPath + ')');
+        this.openFolder(this.documentsService.currentFolderPath);
+      }
+      else {
+        this.documentsService.getDocuments("/docs/expenseManager/filofax")
+          .subscribe(data => {
+            this.documents = data;
+            this.documentsService.currentFolderPath = "/docs/expenseManager/filofax";
+          });
+      }
     });
  }
 
   openFolder(folderPath) {
+    console.log('HERE22!!! (' + folderPath + ')');    
     this.documents = [];
     this.route.params.subscribe(params => {
       this.documentsService.getDocuments(folderPath)
         .subscribe(data => {
+          console.log('HERE33!!! (' + data.length + ')');    
           this.documents = data;
           this.documentsService.currentFolderPath = folderPath;
         });
