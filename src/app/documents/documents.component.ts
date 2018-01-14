@@ -47,7 +47,6 @@ export class DocumentsComponent extends FileComponent {
 
     this.route.queryParams.subscribe(params => {
       if (params['existingFolder']) {
-        console.log('HERE!!! (' + this.documentsService.currentFolderPath + ')');
         this.openFolder(this.documentsService.currentFolderPath);
       }
       else {
@@ -61,12 +60,10 @@ export class DocumentsComponent extends FileComponent {
  }
 
   openFolder(folderPath) {
-    console.log('HERE22!!! (' + folderPath + ')');    
     this.documents = [];
     this.route.params.subscribe(params => {
       this.documentsService.getDocuments(folderPath)
         .subscribe(data => {
-          console.log('HERE33!!! (' + data.length + ')');    
           this.documents = data;
           this.documentsService.currentFolderPath = folderPath;
         });

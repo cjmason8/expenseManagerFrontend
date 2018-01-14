@@ -11,6 +11,7 @@ COPY package.json /app/
 
 WORKDIR /app
 
+RUN npm install -g rxjs/operators
 RUN npm install
 RUN npm install -g @angular/cli
 
