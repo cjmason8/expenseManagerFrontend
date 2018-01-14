@@ -11,9 +11,9 @@ COPY package.json /app/
 
 WORKDIR /app
 
-RUN npm install -g rxjs/operators
 RUN npm install
 RUN npm install -g @angular/cli
+RUN npm install @reactivex/rxjs@5.5.3
 
 RUN ng build
 
