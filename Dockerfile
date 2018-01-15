@@ -13,7 +13,6 @@ WORKDIR /app
 
 RUN npm install
 RUN npm install -g @angular/cli
-RUN npm install @reactivex/rxjs@5.5.3
 
 RUN ng build
 
