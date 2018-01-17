@@ -9,7 +9,7 @@ import { AuthenticateService } from '../../shared/authenticate.service';
 import { AuthenticateComponent } from '../../shared/authenticate.component';
 import { BasicValidators } from '../../shared/basic-validators';
 
-import {MdSelectChange} from '@angular/material';
+import {MatSelectChange} from '@angular/material';
 
 @Component({
   selector: 'app-ref-data-form',

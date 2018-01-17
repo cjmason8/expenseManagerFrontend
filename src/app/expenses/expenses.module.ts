@@ -8,9 +8,9 @@ import { ChartModule } from 'angular2-chartjs';
 import { ExpensesComponent } from './expenses.component';
 import { SearchService } from './shared/search.service';
 
-import {MdInputModule, MdButtonModule, MaterialModule, 
-  MdAutocompleteModule, MdOptionModule, MdDatepickerModule, MdNativeDateModule,
-  DateAdapter, NativeDateAdapter, MD_DATE_FORMATS} from '@angular/material';
+import {MatInputModule, MatButtonModule,
+  MatAutocompleteModule, MatOptionModule, MatDatepickerModule, MatNativeDateModule,
+  DateAdapter, NativeDateAdapter} from '@angular/material';
 
 @NgModule({
   imports: [
@@ -19,13 +19,12 @@ import {MdInputModule, MdButtonModule, MaterialModule,
     ReactiveFormsModule,
     RouterModule,
     HttpModule,
-    MdInputModule,
-    MdButtonModule,
-    MaterialModule,
-    MdAutocompleteModule,
-    MdOptionModule,
-    MdDatepickerModule,
-    MdNativeDateModule,
+    MatInputModule,
+    MatButtonModule,
+    MatAutocompleteModule,
+    MatOptionModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     ChartModule
   ],
   declarations: [

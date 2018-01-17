@@ -5,8 +5,8 @@
       <tr>
         <td>
           <div class="input-field col s12">
-            <md-input-container floatPlaceholder="never">
-              <input mdInput [mdAutocomplete]="reactiveAuto" [formControl]="stateCtrl" [(ngModel)]="donation.cause" 
+            <mat-input-container floatPlaceholder="never">
+              <input matInput [matAutocomplete]="reactiveAuto" [formControl]="stateCtrl" [(ngModel)]="donation.cause" 
               [class.invalid]="causeInvalid()" (blur)="causeTouched = true"
               formControlName="cause" size="30">
               <label for="cause"
@@ -14,13 +14,13 @@
                 Cause
               </label>
               <div *ngIf="causeInvalid()" style="color: red">Please select a value</div>
-            </md-input-container>
+            </mat-input-container>
 
-            <md-autocomplete #reactiveAuto="mdAutocomplete" [displayWith]="displayFn">
-              <md-option *ngFor="let causeVal of filteredCauses | async" [value]="causeVal">
+            <mat-autocomplete #reactiveAuto="matAutocomplete" [displayWith]="displayFn">
+              <mat-option *ngFor="let causeVal of filteredCauses | async" [value]="causeVal">
                 <span>{{ causeVal.description }}</span>
-              </md-option>
-            </md-autocomplete>
+              </mat-option>
+            </mat-autocomplete>
 
           </div>
         </td>
@@ -52,11 +52,11 @@
       <tr>
         <td>
           <div class="input-field col s12" id="dueDateDiv">
-            <md-input-container>
-              <input mdInput [mdDatepicker]="dueDatePicker" [(ngModel)]="donation.dueDateString" formControlName="dueDateString">
-              <button mdSuffix [mdDatepickerToggle]="dueDatePicker"></button>
-            </md-input-container>
-            <md-datepicker #dueDatePicker></md-datepicker>
+            <mat-input-container>
+              <input matInput [matDatepicker]="dueDatePicker" [(ngModel)]="donation.dueDateString" formControlName="dueDateString">
+              <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
+            </mat-input-container>
+            <mat-datepicker #dueDatePicker></mat-datepicker>
 
             <label for="dueDateString"
                    [class.active]="donation.dueDateString"

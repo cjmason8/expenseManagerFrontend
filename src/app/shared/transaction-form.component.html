@@ -5,21 +5,21 @@
       <tr>
         <td>
           <div class="input-field col s12">
-            <md-input-container floatPlaceholder="never">
-              <input mdInput [mdAutocomplete]="reactiveAuto" [formControl]="stateCtrl" [(ngModel)]="transaction.transactionType" 
+            <mat-input-container floatPlaceholder="never">
+              <input matInput [matAutocomplete]="reactiveAuto" [formControl]="stateCtrl" [(ngModel)]="transaction.transactionType" 
               formControlName="transactionType" size="30" [class.invalid]="transactionTypeInvalid()" (blur)="transactionTypeTouched = true">
               <label for="transactionType"
                    [class.active]="transaction.transactionType">
               {{transactionType}} Type
             </label>
             <div *ngIf="transactionTypeInvalid()" style="color: red">Please select a value</div>
-            </md-input-container>
+            </mat-input-container>
 
-            <md-autocomplete #reactiveAuto="mdAutocomplete" [displayWith]="displayFn">
-              <md-option *ngFor="let state of filteredTransactionTypes | async" [value]="state" (onSelectionChange)="selectTransactionType(state)">
+            <mat-autocomplete #reactiveAuto="matAutocomplete" [displayWith]="displayFn">
+              <mat-option *ngFor="let state of filteredTransactionTypes | async" [value]="state" (onSelectionChange)="selectTransactionType(state)">
                 <span>{{ state.description }}</span>
-              </md-option>
-            </md-autocomplete>
+              </mat-option>
+            </mat-autocomplete>
 
             
           </div>
@@ -76,11 +76,11 @@
       <tr>
         <td>
           <div class="input-field col s12" id="dueDateDiv">
-            <md-input-container>
-              <input mdInput [mdDatepicker]="dueDatePicker" [(ngModel)]="transaction.dueDateString" formControlName="dueDateString">
-              <button mdSuffix [mdDatepickerToggle]="dueDatePicker"></button>
-            </md-input-container>
-            <md-datepicker #dueDatePicker></md-datepicker>
+            <mat-input-container>
+              <input matInput [matDatepicker]="dueDatePicker" [(ngModel)]="transaction.dueDateString" formControlName="dueDateString">
+              <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
+            </mat-input-container>
+            <mat-datepicker #dueDatePicker></mat-datepicker>
 
             <label for="dueDateString"
                    [class.active]="transaction.dueDateString"
@@ -159,21 +159,21 @@
       <tr>
         <td>
           <div class="input-field col s12">
-            <md-input-container floatPlaceholder="never">
-              <input mdInput [mdAutocomplete]="reactiveAuto2" [formControl]="stateCtrl2" [(ngModel)]="transaction.recurringType" formControlName="recurringType"
+            <mat-input-container floatPlaceholder="never">
+              <input matInput [matAutocomplete]="reactiveAuto2" [formControl]="stateCtrl2" [(ngModel)]="transaction.recurringType" formControlName="recurringType"
               [class.invalid]="recurringTypeInvalid()" (blur)="recurringTypeTouched = true">
               <label for="recurringType"
                    [class.active]="transaction.recurringType">
               Recurring Type
             </label>
             <div *ngIf="recurringTypeInvalid()" style="color: red">Please select a value</div>
-            </md-input-container>
+            </mat-input-container>
 
-            <md-autocomplete #reactiveAuto2="mdAutocomplete" [displayWith]="displayFn">
-              <md-option *ngFor="let state of filteredRecurringTypes | async" [value]="state">
+            <mat-autocomplete #reactiveAuto2="matAutocomplete" [displayWith]="displayFn">
+              <mat-option *ngFor="let state of filteredRecurringTypes | async" [value]="state">
                 <span>{{ state.description }}</span>
-              </md-option>
-            </md-autocomplete>            
+              </mat-option>
+            </mat-autocomplete>            
 
             
           </div>
@@ -186,11 +186,11 @@
       <tr>
         <td>
           <div class="input-field col s12">
-            <md-input-container>
-              <input mdInput [mdDatepicker]="startDatePicker" [(ngModel)]="transaction.startDateString" formControlName="startDateString">
-              <button mdSuffix [mdDatepickerToggle]="startDatePicker"></button>
-            </md-input-container>
-            <md-datepicker #startDatePicker></md-datepicker>
+            <mat-input-container>
+              <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="transaction.startDateString" formControlName="startDateString">
+              <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+            </mat-input-container>
+            <mat-datepicker #startDatePicker></mat-datepicker>
 
             <label for="startDateString"
                    [class.active]="transaction.startDateString"
@@ -201,11 +201,11 @@
         </td>
         <td>
           <div class="input-field col s12">
-            <md-input-container>
-              <input mdInput [mdDatepicker]="endDatePicker" [(ngModel)]="transaction.endDateString" formControlName="endDateString">
-              <button mdSuffix [mdDatepickerToggle]="endDatePicker"></button>
-            </md-input-container>
-            <md-datepicker #endDatePicker></md-datepicker>
+            <mat-input-container>
+              <input matInput [matDatepicker]="endDatePicker" [(ngModel)]="transaction.endDateString" formControlName="endDateString">
+              <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+            </mat-input-container>
+            <mat-datepicker #endDatePicker></mat-datepicker>
 
             <label for="endDateString"
                    [class.active]="transaction.endDateString">

@@ -8,17 +8,18 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^4.3.2",
-    "@angular/cdk": "2.0.0-beta.8",
-    "@angular/common": "4.3.2",
-    "@angular/compiler": "4.3.2",
-    "@angular/core": "4.3.2",
-    "@angular/forms": "4.3.2",
-    "@angular/http": "4.3.2",
-    "@angular/material": "2.0.0-beta.8",
-    "@angular/platform-browser": "4.3.2",
-    "@angular/platform-browser-dynamic": "4.3.2",
-    "@angular/router": "4.3.2",
+    "@angular/animations": "^5.0.0",
+    "@angular/cdk": "5.0.4",
+    "@angular/cli": "^1.5.5",
+    "@angular/common": "^5.0.0",
+    "@angular/compiler": "^5.0.0",
+    "@angular/core": "^5.0.0",
+    "@angular/forms": "^5.0.0",
+    "@angular/http": "^5.0.0",
+    "@angular/material": "^5.0.0",
+    "@angular/platform-browser": "^5.0.0",
+    "@angular/platform-browser-dynamic": "^5.0.0",
+    "@angular/router": "^5.0.0",
     "@types/chart.js": "^2.6.3",
     "@types/node": "^7.0.5",
     "angular2-chartjs": "^0.3.0",
@@ -32,13 +33,12 @@
     "ngx-bootstrap": "^1.8.0",
     "rxjs": "^5.5.2",
     "ts-helpers": "^1.1.2",
-    "zone.js": "^0.8.16",
-    "@angular/cli": "^1.5.5"
+    "zone.js": "^0.8.16"
   },
   "devDependencies": {
-    "@angular/compiler-cli": "4.3.2",
+    "@angular/compiler-cli": "^5.0.0",
     "ts-node": "3.3.0",
     "tslint": "5.5.0",
-    "typescript": "2.3.4"
+    "typescript": "^2.4.0"
   }
 }

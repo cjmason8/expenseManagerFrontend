@@ -8,9 +8,9 @@ import { RefDatasComponent } from './ref-datas.component';
 import { RefDatasService } from './shared/ref-datas.service';
 import { RefDataFormComponent } from './ref-data-form/ref-data-form.component';
 
-import {MdInputModule, MdButtonModule, MaterialModule, 
-  MdAutocompleteModule, MdOptionModule, MdDatepickerModule, MdNativeDateModule,
-  DateAdapter, NativeDateAdapter, MD_DATE_FORMATS} from '@angular/material';
+import {MatSelectModule, MatInputModule, MatButtonModule,
+  MatAutocompleteModule, MatOptionModule, MatDatepickerModule, MatNativeDateModule,
+  DateAdapter, NativeDateAdapter} from '@angular/material';
 
 @NgModule({
   imports: [
@@ -19,13 +19,13 @@ import {MdInputModule, MdButtonModule, MaterialModule,
     ReactiveFormsModule,
     RouterModule,
     HttpModule,
-    MdInputModule,
-    MdButtonModule,
-    MaterialModule,
-    MdAutocompleteModule,
-    MdOptionModule,
-    MdDatepickerModule,
-    MdNativeDateModule
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatAutocompleteModule,
+    MatOptionModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   declarations: [
     RefDatasComponent,

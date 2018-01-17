@@ -5,11 +5,11 @@
       <tr>
         <td>
           <div class="input-field col s12">
-            <md-select placeholder="Type" [(ngModel)]="refData.type" formControlName="type" size="30">
-                <md-option *ngFor="let type of types" [value]="type.value" [disabled]="type.disabled">
+            <mat-select placeholder="Type" [(ngModel)]="refData.type" formControlName="type" size="30">
+                <mat-option *ngFor="let type of types" [value]="type.value" [disabled]="type.disabled">
                   {{ type.viewValue }}
-                </md-option>
-          </md-select>
+                </mat-option>
+          </mat-select>
           </div>
         </td>
         <td>

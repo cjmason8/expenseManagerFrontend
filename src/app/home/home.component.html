@@ -5,11 +5,11 @@
     <td width="15%"><a [routerLink]="['/', previousWeek]"><i class="material-icons">navigate_before</i>Prev</a></td>
     <td width="15%"><a [routerLink]="['/', nextWeek]">Next<i class="material-icons">navigate_next</i></a></td>
     <td width="20%">
-      <md-input-container>
-        <input mdInput [mdDatepicker]="gotoDatePicker" [(ngModel)]="dateString" formControlName="dateString" id="dateString" (ngModelChange)="gotoWeek()">
-        <button mdSuffix [mdDatepickerToggle]="gotoDatePicker"></button>
-      </md-input-container>
-      <md-datepicker #gotoDatePicker></md-datepicker>
+      <mat-input-container>
+        <input matInput [matDatepicker]="gotoDatePicker" [(ngModel)]="dateString" formControlName="dateString" id="dateString" (ngModelChange)="gotoWeek()">
+        <mat-datepicker-toggle matSuffix [for]="gotoDatePicker"></mat-datepicker-toggle>
+      </mat-input-container>
+      <mat-datepicker #gotoDatePicker></mat-datepicker>
     </td>
   </tr>
 </table>

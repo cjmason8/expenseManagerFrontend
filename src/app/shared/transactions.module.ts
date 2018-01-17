@@ -10,9 +10,9 @@ import { MyDateAdapter, MY_DATE_FORMATS } from './mydate.adapter';
 import { ExpenseFormComponent } from '../expenses/expense-form/expense-form.component';
 import { IncomeFormComponent } from '../incomes/income-form/income-form.component';
 
-import {MdInputModule, MdButtonModule, MaterialModule, 
-  MdAutocompleteModule, MdOptionModule, MdDatepickerModule, MdNativeDateModule,
-  DateAdapter, NativeDateAdapter, MD_DATE_FORMATS} from '@angular/material';
+import {MatInputModule, MatButtonModule,
+  MatAutocompleteModule, MatOptionModule, MatDatepickerModule, MatNativeDateModule,
+  DateAdapter, NativeDateAdapter} from '@angular/material';
 
 @NgModule({
   imports: [
@@ -21,13 +21,12 @@ import {MdInputModule, MdButtonModule, MaterialModule,
     ReactiveFormsModule,
     RouterModule,
     HttpModule,
-    MdInputModule,
-    MdButtonModule,
-    MaterialModule,
-    MdAutocompleteModule,
-    MdOptionModule,
-    MdDatepickerModule,
-    MdNativeDateModule
+    MatInputModule,
+    MatButtonModule,
+    MatAutocompleteModule,
+    MatOptionModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   declarations: [
     ExpenseFormComponent,
@@ -38,8 +37,7 @@ import {MdInputModule, MdButtonModule, MaterialModule,
   providers: [
     ExpensesService,
     IncomesService,
-    {provide: DateAdapter, useClass: MyDateAdapter},
-    {provide: MD_DATE_FORMATS, useValue: MY_DATE_FORMATS},
+    {provide: DateAdapter, useClass: MyDateAdapter}
   ]
 })
 export class TransactionsModule { }

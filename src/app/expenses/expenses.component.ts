@@ -91,6 +91,7 @@ export class ExpensesComponent extends FileComponent {
   }
 
   filterExpenseTypes(val: string) {
+    console.log('val - ' + val);
     if (val) {
       const filterValue = val.toLowerCase();
       return this.expenseTypes.filter(state => state.description.toLowerCase().indexOf(filterValue) != -1);

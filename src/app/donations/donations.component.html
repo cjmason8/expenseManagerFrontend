@@ -4,20 +4,20 @@
       <tr>
         <td>
           <div class="input-field col s12">
-            <md-input-container floatPlaceholder="never">
-              <input mdInput [mdAutocomplete]="reactiveAuto" [formControl]="stateCtrl" [(ngModel)]="donationSearch.cause"
+            <mat-input-container floatPlaceholder="never">
+              <input matInput [matAutocomplete]="reactiveAuto" [formControl]="stateCtrl" [(ngModel)]="donationSearch.cause"
               formControlName="cause" size="30">
               <label for="cause"
                    [class.active]="donationSearch.cause">
                 Cause
               </label>
-            </md-input-container>
+            </mat-input-container>
 
-            <md-autocomplete #reactiveAuto="mdAutocomplete" [displayWith]="displayFn">
-              <md-option *ngFor="let causeVal of filteredCauses | async" [value]="causeVal">
+            <mat-autocomplete #reactiveAuto="matAutocomplete" [displayWith]="displayFn">
+              <mat-option *ngFor="let causeVal of filteredCauses | async" [value]="causeVal">
                 <span>{{ causeVal.description }}</span>
-              </md-option>
-            </md-autocomplete>
+              </mat-option>
+            </mat-autocomplete>
 
           </div>
         </td>
@@ -42,11 +42,11 @@
       <tr>
         <td>
           <div class="input-field col s4">
-            <md-input-container>
-              <input mdInput [mdDatepicker]="startDatePicker" [(ngModel)]="donationSearch.startDate" formControlName="startDate">
-              <button mdSuffix [mdDatepickerToggle]="startDatePicker"></button>
-            </md-input-container>
-            <md-datepicker #startDatePicker></md-datepicker>
+            <mat-input-container>
+              <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="donationSearch.startDate" formControlName="startDate">
+              <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+            </mat-input-container>
+            <mat-datepicker #startDatePicker></mat-datepicker>
 
             <label for="startDate"
                   [class.active]="donationSearch.startDate">
@@ -54,11 +54,11 @@
             </label>
           </div>
           <div class="input-field col s4">
-            <md-input-container>
-              <input mdInput [mdDatepicker]="endDatePicker" [(ngModel)]="donationSearch.endDate" formControlName="endDate">
-              <button mdSuffix [mdDatepickerToggle]="endDatePicker"></button>
-            </md-input-container>
-            <md-datepicker #endDatePicker></md-datepicker>
+            <mat-input-container>
+              <input matInput [matDatepicker]="endDatePicker" [(ngModel)]="donationSearch.endDate" formControlName="endDate">
+              <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>              
+            </mat-input-container>
+            <mat-datepicker #endDatePicker></mat-datepicker>
 
             <label for="endDate"
                   [class.active]="donationSearch.endDate">
