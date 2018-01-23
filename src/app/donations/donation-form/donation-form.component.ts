@@ -85,7 +85,7 @@ export class DonationFormComponent extends FileComponent {
         .subscribe(
           donation => {
             this.donation = donation;
-            this.dueDate = moment(this.donation.dueDateString, 'DD-MM-YYYY').toDate();
+            this.dueDate = this.donation.dueDateString ? moment(this.donation.dueDateString, 'DD-MM-YYYY').toDate() : null;
           },
           response => {
             if (response.status == 404) {
@@ -97,7 +97,7 @@ export class DonationFormComponent extends FileComponent {
 
   save() {
     var result;
-    this.donation.dueDateString = moment(this.dueDate).format('DD-MM-YYYY');
+    this.donation.dueDateString = this.dueDate ? moment(this.dueDate).format('DD-MM-YYYY') : null;
 
     if (this.donation.id){
       result = this.donationsService.updateDonation(this.donation);

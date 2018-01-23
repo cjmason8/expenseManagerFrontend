@@ -50,11 +50,15 @@ export class ExpenseFormComponent extends TransactionFormComponent implements On
           expense => {
             this.transaction = expense;
 
-            console.log('this.transaction.dueDateString - ' + this.transaction.dueDateString);
-            this.dueDate = moment(this.transaction.dueDateString, 'DD-MM-YYYY').toDate();
-            console.log('dueDate - ' + this.dueDate);
-            this.startDate = moment(this.transaction.startDateString, 'DD-MM-YYYY').toDate();
-            this.endDate = moment(this.transaction.endDateString, 'DD-MM-YYYY').toDate();
+            if (this.transaction.dueDateString) {
+              this.dueDate = moment(this.transaction.dueDateString, 'DD-MM-YYYY').toDate();
+            }
+            if (this.transaction.startDateString) {
+              this.startDate = moment(this.transaction.startDateString, 'DD-MM-YYYY').toDate();
+            }
+            if (this.transaction.endDateString) {
+              this.endDate = moment(this.transaction.endDateString, 'DD-MM-YYYY').toDate();
+            }
 
             if (this.transaction.recurringType) {
               document.forms[0]['recurring'].checked = true;
@@ -74,9 +78,9 @@ export class ExpenseFormComponent extends TransactionFormComponent implements On
 
   save() {
     var result;
-    this.transaction.dueDateString = moment(this.dueDate).format('DD-MM-YYYY');
-    this.transaction.startDateString = moment(this.startDate).format('DD-MM-YYYY');
-    this.transaction.endDateString = moment(this.endDate).format('DD-MM-YYYY');
+    this.transaction.dueDateString = this.dueDate ? moment(this.dueDate).format('DD-MM-YYYY') : null;
+    this.transaction.startDateString = this.startDate ? moment(this.startDate).format('DD-MM-YYYY') : null;
+    this.transaction.endDateString = this.endDate ? moment(this.endDate).format('DD-MM-YYYY') : null;
 
     if (this.transaction.id){
       result = this.expensesService.updateExpense(this.transaction);
