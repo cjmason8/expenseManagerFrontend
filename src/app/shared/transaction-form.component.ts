@@ -38,6 +38,10 @@ export class TransactionFormComponent extends FileComponent {
   filteredTransactionTypes: any;
   filteredRecurringTypes: any;
 
+  dueDate: Date;
+  startDate: Date;
+  endDate: Date;
+
   constructor(
     private formBuilder: FormBuilder,
     router: Router,
@@ -56,12 +60,12 @@ export class TransactionFormComponent extends FileComponent {
         Validators.required,
         Validators.pattern('[0-9]+(\.[0-9][0-9])?')
       ]],
-      dueDateString: ['', []],
+      dueDateField: ['', []],
       paid: ['', []],
       recurring: ['', []],      
       recurringType: ['', []],
-      startDateString: ['', []],
-      endDateString: ['', []],
+      startDateField: ['', []],
+      endDateField: ['', []],
       notes: ['', []],
       fileName: ['', []],
       metaDataChunk: ['', []]
@@ -94,7 +98,7 @@ export class TransactionFormComponent extends FileComponent {
   }
 
   validateForm() {
-    return !this.form.valid || (!this.form.controls['dueDateString'].value && !this.form.controls['recurring'] && !this.form.controls['recurring'].value);
+    return !this.form.controls['transactionType'].valid || !this.form.controls['amount'].valid;
   }
 
   ngOnInit() {

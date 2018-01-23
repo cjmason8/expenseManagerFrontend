@@ -10,6 +10,7 @@ import { ExpensesService } from '../shared/expenses.service';
 import { AuthenticateService } from '../../shared/authenticate.service';
 import { RefDatasService } from '../../ref-data/shared/ref-datas.service';
 import { BasicValidators } from '../../shared/basic-validators';
+import * as moment from 'moment';
 
 import { TransactionFormComponent } from '../../shared/transaction-form.component';
 
@@ -48,6 +49,13 @@ export class ExpenseFormComponent extends TransactionFormComponent implements On
         .subscribe(
           expense => {
             this.transaction = expense;
+
+            console.log('this.transaction.dueDateString - ' + this.transaction.dueDateString);
+            this.dueDate = moment(this.transaction.dueDateString, 'DD-MM-YYYY').toDate();
+            console.log('dueDate - ' + this.dueDate);
+            this.startDate = moment(this.transaction.startDateString, 'DD-MM-YYYY').toDate();
+            this.endDate = moment(this.transaction.endDateString, 'DD-MM-YYYY').toDate();
+
             if (this.transaction.recurringType) {
               document.forms[0]['recurring'].checked = true;
               document.getElementById('recurringTable').style.display = 'block';
@@ -66,6 +74,9 @@ export class ExpenseFormComponent extends TransactionFormComponent implements On
 
   save() {
     var result;
+    this.transaction.dueDateString = moment(this.dueDate).format('DD-MM-YYYY');
+    this.transaction.startDateString = moment(this.startDate).format('DD-MM-YYYY');
+    this.transaction.endDateString = moment(this.endDate).format('DD-MM-YYYY');
 
     if (this.transaction.id){
       result = this.expensesService.updateExpense(this.transaction);

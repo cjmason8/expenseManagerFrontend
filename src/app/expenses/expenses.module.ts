@@ -5,12 +5,13 @@ import { RouterModule }  from '@angular/router';
 import { HttpModule }  from '@angular/http';
 import { ChartModule } from 'angular2-chartjs';
 
+import { MyDateAdapter, MY_DATE_FORMATS } from '../shared/mydate.adapter';
 import { ExpensesComponent } from './expenses.component';
 import { SearchService } from './shared/search.service';
 
 import {MatInputModule, MatButtonModule,
   MatAutocompleteModule, MatOptionModule, MatDatepickerModule, MatNativeDateModule,
-  DateAdapter, NativeDateAdapter} from '@angular/material';
+  DateAdapter, NativeDateAdapter, MAT_DATE_FORMATS} from '@angular/material';
 
 @NgModule({
   imports: [
@@ -34,7 +35,9 @@ import {MatInputModule, MatButtonModule,
     ExpensesComponent
   ],
   providers: [
-    SearchService
+    SearchService,
+    {provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS},
+    {provide: DateAdapter, useClass: MyDateAdapter}
   ]
 })
 export class ExpensesModule { }

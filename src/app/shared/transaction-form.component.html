@@ -76,15 +76,13 @@
       <tr>
         <td>
           <div class="input-field col s12" id="dueDateDiv">
-            <mat-input-container>
-              <input matInput [matDatepicker]="dueDatePicker" [(ngModel)]="transaction.dueDateString" formControlName="dueDateString">
+            <mat-form-field>
+              <input matInput [matDatepicker]="dueDatePicker" [(ngModel)]="dueDate" formControlName="dueDateField">
               <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
-            </mat-input-container>
-            <mat-datepicker #dueDatePicker></mat-datepicker>
+              <mat-datepicker #dueDatePicker></mat-datepicker>
+            </mat-form-field>
 
-            <label for="dueDateString"
-                   [class.active]="transaction.dueDateString"
-                   data-error="Due Date is required">
+            <label for="dueDate">
               Due Date
             </label>
           </div>
@@ -186,29 +184,27 @@
       <tr>
         <td>
           <div class="input-field col s12">
-            <mat-input-container>
-              <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="transaction.startDateString" formControlName="startDateString">
+            <mat-form-field>
+              <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="startDate" formControlName="startDateField">
               <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
-            </mat-input-container>
-            <mat-datepicker #startDatePicker></mat-datepicker>
+              <mat-datepicker #startDatePicker></mat-datepicker>
+            </mat-form-field>
 
-            <label for="startDateString"
-                   [class.active]="transaction.startDateString"
-                   data-error="Start Date is required">
+            <label for="startDate">
               Start Date
             </label>
           </div>
         </td>
         <td>
           <div class="input-field col s12">
-            <mat-input-container>
-              <input matInput [matDatepicker]="endDatePicker" [(ngModel)]="transaction.endDateString" formControlName="endDateString">
+            <mat-form-field>
+              <input matInput [matDatepicker]="endDatePicker" [(ngModel)]="endDate" formControlName="endDateField">
               <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
-            </mat-input-container>
-            <mat-datepicker #endDatePicker></mat-datepicker>
+              <mat-datepicker #endDatePicker></mat-datepicker>
+            </mat-form-field>
+            
 
-            <label for="endDateString"
-                   [class.active]="transaction.endDateString">
+            <label for="endDate">
               End Date
             </label>
           </div>

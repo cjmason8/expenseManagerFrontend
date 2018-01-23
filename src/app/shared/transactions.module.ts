@@ -12,7 +12,7 @@ import { IncomeFormComponent } from '../incomes/income-form/income-form.componen
 
 import {MatInputModule, MatButtonModule,
   MatAutocompleteModule, MatOptionModule, MatDatepickerModule, MatNativeDateModule,
-  DateAdapter, NativeDateAdapter} from '@angular/material';
+  DateAdapter, NativeDateAdapter, MAT_DATE_FORMATS} from '@angular/material';
 
 @NgModule({
   imports: [
@@ -37,6 +37,7 @@ import {MatInputModule, MatButtonModule,
   providers: [
     ExpensesService,
     IncomesService,
+    {provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS},
     {provide: DateAdapter, useClass: MyDateAdapter}
   ]
 })

@@ -10,7 +10,7 @@ import { DonationFormComponent } from './donation-form/donation-form.component';
 
 import {MatInputModule, MatButtonModule,
   MatAutocompleteModule, MatOptionModule, MatDatepickerModule, MatNativeDateModule,
-  DateAdapter, NativeDateAdapter} from '@angular/material';
+  DateAdapter, NativeDateAdapter, MAT_DATE_FORMATS} from '@angular/material';
 
 @NgModule({
   imports: [

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 import {Headers, RequestOptions} from '@angular/http';
+import * as moment from 'moment';
 
 import { RefData } from '../../ref-data/shared/ref-data';
 import { Donation } from '../shared/donation';
@@ -29,6 +30,8 @@ export class DonationFormComponent extends FileComponent {
   filteredCauses: any;
   stateCtrl: FormControl;
 
+  dueDate: Date;
+
   constructor(
     formBuilder: FormBuilder,
     router: Router,
@@ -45,7 +48,7 @@ export class DonationFormComponent extends FileComponent {
       cause: ['', [
         Validators.required
       ]],
-      dueDateString: ['', [Validators.required]],
+      dueDateField: ['', [Validators.required]],
       description: ['', [Validators.required]],
       notes: ['', []],
       metaDataChunk: ['', []],
@@ -80,7 +83,10 @@ export class DonationFormComponent extends FileComponent {
 
       this.donationsService.getDonation(id)
         .subscribe(
-          donation => this.donation = donation,
+          donation => {
+            this.donation = donation;
+            this.dueDate = moment(this.donation.dueDateString, 'DD-MM-YYYY').toDate();
+          },
           response => {
             if (response.status == 404) {
               this.goto('NotFound');
@@ -91,6 +97,7 @@ export class DonationFormComponent extends FileComponent {
 
   save() {
     var result;
+    this.donation.dueDateString = moment(this.dueDate).format('DD-MM-YYYY');
 
     if (this.donation.id){
       result = this.donationsService.updateDonation(this.donation);

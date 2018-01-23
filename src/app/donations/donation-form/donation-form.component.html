@@ -53,13 +53,13 @@
         <td>
           <div class="input-field col s12" id="dueDateDiv">
             <mat-input-container>
-              <input matInput [matDatepicker]="dueDatePicker" [(ngModel)]="donation.dueDateString" formControlName="dueDateString">
+              <input matInput [matDatepicker]="dueDatePicker" [(ngModel)]="dueDate" formControlName="dueDateField">
               <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
             </mat-input-container>
             <mat-datepicker #dueDatePicker></mat-datepicker>
 
-            <label for="dueDateString"
-                   [class.active]="donation.dueDateString"
+            <label for="dueDate"
+                   [class.active]="dueDate"
                    data-error="Due Date is required">
               Due Date
             </label>
