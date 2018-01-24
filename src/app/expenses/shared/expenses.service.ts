@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, RequestOptions, Http } from '@angular/http';
+import { Headers, RequestOptions } from '@angular/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -8,13 +8,15 @@ import { Observable } from 'rxjs/Rx';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../../environments/environment'
 
+import { HttpInterceptor } from "../../shared/http.interceptor"
+
 @Injectable()
 export class ExpensesService {
 
   private url: string = environment.backendEndPoint;
   private expensesUrl: string = environment.backendEndPoint + "/expenses";
 
-  constructor(private http: Http,
+  constructor(private http: HttpInterceptor,
       private router: Router,
       private route: ActivatedRoute) { }
 

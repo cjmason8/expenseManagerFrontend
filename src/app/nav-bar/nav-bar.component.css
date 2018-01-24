@@ -3,3 +3,8 @@
   font-weight: bold;
   font-size: large;
 }
+.errMsg {
+  color: red;
+  font-weight: bold;
+  font-size: large;
+}

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, RequestOptions, Http } from '@angular/http';
+import { Headers, RequestOptions } from '@angular/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -9,13 +9,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'angular2-cookie/core';
 import { environment } from '../../environments/environment'
 
+import { HttpInterceptor } from "./http.interceptor"
+
 @Injectable()
 export class AuthenticateService {
 
   authenticated: boolean = false;
   user: string = "";
 
-  constructor(private http: Http,
+  constructor(private http: HttpInterceptor,
       private router: Router,
       private route: ActivatedRoute,
       private _cookieService:CookieService) { }

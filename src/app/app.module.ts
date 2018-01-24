@@ -22,6 +22,8 @@ import { DocumentsModule } from "./documents/documents.module";
 import { AuthenticateService } from './shared/authenticate.service';
 import { DocumentsService } from './documents/shared/documents.service';
 
+import { HttpInterceptor } from "./shared/http.interceptor"
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +44,7 @@ import { DocumentsService } from './documents/shared/documents.service';
     ExpensesModule,
     routing
   ],
-  providers: [DocumentsService, AuthenticateService, CookieService],
+  providers: [DocumentsService, AuthenticateService, CookieService, HttpInterceptor],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
