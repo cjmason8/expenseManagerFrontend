@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 import { DocumentsService } from '../../documents/shared/documents.service';
 import {Headers, RequestOptions} from '@angular/http';
+import * as moment from 'moment';
 
 import { Income } from '../shared/income';
 import { IncomesService } from '../shared/incomes.service';
@@ -48,6 +49,17 @@ export class IncomeFormComponent extends TransactionFormComponent implements OnI
         .subscribe(
           income => {
             this.transaction = income;
+
+            if (this.transaction.dueDateString) {
+              this.dueDate = moment(this.transaction.dueDateString, 'DD-MM-YYYY').toDate();
+            }
+            if (this.transaction.startDateString) {
+              this.startDate = moment(this.transaction.startDateString, 'DD-MM-YYYY').toDate();
+            }
+            if (this.transaction.endDateString) {
+              this.endDate = moment(this.transaction.endDateString, 'DD-MM-YYYY').toDate();
+            }
+
             if (this.transaction.recurringType) {
               document.forms[0]['recurring'].checked = true;
               document.getElementById('recurringTable').style.display = 'block';
@@ -64,6 +76,10 @@ export class IncomeFormComponent extends TransactionFormComponent implements OnI
 
   save() {
     var result;
+
+    this.transaction.dueDateString = this.dueDate ? moment(this.dueDate).format('DD-MM-YYYY') : null;
+    this.transaction.startDateString = this.startDate ? moment(this.startDate).format('DD-MM-YYYY') : null;
+    this.transaction.endDateString = this.endDate ? moment(this.endDate).format('DD-MM-YYYY') : null;
 
     if (this.transaction.id){
       result = this.incomesService.updateIncome(this.transaction);
