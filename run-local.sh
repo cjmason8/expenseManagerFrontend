@@ -6,4 +6,6 @@ export BACKEND_END_POINT
 
 npm install
 
+ng build
+
 ng serve
