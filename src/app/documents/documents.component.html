@@ -25,9 +25,11 @@
       <table>
         <tbody>
           <tr *ngFor="let document of documents">
-            <td *ngIf="!document.isFolder" width="70%" class="fileClass">{{ document.fileName }}</td>
-            <td *ngIf="document.isFolder" width="70%" class="folderClass">{{ document.fileName }}</td>
-            <td width="10%">
+            <td *ngIf="!document.isFolder" width="45%" class="fileClass">{{ document.fileName }}</td>
+            <td *ngIf="document.isFolder" width="45%" class="folderClass">{{ document.fileName }}</td>
+            <td width="15%">
+            </td>
+            <td width="7%">
                 <a *ngIf="!document.isFolder" (click)="viewDocumentation(document)" class="pointer">
                   <i class="material-icons">open_in_browser</i>
                 </a>
@@ -35,12 +37,12 @@
                   <i class="material-icons">folder_open</i>
                 </a>          
             </td>
-            <td width="10">
+            <td width="7%">
               <a (click)="editDocument(document)" class="pointer">
                 <i class="material-icons">mode_edit</i>
               </a>
             </td>
-            <td width="10">
+            <td width="10%">
               <a (click)="deleteDocument(document)" class="pointer">
                 <i class="material-icons">delete</i>
               </a>
