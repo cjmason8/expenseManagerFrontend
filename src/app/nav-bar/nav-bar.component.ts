@@ -13,7 +13,7 @@ import { HttpInterceptor } from "../shared/http.interceptor"
 export class NavBarComponent implements OnInit {
   loggedIn: boolean = false;
   isAdmin: boolean = false;
-
+  
   constructor(private _cookieService:CookieService, private authenticateService:AuthenticateService,
     private httpInterceptor: HttpInterceptor) { }
 
@@ -34,6 +34,10 @@ export class NavBarComponent implements OnInit {
 
   isAuthenticated() {
     return this.authenticateService.authenticated === true;
+  }
+  
+  hasNotifications() {
+    return this.authenticateService.hasNotifications === true;
   }
 
   getUserGreeting() {

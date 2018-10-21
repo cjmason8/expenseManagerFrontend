@@ -15,6 +15,12 @@
     </ul>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li><a routerLink="/documents/all" routerLinkActive="active">Documents</a></li>
+    </ul>
+    <ul *ngIf="hasNotifications()" id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a routerLink="/notifications/all" routerLinkActive="active" style="color: red"><b>Notifications</b></a></li>
+    </ul>
+    <ul *ngIf="!hasNotifications()" id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a routerLink="/notifications/all" routerLinkActive="active">Notifications</a></li>
     </ul>    
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li><a routerLink="/expenses/search" routerLinkActive="active">Search</a></li>

@@ -13,6 +13,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { routing } from './app.routing';
 import { TransactionsModule } from "./shared/transactions.module";
 import { ExpensesModule } from "./expenses/expenses.module";
+import { NotificationsModule } from "./notifications/notifications.module";
 import { RefDatasModule } from "./ref-data/ref-datas.module";
 import { LoginModule } from "./login/login.module";
 import { HomeModule } from "./home/home.module";
@@ -36,6 +37,7 @@ import { HttpInterceptor } from "./shared/http.interceptor"
     FormsModule,
     HttpModule,
     TransactionsModule,
+    NotificationsModule,
     LoginModule,
     RefDatasModule,
     HomeModule,

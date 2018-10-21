@@ -1,0 +1,30 @@
+<table>
+  <thead>
+  <tr>
+    <th data-field="name">Expense</th>
+    <th data-field="name">Message</th>
+    <th data-field="name">Due Date</th>
+    <th data-field="name">Created</th>
+    <th data-field="name">Link</th>
+    <th data-field="name">Mark Read</th>
+  </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let notification of notifications">
+      <td>{{ notification.expense.transactionType.description }}</td>
+      <td>{{ notification.message }}</td>
+      <td>{{ notification.expense.dueDateString }}</td>
+      <td>{{ notification.createdDateString }}</td>
+      <td><a [routerLink]="['/expenses', notification.expense.id]" routerLinkActive="active">Edit</a></td>
+      <td>
+        <a *ngIf="!notification.read" (click)="markRead(notification)" class="pointer">
+          <i class="material-icons">check_box_outline_blank</i>
+        </a>
+        <a *ngIf="notification.read" (click)="markUnRead(notification)" class="pointer">
+          <i class="material-icons">check_box</i>
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>

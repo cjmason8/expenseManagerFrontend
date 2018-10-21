@@ -15,6 +15,8 @@ import { HttpInterceptor } from "./http.interceptor"
 export class AuthenticateService {
 
   authenticated: boolean = false;
+  hasNotifications: boolean = false;
+  notifications: Notification[] = [];
   user: string = "";
 
   constructor(private http: HttpInterceptor,
@@ -27,6 +29,11 @@ export class AuthenticateService {
       this.authenticated = false;
       this.router.navigate(['login']);
     }
+
+    this.http.get(environment.backendEndPoint + "/notifications")
+      .map(res => res.json()).subscribe(data => {
+        this.hasNotifications = data.length > 0;
+      });
 
     return this.http.get(environment.backendEndPoint + "/users/" + token + "/authenticate")
       .map(res => res.json())
