@@ -1,5 +1,0 @@
-expenseManagerFrontend:
-  image: cjmason8/expense-manager-frontend:latest
-  volumes:
-    - /applogs:/applogs
-
