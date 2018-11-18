@@ -12,11 +12,14 @@
 
   <tbody>
     <tr *ngFor="let notification of notifications">
-      <td>{{ notification.expense.transactionType.description }}</td>
+      <td *ngIf="notification.expense.transactionType">{{ notification.expense.transactionType.description }}</td>
+      <td *ngIf="!notification.expense.transactionType">N/A</td>
       <td>{{ notification.message }}</td>
-      <td>{{ notification.expense.dueDateString }}</td>
+      <td *ngIf="notification.expense">{{ notification.expense.dueDateString }}</td>
+      <td *ngIf="!notification.expense">N/A</td>
       <td>{{ notification.createdDateString }}</td>
-      <td><a [routerLink]="['/expenses', notification.expense.id]" routerLinkActive="active">Edit</a></td>
+      <td *ngIf="notification.expense"><a [routerLink]="['/expenses', notification.expense.id]" routerLinkActive="active">Edit</a></td>
+      <td *ngIf="!notification.expense"></td>
       <td>
         <a *ngIf="!notification.read" (click)="markRead(notification)" class="pointer">
           <i class="material-icons">check_box_outline_blank</i>
