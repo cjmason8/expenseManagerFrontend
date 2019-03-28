@@ -33,8 +33,8 @@ export class DocumentsComponent extends FileComponent {
       super(authenticateService, _cookieService, documentsService, router);
       this.fileType = 'documents';
       this.directoryForm = formBuilder.group({
-        directory: ['', []],
-        directoryMetaDataChunk: ['', []]
+        fileName: ['', []],
+        metaDataChunk: ['', []]
       });
       this.fileForm = formBuilder.group({
         metaDataChunk: ['', []],
@@ -79,9 +79,13 @@ export class DocumentsComponent extends FileComponent {
     this.document.originalFileName = this.document.fileName;
   }
 
-  actionDirectory() {
+  actionDirectory(fileName, metaDataChunk) {
     let headers = new Headers();
     let options = new RequestOptions({ headers: headers });
+
+    this.directory = new Document();
+    this.directory.fileName = fileName;
+    this.directory.metaDataChunk = metaDataChunk;
 
     if (this.directoryAction === "Create") {
       this.directory.folderPath = this.documentsService.currentFolderPath;
@@ -113,8 +117,12 @@ export class DocumentsComponent extends FileComponent {
             :this.documentsService.currentFolderPath.replace('/docs/expenseManager/filofax/', '/');
   }
 
-  saveFile() {
+  saveFile(fileName, metaDataChunk) {
     var result;
+
+    this.document = new Document();
+    this.document.fileName = fileName;
+    this.document.metaDataChunk = metaDataChunk;
 
     if (this.document.id){
       result = this.documentsService.updateDocument(this.document);

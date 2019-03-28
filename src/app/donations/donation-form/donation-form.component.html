@@ -5,7 +5,7 @@
       <tr>
         <td>
           <div class="input-field col s12">
-            <mat-input-container floatPlaceholder="never">
+            <mat-form-field floatPlaceholder="never">
               <input matInput [matAutocomplete]="reactiveAuto" [formControl]="stateCtrl" [(ngModel)]="donation.cause" 
               [class.invalid]="causeInvalid()" (blur)="causeTouched = true"
               formControlName="cause" size="30">
@@ -14,7 +14,7 @@
                 Cause
               </label>
               <div *ngIf="causeInvalid()" style="color: red">Please select a value</div>
-            </mat-input-container>
+            </mat-form-field>
 
             <mat-autocomplete #reactiveAuto="matAutocomplete" [displayWith]="displayFn">
               <mat-option *ngFor="let causeVal of filteredCauses | async" [value]="causeVal">
@@ -52,10 +52,10 @@
       <tr>
         <td>
           <div class="input-field col s12" id="dueDateDiv">
-            <mat-input-container>
+            <mat-form-field>
               <input matInput [matDatepicker]="dueDatePicker" [(ngModel)]="dueDate" formControlName="dueDateField">
               <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
-            </mat-input-container>
+            </mat-form-field>
             <mat-datepicker #dueDatePicker></mat-datepicker>
 
             <label for="dueDate"

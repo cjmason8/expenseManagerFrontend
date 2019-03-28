@@ -4,7 +4,7 @@
       <tr>
         <td>
           <div class="input-field col s4">
-            <mat-input-container floatPlaceholder="never">
+            <mat-form-field floatPlaceholder="never">
               <input matInput [matAutocomplete]="reactiveAuto" [formControl]="stateCtrl" [(ngModel)]="searchParams.transactionType" formControlName="expenseType"
               size="30" [class.invalid]="expenseTypeInvalid()" (blur)="expenseTypeTouched = true">
               <label for="expenseType"
@@ -12,7 +12,7 @@
               Expense Type
             </label>
             <div *ngIf="expenseTypeInvalid()" style="color: red">Please select a value</div>
-            </mat-input-container>
+            </mat-form-field>
 
             <mat-autocomplete #reactiveAuto="matAutocomplete" [displayWith]="displayFn">
               <mat-option *ngFor="let state of filteredExpenseTypes | async" [value]="state">
@@ -59,10 +59,10 @@
       <tr>
         <td>
           <div class="input-field col s4">
-            <mat-input-container>
+            <mat-form-field>
               <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="searchParams.startDateString" formControlName="startDateString">
               <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
-            </mat-input-container>
+            </mat-form-field>
             <mat-datepicker #startDatePicker></mat-datepicker>
 
             <label for="startDateString"
@@ -72,10 +72,10 @@
             </label>
           </div>
           <div class="input-field col s4">
-            <mat-input-container>
+            <mat-form-field>
               <input matInput [matDatepicker]="endDatePicker" [(ngModel)]="searchParams.endDateString" formControlName="endDateString">
               <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>              
-            </mat-input-container>
+            </mat-form-field>
             <mat-datepicker #endDatePicker></mat-datepicker>
 
             <label for="endDateString"

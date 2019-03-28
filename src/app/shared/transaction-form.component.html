@@ -5,7 +5,7 @@
       <tr>
         <td>
           <div class="input-field col s12">
-            <mat-input-container floatPlaceholder="never">
+            <mat-form-field floatPlaceholder="never">
               <input matInput [matAutocomplete]="reactiveAuto" [formControl]="stateCtrl" [(ngModel)]="transaction.transactionType" 
               formControlName="transactionType" size="30" [class.invalid]="transactionTypeInvalid()" (blur)="transactionTypeTouched = true">
               <label for="transactionType"
@@ -13,7 +13,7 @@
               {{transactionType}} Type
             </label>
             <div *ngIf="transactionTypeInvalid()" style="color: red">Please select a value</div>
-            </mat-input-container>
+            </mat-form-field>
 
             <mat-autocomplete #reactiveAuto="matAutocomplete" [displayWith]="displayFn">
               <mat-option *ngFor="let state of filteredTransactionTypes | async" [value]="state" (onSelectionChange)="selectTransactionType(state)">
@@ -157,7 +157,7 @@
       <tr>
         <td>
           <div class="input-field col s12">
-            <mat-input-container floatPlaceholder="never">
+            <mat-form-field floatPlaceholder="never">
               <input matInput [matAutocomplete]="reactiveAuto2" [formControl]="stateCtrl2" [(ngModel)]="transaction.recurringType" formControlName="recurringType"
               [class.invalid]="recurringTypeInvalid()" (blur)="recurringTypeTouched = true">
               <label for="recurringType"
@@ -165,7 +165,7 @@
               Recurring Type
             </label>
             <div *ngIf="recurringTypeInvalid()" style="color: red">Please select a value</div>
-            </mat-input-container>
+            </mat-form-field>
 
             <mat-autocomplete #reactiveAuto2="matAutocomplete" [displayWith]="displayFn">
               <mat-option *ngFor="let state of filteredRecurringTypes | async" [value]="state">

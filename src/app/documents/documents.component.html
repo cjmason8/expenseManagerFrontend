@@ -71,21 +71,21 @@
                   <tr>
                     <td>
                         <div class="input-field col s12">
-                            <input type="text" name="directory" id="directory" formControlName="directory" [(ngModel)]="directory.fileName">
-                            <label for="directory"
-                                  [class.active]="directory.fileName">
+                            <input type="text" formControlName="fileName">
+                            <label for="fileName"
+                                  [class.active]="fileName">
                               Directory
                             </label>
                           </div>
                     </td>
                   </tr>
                   <tr>
-                    <td>
+                    <td>directoryMetaDataChunk
                       <div class="input-field col s12">
-                        <textarea [(ngModel)]="directory.metaDataChunk" formControlName="directoryMetaDataChunk">
+                        <textarea formControlName="metaDataChunk">
                         </textarea>
                         <label for="metaDataChunk"
-                              [class.active]="directory.metaDataChunk">
+                              [class.active]="metaDataChunk">
                           Metadata
                         </label>
                       </div>
@@ -93,7 +93,7 @@
                   </tr>
                   <tr>
                     <td>
-                      <button class="btn waves-effect waves-light" type="button" (click)="actionDirectory()">
+                      <button class="btn waves-effect waves-light" type="button" (click)="actionDirectory(this.form.fileName, this.form.metaDataChunk)">
                         {{directoryAction}}<i class="material-icons right">send</i>
                       </button>
                     </td>
@@ -110,18 +110,18 @@
           </tr>
           <tr>
             <td>
-              <form class="col s12" [formGroup]="fileForm" (ngSubmit)="saveFile()">
+              <form class="col s12" [formGroup]="fileForm" (ngSubmit)="saveFile(this.form.fileName, this.form.metaDataChunk)">
                 <table>
                   <tr>
-                    <td>File name: <input type="text" name="fileName" id="fileName" formControlName="fileName" [(ngModel)]="document.fileName"></td>
+                    <td>File name: <input type="text" formControlName="fileName"></td>
                   </tr>                  
                   <tr>
                     <td>
                       <div class="input-field col s12">
-                        <textarea [(ngModel)]="document.metaDataChunk" formControlName="metaDataChunk">
+                        <textarea formControlName="metaDataChunk">
                         </textarea>
                         <label for="metaDataChunk"
-                              [class.active]="document.metaDataChunk">
+                              [class.active]="metaDataChunk">
                           Metadata
                         </label>
                       </div>
