@@ -17,8 +17,6 @@ import {Headers, RequestOptions} from '@angular/http';
 export class DocumentsComponent extends FileComponent {
   private document: Document = new Document();
   private documents: Document[] = [];
-  directoryForm: FormGroup;
-  fileForm: FormGroup;
   directory: Document = new Document();
   originalDirectory: string;
   uploading: string;
@@ -32,14 +30,6 @@ export class DocumentsComponent extends FileComponent {
   private route: ActivatedRoute, router: Router, _cookieService:CookieService) { 
       super(authenticateService, _cookieService, documentsService, router);
       this.fileType = 'documents';
-      this.directoryForm = formBuilder.group({
-        fileName: ['', []],
-        metaDataChunk: ['', []]
-      });
-      this.fileForm = formBuilder.group({
-        metaDataChunk: ['', []],
-        fileName: ['', []]
-      });      
   }
 
  ngOnInit() {
@@ -79,13 +69,9 @@ export class DocumentsComponent extends FileComponent {
     this.document.originalFileName = this.document.fileName;
   }
 
-  actionDirectory(fileName, metaDataChunk) {
+  actionDirectory() {
     let headers = new Headers();
     let options = new RequestOptions({ headers: headers });
-
-    this.directory = new Document();
-    this.directory.fileName = fileName;
-    this.directory.metaDataChunk = metaDataChunk;
 
     if (this.directoryAction === "Create") {
       this.directory.folderPath = this.documentsService.currentFolderPath;
@@ -117,12 +103,8 @@ export class DocumentsComponent extends FileComponent {
             :this.documentsService.currentFolderPath.replace('/docs/expenseManager/filofax/', '/');
   }
 
-  saveFile(fileName, metaDataChunk) {
+  saveFile() {
     var result;
-
-    this.document = new Document();
-    this.document.fileName = fileName;
-    this.document.metaDataChunk = metaDataChunk;
 
     if (this.document.id){
       result = this.documentsService.updateDocument(this.document);

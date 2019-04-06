@@ -27,7 +27,6 @@ export class ExpensesComponent extends FileComponent {
 
   expenseTypeTouched: boolean = false;
   stateCtrl: FormControl;
-  form: FormGroup;
   title: string;
   expenseTypes: Array<RefData>;
 
@@ -42,14 +41,6 @@ export class ExpensesComponent extends FileComponent {
     _cookieService:CookieService, documentsService: DocumentsService, router: Router,
     private refDatasService: RefDatasService,) { 
       super(authenticateService, _cookieService, documentsService, router);
-
-      this.form = formBuilder.group({
-      expenseType: ['', []],
-      keyWords: ['', []],
-      startDateString: ['', []],
-      endDateString: ['', []],
-      metaDataChunk: ['', []]
-    });
 
     this.type = 'bar';
     this.options = {

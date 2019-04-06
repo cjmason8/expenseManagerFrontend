@@ -1,4 +1,4 @@
-<form [formGroup]="form" (submit)="gotoWeek()">
+<form (submit)="gotoWeek()">
 <table width="100%">
   <tr>
     <td width="50%">Week beginning {{thisWeek}}.</td>
@@ -6,7 +6,7 @@
     <td width="15%"><a [routerLink]="['/', nextWeek]">Next<i class="material-icons">navigate_next</i></a></td>
     <td width="20%">
       <mat-form-field>
-        <input matInput [matDatepicker]="gotoDatePicker" [(ngModel)]="dateString" formControlName="dateString" id="dateString" (ngModelChange)="gotoWeek()">
+        <input matInput [matDatepicker]="gotoDatePicker" [(ngModel)]="dateString" name="dateString" id="dateString" (ngModelChange)="gotoWeek()">
         <mat-datepicker-toggle matSuffix [for]="gotoDatePicker"></mat-datepicker-toggle>
       </mat-form-field>
       <mat-datepicker #gotoDatePicker></mat-datepicker>
