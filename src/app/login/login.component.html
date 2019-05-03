@@ -1,12 +1,11 @@
 <h5>Login</h5>
 <div class="row">
-  <form class="col s12" (ngSubmit)="loginUser()">
+  <form class="col s12" [formGroup]="form" (ngSubmit)="loginUser()">
     <div class="row">
       <div class="input-field col s12">
         <input id="userName" type="text" class="validate"
-               [(ngModel)]="login.userName"
-               name="userName"
-               required
+              [(ngModel)]="login.userName" formControlName="userName"
+              [class.invalid]="form.controls['userName'].touched && !form.controls['userName'].valid"
         >
         <label for="userName"
                [class.active]="login.userName"
@@ -18,9 +17,8 @@
     <div class="row">
       <div class="input-field col s12">
         <input id="password" type="password" class="validate"
-               name="password"
-               [(ngModel)]="login.password"
-               required
+              [(ngModel)]="login.password" formControlName="password"
+              [class.invalid]="form.controls['password'].touched && !form.controls['password'].valid"
         >
         <label for="password"
                [class.active]="login.password"
@@ -30,7 +28,8 @@
       </div>
     </div>
 
-    <button class="btn waves-effect waves-light" type="submit">
+    <button class="btn waves-effect waves-light" type="submit"
+            [disabled]="!form.valid">
       Login<i class="material-icons right">send</i>
     </button>
   </form>

@@ -1,11 +1,11 @@
 <div class="row">
-  <form class="col s12" (ngSubmit)="search()">
+  <form class="col s12" [formGroup]="form" (ngSubmit)="search()">
     <table class="col s12" cellspacing="0" cellpadding="0">
       <tr>
         <td>
           <div class="input-field col s4">
             <mat-form-field floatPlaceholder="never">
-              <input matInput [matAutocomplete]="reactiveAuto" [formControl]="stateCtrl" [(ngModel)]="searchParams.transactionType" name="expenseType"
+              <input matInput [matAutocomplete]="reactiveAuto" [formControl]="stateCtrl" [(ngModel)]="searchParams.transactionType" formControlName="expenseType"
               size="30" [class.invalid]="expenseTypeInvalid()" (blur)="expenseTypeTouched = true">
               <label for="expenseType"
                   [class.active]="searchParams.transactionType">
@@ -26,7 +26,7 @@
         <td>
           <div class="input-field col s12">
             <input id="keyWords" type="text" class="validate"
-                   [(ngModel)]="searchParams.keyWords" name="keyWords">
+                   [(ngModel)]="searchParams.keyWords" formControlName="keyWords">
             <label for="keyWords"
                    [class.active]="searchParams.keyWords">
               keyWords
@@ -42,7 +42,7 @@
       <tr>
         <td>
           <div class="input-field col s12">
-            <textarea [(ngModel)]="searchParams.metaDataChunk" name="metaDataChunk">
+            <textarea [(ngModel)]="searchParams.metaDataChunk" formControlName="metaDataChunk">
             </textarea>
             <label for="metaDataChunk"
                    [class.active]="searchParams.metaDataChunk">
@@ -60,7 +60,7 @@
         <td>
           <div class="input-field col s4">
             <mat-form-field>
-              <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="searchParams.startDateString" name="startDateString">
+              <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="searchParams.startDateString" formControlName="startDateString">
               <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
             </mat-form-field>
             <mat-datepicker #startDatePicker></mat-datepicker>
@@ -73,7 +73,7 @@
           </div>
           <div class="input-field col s4">
             <mat-form-field>
-              <input matInput [matDatepicker]="endDatePicker" [(ngModel)]="searchParams.endDateString" name="endDateString">
+              <input matInput [matDatepicker]="endDatePicker" [(ngModel)]="searchParams.endDateString" formControlName="endDateString">
               <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>              
             </mat-form-field>
             <mat-datepicker #endDatePicker></mat-datepicker>

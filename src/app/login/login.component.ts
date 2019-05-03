@@ -17,6 +17,7 @@ import { environment } from '../../environments/environment'
 })
 export class LoginFormComponent implements OnInit {
 
+  form: FormGroup;
   title: string;
   login: Login = new Login();
 
@@ -27,6 +28,14 @@ export class LoginFormComponent implements OnInit {
     private _cookieService:CookieService,
     private authenticateService:AuthenticateService
   ) {
+    this.form = formBuilder.group({
+      userName: ['', [
+        Validators.required
+      ]],
+      password: ['', [
+        Validators.required
+      ]]
+    });
   }
 
   ngOnInit() {

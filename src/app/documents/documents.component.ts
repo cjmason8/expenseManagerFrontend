@@ -17,6 +17,8 @@ import {Headers, RequestOptions} from '@angular/http';
 export class DocumentsComponent extends FileComponent {
   private document: Document = new Document();
   private documents: Document[] = [];
+  directoryForm: FormGroup;
+  fileForm: FormGroup;
   directory: Document = new Document();
   originalDirectory: string;
   uploading: string;
@@ -30,6 +32,14 @@ export class DocumentsComponent extends FileComponent {
   private route: ActivatedRoute, router: Router, _cookieService:CookieService) { 
       super(authenticateService, _cookieService, documentsService, router);
       this.fileType = 'documents';
+      this.directoryForm = formBuilder.group({
+        directory: ['', []],
+        directoryMetaDataChunk: ['', []]
+      });
+      this.fileForm = formBuilder.group({
+        metaDataChunk: ['', []],
+        fileName: ['', []]
+      });      
   }
 
  ngOnInit() {
