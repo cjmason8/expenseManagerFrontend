@@ -4,14 +4,14 @@
       <tr>
         <td>
           <div class="input-field col s12">
-            <mat-form-field floatPlaceholder="never">
+            <mat-input-container floatPlaceholder="never">
               <input matInput [matAutocomplete]="reactiveAuto" [formControl]="stateCtrl" [(ngModel)]="donationSearch.cause"
               formControlName="cause" size="30">
               <label for="cause"
                    [class.active]="donationSearch.cause">
                 Cause
               </label>
-            </mat-form-field>
+            </mat-input-container>
 
             <mat-autocomplete #reactiveAuto="matAutocomplete" [displayWith]="displayFn">
               <mat-option *ngFor="let causeVal of filteredCauses | async" [value]="causeVal">
@@ -42,10 +42,10 @@
       <tr>
         <td>
           <div class="input-field col s4">
-            <mat-form-field>
+            <mat-input-container>
               <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="donationSearch.startDate" formControlName="startDate">
               <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
-            </mat-form-field>
+            </mat-input-container>
             <mat-datepicker #startDatePicker></mat-datepicker>
 
             <label for="startDate"
@@ -54,10 +54,10 @@
             </label>
           </div>
           <div class="input-field col s4">
-            <mat-form-field>
+            <mat-input-container>
               <input matInput [matDatepicker]="endDatePicker" [(ngModel)]="donationSearch.endDate" formControlName="endDate">
               <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>              
-            </mat-form-field>
+            </mat-input-container>
             <mat-datepicker #endDatePicker></mat-datepicker>
 
             <label for="endDate"
