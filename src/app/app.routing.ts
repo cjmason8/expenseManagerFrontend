@@ -13,6 +13,8 @@ import { DonationFormComponent } from "./donations/donation-form/donation-form.c
 import { DonationsComponent } from "./donations/donations.component";
 import { NotificationsComponent } from "./notifications/notifications.component";
 import { DocumentsComponent } from "./documents/documents.component";
+import { RentalPaymentsComponent } from "./rentalpayments/rentalpayments.component";
+import { RentalPaymentFormComponent } from "./rentalpayments/rentalpayment-form/rentalpayment-form.component";
 import { DocumentsMoveComponent } from "./documents/documents.move.component";
 import { LoginFormComponent } from "./login/login.component";
 
@@ -34,6 +36,9 @@ const appRoutes: Routes = [
   { path: 'donations/new', component: DonationFormComponent },
   { path: 'donations/:id', component: DonationFormComponent },
   { path: 'documents/all', component: DocumentsComponent },
+  { path: 'rentalpayments/all', component: RentalPaymentsComponent },
+  { path: 'rentalpayments/new', component: RentalPaymentFormComponent },
+  { path: 'rentalpayments/:id', component: RentalPaymentFormComponent },
   { path: 'documents/move', component: DocumentsMoveComponent },
   { path: 'notifications/all', component: NotificationsComponent },
 { path: '', pathMatch: 'full', component: HomeComponent },  

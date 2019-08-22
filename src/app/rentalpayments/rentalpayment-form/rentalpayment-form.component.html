@@ -1,0 +1,133 @@
+<h5>{{ title }}</h5>
+<div class="row">
+  <form class="col s12" [formGroup]="form" (ngSubmit)="save()">
+    <table cellspacing="0" cellpadding="0" width="80%">
+        <tr>
+            <td>
+              <div class="input-field col s12">
+                <input id="property" type="text" class="validate"
+                       [(ngModel)]="rentalPayment.property" formControlName="property"
+                       [class.invalid]="form.controls['property'].touched && !form.controls['property'].valid"
+                >
+                <label for="property"
+                       [class.active]="rentalPayment.property"
+                       data-error="Property is Required">
+                  Property
+                </label>
+              </div>
+            </td>
+            <td>
+              <div class="input-field col s12">
+    
+              </div>
+            </td>
+          </tr>      
+      <tr>
+        <td>
+          <div class="input-field col s12">
+            <input id="totalRent" type="text" class="validate"
+                   [(ngModel)]="rentalPayment.totalRent" formControlName="totalRent"
+                   [class.invalid]="form.controls['totalRent'].touched && !form.controls['totalRent'].valid"
+            >
+            <label for="totalRent"
+                   [class.active]="rentalPayment.totalRent"
+                   data-error="Total Rent is Required">
+              Total Rent
+            </label>
+          </div>
+        </td>
+        <td>
+          <div class="input-field col s12">
+
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="input-field col s12">
+            <input id="managementFee" type="text" class="validate"
+                   [(ngModel)]="rentalPayment.managementFee" formControlName="managementFee"
+                   [class.invalid]="form.controls['managementFee'].touched && !form.controls['managementFee'].valid"
+            >
+            <label for="managementFee"
+                   [class.active]="rentalPayment.managementFee"
+                   data-error="Management Fee is Required">
+              Management Fee
+            </label>
+          </div>
+        </td>
+        <td>
+          <div class="input-field col s12">
+            <input id="adminFee" type="text" class="validate"
+                   [(ngModel)]="rentalPayment.adminFee" formControlName="adminFee"
+                   [class.invalid]="form.controls['adminFee'].touched && !form.controls['adminFee'].valid"
+            >
+            <label for="adminFee"
+                   [class.active]="rentalPayment.adminFee"
+                   data-error="Admin Fee is Required">
+              Admin Fee
+            </label>
+          </div>
+        </td>
+      </tr>            
+      <tr>
+        <td>
+          <div class="input-field col s12">
+            <mat-form-field>
+              <input matInput [matDatepicker]="statementFromPicker" [(ngModel)]="statementFrom" formControlName="statementFrom">
+              <mat-datepicker-toggle matSuffix [for]="statementFromPicker"></mat-datepicker-toggle>
+              <mat-datepicker #statementFromPicker></mat-datepicker>
+            </mat-form-field>
+
+            <label for="statementFrom">
+              Statement From
+            </label>
+          </div>
+        </td>
+        <td>
+          <div class="input-field col s12">
+            <mat-form-field>
+              <input matInput [matDatepicker]="statementToPicker" [(ngModel)]="statementTo" formControlName="statementTo">
+              <mat-datepicker-toggle matSuffix [for]="statementToPicker"></mat-datepicker-toggle>
+              <mat-datepicker #statementToPicker></mat-datepicker>
+            </mat-form-field>
+            
+
+            <label for="statementTo">
+              Statement To
+            </label>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="input-field col s12">
+            <table>
+              <tr>
+                <td><h5>Upload Document</h5></td>
+              </tr>
+              <tr>
+                <td><input #fileElement type="file" id="fileElement" (change)="fileChange($event)" placeholder="Upload File" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg"> {{uploading}} <button type="button" (click)="viewDocumentation(donation.document)">View</button></td>
+              </tr>
+              <tr>
+                <td>File name: <input type="text" name="fileName" id="fileName" formControlName="fileName" [(ngModel)]="rentalPayment.documentDto.fileName"></td>
+              </tr>
+            </table>
+          </div>
+        </td>
+        <td>
+          <div class="input-field col s12">
+
+          </div>
+        </td>
+      </tr>
+    </table>
+
+
+    <p></p>
+    <button class="btn waves-effect waves-light" type="submit"
+            [disabled]="!form.valid">
+      Submit<i class="material-icons right">send</i>
+    </button>
+  </form>
+</div>

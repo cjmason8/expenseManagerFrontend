@@ -1,0 +1,90 @@
+
+<table width="100%">
+  <tr>
+    <td width="50%"><b>Wodonga</b></td>
+    <td width="50%"><b>Sth Kingsville</b></td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <table>
+        <thead>
+        <tr>
+          <th data-field="name">Management Fee</th>
+          <th data-field="name">Admin Fee</th>
+          <th data-field="name">Total Rent</th>
+          <th data-field="name">Statement From</th>
+          <th data-field="name">Statement To</th>
+          <th data-field="name">Total Rent</th>
+          <th data-field="name">Edit</th>
+          <th data-field="name">Delete</th>
+        </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let rentalpayment of rentalPaymentsWodonga">
+            <td>{{ rentalpayment.managementFee }}</td>
+            <td>{{ rentalpayment.adminFee }}</td>
+            <td>{{ rentalpayment.totalRent }}</td>
+            <td>{{ rentalpayment.statementFromString }}</td>
+            <td>{{ rentalpayment.statementToString }}</td>
+            <td>{{ rentalpayment.totalRent }}</td>
+            <td>
+              <a [routerLink]="['/rentalpayments', rentalpayment.id]">
+                <i class="material-icons">mode_edit</i>
+              </a>
+            </td>
+            <td>
+              <a (click)="deleteRentalPayment(rentalpayment, 'WODONGA')" class="pointer">
+                <i class="material-icons">delete</i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
+    <td valign="top">
+        <table>
+          <thead>
+          <tr>
+            <th data-field="name">Management Fee</th>
+            <th data-field="name">Admin Fee</th>
+            <th data-field="name">Total Rent</th>
+            <th data-field="name">Statement From</th>
+            <th data-field="name">Statement To</th>
+            <th data-field="name">Total Rent</th>
+            <th data-field="name">Edit</th>
+            <th data-field="name">Delete</th>
+          </tr>
+          </thead>
+  
+          <tbody>
+            <tr *ngFor="let rentalpayment of rentalPaymentsSthKingsville">
+              <td>{{ rentalpayment.managementFee }}</td>
+              <td>{{ rentalpayment.adminFee }}</td>
+              <td>{{ rentalpayment.totalRent }}</td>
+              <td>{{ rentalpayment.statementFromString }}</td>
+              <td>{{ rentalpayment.statementToString }}</td>
+              <td>{{ rentalpayment.totalRent }}</td>
+              <td>
+                <a [routerLink]="['/rentalpayments', rentalpayment.id]">
+                  <i class="material-icons">mode_edit</i>
+                </a>
+              </td>
+              <td>
+                <a (click)="deleteRentalPayment(rentalpayment, 'STH_KINGSVILLE')" class="pointer">
+                  <i class="material-icons">delete</i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+  </tr>
+  </table>
+
+<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+  <a class="btn-floating btn-large waves-effect waves-light green"
+     routerLink="/rentalpayments/new">
+    <i class="material-icons">add</i>
+  </a>
+</div>

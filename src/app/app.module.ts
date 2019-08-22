@@ -18,6 +18,7 @@ import { RefDatasModule } from "./ref-data/ref-datas.module";
 import { LoginModule } from "./login/login.module";
 import { HomeModule } from "./home/home.module";
 import { DonationsModule } from "./donations/donations.module";
+import { RentalPaymentsModule } from "./rentalpayments/rentalpayments.module";
 import { DocumentsModule } from "./documents/documents.module";
 
 import { AuthenticateService } from './shared/authenticate.service';
@@ -42,6 +43,7 @@ import { HttpInterceptor } from "./shared/http.interceptor"
     RefDatasModule,
     HomeModule,
     DonationsModule,
+    RentalPaymentsModule,
     DocumentsModule,
     ExpensesModule,
     routing

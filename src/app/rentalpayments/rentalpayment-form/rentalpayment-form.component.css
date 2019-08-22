@@ -1,0 +1,14 @@
+.demo-select {
+  display: flex;
+  flex-flow: row wrap;
+
+  .mat-card {
+    width: 450px;
+    margin: 24px;
+  }
+
+}
+
+mat-select {
+  width: 200px;
+}
