@@ -6,6 +6,7 @@ import {Headers, RequestOptions} from '@angular/http';
 import * as moment from 'moment';
 
 import { RefData } from '../../ref-data/shared/ref-data';
+import { Document } from '../../documents/shared/document';
 import { RentalPayment } from '../shared/rentalpayment';
 import { RentalPaymentsService } from '../shared/retntalpayments.service';
 import { DocumentsService } from '../../documents/shared/documents.service';
@@ -49,7 +50,7 @@ export class RentalPaymentFormComponent extends FileComponent {
       property: ['', [Validators.required]],
       totalRent: ['', [Validators.required]],
       managementFee: ['', [Validators.required]],
-      admin3Fee: ['', []],
+      adminFee: ['', []],
       statementFrom: ['', []],
       statementTo: ['', []],
       fileName: ['', []]
@@ -77,6 +78,9 @@ export class RentalPaymentFormComponent extends FileComponent {
              this.rentalPayment = rentalPayment;
              this.statementFrom = this.rentalPayment.statementFromString ? moment(this.rentalPayment.statementFromString, 'DD-MM-YYYY').toDate() : null;
              this.statementTo = this.rentalPayment.statementToString ? moment(this.rentalPayment.statementToString, 'DD-MM-YYYY').toDate() : null;
+             if (!this.rentalPayment.documentDto) {
+               this.rentalPayment.documentDto = new Document();
+             }
            },
            response => {
              if (response.status == 404) {

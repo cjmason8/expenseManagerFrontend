@@ -1,3 +1,5 @@
+import { Document } from '../../documents/shared/document';
+
 export class RentalPayment {
   id: number;
   totalRent: number;
