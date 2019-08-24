@@ -24,7 +24,7 @@ export class DocumentsComponent extends FileComponent {
   uploading: string;
   directoryAction: string = "Create";
 
-  @ViewChild("fileElement")
+  @ViewChild("fileElement",{static:false})
   fileInput: any;
 
   constructor(formBuilder: FormBuilder,

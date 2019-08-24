@@ -21,7 +21,7 @@ export class DocumentsMoveComponent extends FileComponent {
   fileForm: FormGroup;
   directory: Document = new Document();
 
-  @ViewChild("fileElement")
+  @ViewChild("fileElement",{static:false})
   fileInput: any;
 
   constructor(formBuilder: FormBuilder,
