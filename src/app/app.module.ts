@@ -3,6 +3,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import {CookieService} from 'angular2-cookie/core';
 
 import { AppComponent } from './app.component';
@@ -41,6 +42,7 @@ import { HttpInterceptor } from "./shared/http.interceptor"
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
+    HttpClientModule,
     TransactionsModule,
     NotificationsModule,
     LoginModule,
