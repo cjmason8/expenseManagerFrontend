@@ -1,15 +1,15 @@
 .demo-autocomplete {
   display: flex;
   flex-flow: row wrap;
+}
 
-  .mat-card {
-    width: 400px;
-    margin: 24px;
-  }
+.mat-card {
+  width: 400px;
+  margin: 24px;
+}
 
-  .mat-form-field {
-    margin-top: 16px;
-  }
+.mat-form-field {
+  margin-top: 16px;
 }
 
 .demo-secondary-text {
