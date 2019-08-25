@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
-import {Headers, RequestOptions} from '@angular/http';
 import * as moment from 'moment';
 
 import { RefData } from '../../ref-data/shared/ref-data';
@@ -12,7 +11,6 @@ import { DocumentsService } from '../../documents/shared/documents.service';
 import { AuthenticateService } from '../../shared/authenticate.service';
 import { FileComponent } from '../../shared/file.component';
 import { RefDatasService } from '../../ref-data/shared/ref-datas.service';
-import { BasicValidators } from '../../shared/basic-validators';
 
 @Component({
   selector: 'app-donation-form',

@@ -6,11 +6,11 @@
         <td>
           <div class="input-field col s12">
             <mat-form-field floatPlaceholder="never">
-              <input matInput [matAutocomplete]="reactiveAuto" [formControl]="stateCtrl" [(ngModel)]="transaction.transactionType" 
-              formControlName="transactionType" size="30" [class.invalid]="transactionTypeInvalid()" (blur)="transactionTypeTouched = true">
               <label for="transactionType"
                    [class.active]="transaction.transactionType">
-              {{transactionType}} Type
+                   <input matInput [matAutocomplete]="reactiveAuto" [formControl]="stateCtrl" [(ngModel)]="transaction.transactionType" 
+              formControlName="transactionType" size="30" [class.invalid]="transactionTypeInvalid()" (blur)="transactionTypeTouched = true">
+              <span>{{transactionType}} Type</span>
             </label>
             <div *ngIf="transactionTypeInvalid()" style="color: red">Please select a value</div>
             </mat-form-field>
@@ -42,28 +42,26 @@
               Amount
             </label>
           </div>
-          <div class="col s4" id="paidDiv" name="paidDiv" style="display: none">
-            <input id="paid" type="checkbox"
-                   [(ngModel)]="transaction.paid" formControlName="paid"
-            >
+          <div class="input-field col s4" id="paidDiv" name="paidDiv">
             <label for="paid">
-              Paid
+                <input id="paid" type="checkbox"
+                [(ngModel)]="transaction.paid" formControlName="paid">
+              <span>Paid</span>
             </label>
-          </div>                              
+          </div>
         </td>
         <td>
           <div class="input-field col s12">
-
           </div>
         </td>        
       </tr>      
       <tr>
         <td>
           <div class="col s12">
-            <input id="recurring" type="checkbox" formControlName="recurring" (click)="showHideRecurring()">
-
             <label for="recurring">
-              Recurring
+              <input id="recurring" type="checkbox" formControlName="recurring" (click)="showHideRecurring()">
+
+              <span>Recurring</span>
             </label>
           </div>
         </td>

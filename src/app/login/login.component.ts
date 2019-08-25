@@ -5,9 +5,6 @@ import { CookieService } from 'angular2-cookie/core';
 import { AuthenticateService } from '../shared/authenticate.service';
 
 import { Login } from './shared/login';
-import { BasicValidators } from '../shared/basic-validators';
-import { HomeComponent } from '../home/home.component';
-import { environment } from '../../environments/environment'
 
 @Component({
   selector: 'app-login-form',

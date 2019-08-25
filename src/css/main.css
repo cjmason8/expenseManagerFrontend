@@ -21,3 +21,15 @@
   -moz-font-feature-settings: 'liga';
   -moz-osx-font-smoothing: grayscale;
 }
+
+tr {
+  border-bottom: none;
+}
+
+thead {
+  border-bottom: 1px solid black;
+}
+
+html {
+  font-family: "Roboto", sans-serif;
+}
