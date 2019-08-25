@@ -54,7 +54,7 @@ import { HttpInterceptor } from "./shared/http.interceptor"
     ExpensesModule,
     routing
   ],
-  providers: [DocumentsService, AuthenticateService, CookieService, HttpInterceptor],
+  providers: [DocumentsService, AuthenticateService, CookieService, HttpInterceptor, HttpModule, HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
