@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule }  from '@angular/router';
 import { HttpModule }  from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { RefDatasComponent } from './ref-datas.component';
 import { RefDatasService } from './shared/ref-datas.service';
@@ -19,6 +20,7 @@ import {MatSelectModule, MatInputModule, MatButtonModule,
     ReactiveFormsModule,
     RouterModule,
     HttpModule,
+    HttpClientModule,
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
