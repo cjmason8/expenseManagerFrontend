@@ -4,11 +4,11 @@
     <div class="row">
       <div class="input-field col s12">
         <input id="userName" type="text" class="validate"
-               [(ngModel)]="login.userName" formControlName="userName"
+               [(ngModel)]="login.name" formControlName="userName"
                [class.invalid]="form.controls['userName'].touched && !form.controls['userName'].valid"
         >
         <label for="userName"
-               [class.active]="login.userName"
+               [class.active]="login.name"
                data-error="User Name is required">
           User Name
         </label>

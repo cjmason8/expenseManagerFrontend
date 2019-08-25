@@ -19,16 +19,16 @@ import { ExpensesService } from '../expenses/shared/expenses.service';
 })
 export class HomeComponent extends FileComponent {
   dateString: string;
-  private expenses: Expense[] = [];
-  private unpaidExpenses: Expense[] = [];
-  private incomes: Income[] = [];
-  private previousWeek: String;
-  private nextWeek: String;
-  private thisWeek: String;
-  private incomeTotal: String;
-  private expenseTotal: String;
-  private unpaidExpenseTotal: String;
-  private difference: String;
+  public expenses: Expense[] = [];
+  public unpaidExpenses: Expense[] = [];
+  public incomes: Income[] = [];
+  public previousWeek: String;
+  public nextWeek: String;
+  public thisWeek: String;
+  public incomeTotal: String;
+  public expenseTotal: String;
+  public unpaidExpenseTotal: String;
+  public difference: String;
 
   form: FormGroup;
 

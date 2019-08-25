@@ -15,8 +15,8 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 })
 export class RefDatasComponent extends AuthenticateComponent {
 
-  private refDatas: RefData[] = [];
-  private refData: RefData = new RefData();
+  public refDatas: RefData[] = [];
+  public refData: RefData = new RefData();
 
   form: FormGroup;
   title: string;

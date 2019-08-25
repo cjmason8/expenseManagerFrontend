@@ -13,7 +13,7 @@ import { AuthenticateComponent } from '../shared/authenticate.component';
  providers: []
 })
 export class NotificationsComponent extends AuthenticateComponent {
-  private notifications: Notification[] = [];
+  public notifications: Notification[] = [];
 
   constructor(authenticateService: AuthenticateService, private notificationsService: NotificationsService, 
   private route: ActivatedRoute, _cookieService:CookieService) { 

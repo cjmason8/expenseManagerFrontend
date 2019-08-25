@@ -20,8 +20,8 @@ export class RentalPaymentsComponent extends FileComponent {
   causeTouched: boolean = false;
   form: FormGroup;
 
-  private rentalPaymentsWodonga: RentalPayment[] = [];
-  private rentalPaymentsSthKingsville: RentalPayment[] = [];
+  public rentalPaymentsWodonga: RentalPayment[] = [];
+  public rentalPaymentsSthKingsville: RentalPayment[] = [];
 
   constructor(formBuilder: FormBuilder, authenticateService: AuthenticateService, private rentalPaymentsService: RentalPaymentsService, 
   private route: ActivatedRoute, router: Router, _cookieService:CookieService, documentsService: DocumentsService) { 

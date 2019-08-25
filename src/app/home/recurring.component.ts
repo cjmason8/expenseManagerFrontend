@@ -15,8 +15,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class RecurringComponent extends AuthenticateComponent {
 
-  private expenses: Expense[] = [];
-  private incomes: Income[] = [];
+  public expenses: Expense[] = [];
+  public incomes: Income[] = [];
 
   constructor(private route: ActivatedRoute,
     _cookieService:CookieService, authenticateService: AuthenticateService, private homeService: HomeService) {

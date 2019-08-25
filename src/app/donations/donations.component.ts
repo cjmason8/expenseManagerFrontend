@@ -21,8 +21,8 @@ export class DonationsComponent extends FileComponent {
   causeTouched: boolean = false;
   form: FormGroup;
 
-  private donations: Donation[] = [];
-  private donationSearch: DonationSearch = new DonationSearch();
+  public donations: Donation[] = [];
+  public donationSearch: DonationSearch = new DonationSearch();
 
   causes: Array<RefData>;
 

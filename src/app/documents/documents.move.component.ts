@@ -15,8 +15,8 @@ import {Headers, RequestOptions} from '@angular/http';
  providers: []
 })
 export class DocumentsMoveComponent extends FileComponent {
-  private documentMove: DocumentMove = new DocumentMove();
-  private documents: Document[] = [];
+  public documentMove: DocumentMove = new DocumentMove();
+  public documents: Document[] = [];
   directoryForm: FormGroup;
   fileForm: FormGroup;
   directory: Document = new Document();
@@ -25,7 +25,7 @@ export class DocumentsMoveComponent extends FileComponent {
   fileInput: any;
 
   constructor(formBuilder: FormBuilder,
-  authenticateService: AuthenticateService, documentsService: DocumentsService,
+  authenticateService: AuthenticateService, public documentsService: DocumentsService,
   private route: ActivatedRoute, router: Router, _cookieService:CookieService) { 
       super(authenticateService, _cookieService, documentsService, router);
       this.fileType = 'documents';

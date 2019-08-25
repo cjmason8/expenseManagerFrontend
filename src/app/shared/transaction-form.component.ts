@@ -162,5 +162,7 @@ export class TransactionFormComponent extends FileComponent {
     this.transaction.documentDto = document;
   }
 
+  save() {}
+
 }
 

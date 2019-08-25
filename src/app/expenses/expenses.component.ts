@@ -21,9 +21,9 @@ import {DocumentsService} from "../documents/shared/documents.service";
 })
 export class ExpensesComponent extends FileComponent {
 
-  private expenses: Expense[] = [];
-  private documents: Document[] = [];
-  private searchParams: SearchParams = new SearchParams();
+  public expenses: Expense[] = [];
+  public documents: Document[] = [];
+  public searchParams: SearchParams = new SearchParams();
 
   expenseTypeTouched: boolean = false;
   stateCtrl: FormControl;
