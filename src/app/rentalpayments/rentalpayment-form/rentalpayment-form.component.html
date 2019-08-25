@@ -107,7 +107,7 @@
                 <td><h5>Upload Document</h5></td>
               </tr>
               <tr>
-                <td><input #fileElement type="file" id="fileElement" (change)="fileChange($event)" placeholder="Upload File" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg"> {{uploading}} <button type="button" (click)="viewDocumentation(donation.document)">View</button></td>
+                <td><input #fileElement type="file" id="fileElement" (change)="fileChange($event)" placeholder="Upload File" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg"> {{uploading}} <button type="button" (click)="viewDocumentation(rentalPayment.document)">View</button></td>
               </tr>
               <tr>
                 <td>File name: <input type="text" name="fileName" id="fileName" formControlName="fileName" [(ngModel)]="rentalPayment.documentDto.fileName"></td>
