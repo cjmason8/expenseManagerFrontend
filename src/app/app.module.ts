@@ -20,6 +20,8 @@ import { HomeModule } from "./home/home.module";
 import { DonationsModule } from "./donations/donations.module";
 import { RentalPaymentsModule } from "./rentalpayments/rentalpayments.module";
 import { DocumentsModule } from "./documents/documents.module";
+import { AuthenticateComponent } from './shared/authenticate.component';
+import { FileComponent } from './shared/file.component';
 
 import { AuthenticateService } from './shared/authenticate.service';
 import { DocumentsService } from './documents/shared/documents.service';
@@ -30,7 +32,9 @@ import { HttpInterceptor } from "./shared/http.interceptor"
   declarations: [
     AppComponent,
     NavBarComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    AuthenticateComponent,
+    FileComponent
   ],
   imports: [
     BrowserModule,

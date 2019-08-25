@@ -9,6 +9,7 @@ import { IncomesService } from '../incomes/shared/incomes.service';
 import { MyDateAdapter, MY_DATE_FORMATS } from './mydate.adapter';
 import { ExpenseFormComponent } from '../expenses/expense-form/expense-form.component';
 import { IncomeFormComponent } from '../incomes/income-form/income-form.component';
+import { TransactionFormComponent } from '../shared/transaction-form.component';
 
 import {MatInputModule, MatButtonModule,
   MatAutocompleteModule, MatOptionModule, MatDatepickerModule, MatNativeDateModule,
@@ -30,7 +31,8 @@ import {MatInputModule, MatButtonModule,
   ],
   declarations: [
     ExpenseFormComponent,
-    IncomeFormComponent
+    IncomeFormComponent,
+    TransactionFormComponent
   ],
   exports: [
   ],
