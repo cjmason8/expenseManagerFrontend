@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Headers, RequestOptions } from '@angular/http';
 import { ExpensesService } from '../../expenses/shared/expenses.service';
 import { IncomesService } from '../../incomes/shared/incomes.service';
 
@@ -9,29 +8,28 @@ import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Rx';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../../environments/environment'
+import { HomeInfo } from './homeInfo'
 
-import { HttpInterceptor } from "../../shared/http.interceptor"
+import { HttpClient } from "@angular/common/http"
 
 @Injectable()
 export class HomeService {
 
   private url: string = environment.backendEndPoint;
 
-  constructor(private http: HttpInterceptor,
+  constructor(private http: HttpClient,
       private router: Router,
       private route: ActivatedRoute,
       private expensesService: ExpensesService,
       private incomesService: IncomesService) { }
 
-  getTransactionsForWeek(weekString){
+  getTransactionsForWeek(weekString): Observable<HomeInfo> {
     var suffix = weekString ? "/" + weekString : "";
-    return this.http.get(this.url + "/week" + suffix)
-      .map(res => res.json());
+    return this.http.get<HomeInfo>(this.url + "/week" + suffix);
   }
 
-  getRecurring() {
-    return this.http.get(this.url + "/recurring")
-      .map(res => res.json());
+  getRecurring(): Observable<HomeInfo> {
+    return this.http.get<HomeInfo>(this.url + "/recurring");
   }
 
   deleteExpense(expense, expenses) {

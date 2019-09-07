@@ -42,11 +42,8 @@ export class LoginFormComponent implements OnInit {
   }
 
   loginUser() {
-    var result;
-
-    result = this.authenticateService.loginUser(this.login);
-
-    result.subscribe(data => {
+    this.authenticateService.loginUser(this.login)
+    .subscribe(data => {
       if (data.loginStatus === 'success') {
         this._cookieService.put('token', data.token);
         this._cookieService.put('roles', data.roles);

@@ -8,61 +8,51 @@ import { Observable } from 'rxjs/Rx';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../../environments/environment'
 
-import { HttpInterceptor } from "../../shared/http.interceptor"
+import { HttpClient, HttpHeaders } from "@angular/common/http"
+import { RefData } from './ref-data';
 
 @Injectable()
 export class RefDatasService {
 
   private refDatasUrl: string = environment.backendEndPoint + "/refDatas";
 
-  constructor(private http: HttpInterceptor,
+  constructor(private http: HttpClient,
       private router: Router,
       private route: ActivatedRoute) { }
 
-  addRefData(refData){
-    var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
-    var options = new RequestOptions({ headers: headers });
-    return this.http.post(this.refDatasUrl, JSON.stringify(refData), options)
-      .map(res => res.json());
+  addRefData(refData): Observable<RefData> {
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    return this.http.post<RefData>(this.refDatasUrl, JSON.stringify(refData), { responseType: 'json', headers: headers });
   }
 
-  updateRefData(refData){
-    var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
-    var options = new RequestOptions({ headers: headers });
-    return this.http.put(this.getRefDataUrl(refData.id), JSON.stringify(refData), options)
-      .map(res => res.json());
+  updateRefData(refData): Observable<RefData> {
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    return this.http.put<RefData>(this.getRefDataUrl(refData.id), JSON.stringify(refData), { responseType: 'json', headers: headers });
   }
 
-  deleteRefData(id){
-    var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
-    var options = new RequestOptions({ headers: headers });
-    return this.http.delete(this.getRefDataUrl(id), options)
-      .map(res => res.json());
+  deleteRefData(id): Observable<RefData> {
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    return this.http.delete<RefData>(this.getRefDataUrl(id), { responseType: 'json', headers: headers });
   }
 
-  getRefData(id){
-    return this.http.get(this.getRefDataUrl(id))
-      .map(res => res.json());
+  getRefData(id): Observable<RefData> {
+    return this.http.get<RefData>(this.getRefDataUrl(id));
   }
 
-  getRefDatas(){
-    return this.http.get(this.refDatasUrl)
-      .map(res => res.json());
+  getRefDatas(): Observable<RefData[]> {
+    return this.http.get<RefData[]>(this.refDatasUrl);
   }  
 
   private getRefDataUrl(id){
     return this.refDatasUrl + "/" + id;
   }
 
-  getTypes(type){
-    return this.http.get(this.refDatasUrl + '/type/' + type)
-      .map(res => res.json());
+  getTypes(type): Observable<RefData[]> {
+    return this.http.get<RefData[]>(this.refDatasUrl + '/type/' + type);
   }
 
-  findRefDatas(refData) {
-    var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
-    var options = new RequestOptions({ headers: headers });
-    return this.http.post(this.refDatasUrl + '/search', JSON.stringify(refData), options)
-      .map(res => res.json());
+  findRefDatas(refData): Observable<RefData[]> {
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    return this.http.post<RefData[]>(this.refDatasUrl + '/search', JSON.stringify(refData), { responseType: 'json', headers: headers });
   } 
 }

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Headers, RequestOptions, ResponseContentType } from '@angular/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -7,8 +6,9 @@ import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Rx';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../../environments/environment'
+import { Document } from "./document";
 
-import { HttpInterceptor } from "../../shared/http.interceptor"
+import { HttpClient, HttpHeaders } from "@angular/common/http"
 
 @Injectable()
 export class DocumentsService {
@@ -16,33 +16,29 @@ export class DocumentsService {
   private documentsUrl: string = environment.backendEndPoint + "/documents";
   currentFolderPath: string;
 
-  constructor(private http: HttpInterceptor,
+  constructor(private http: HttpClient,
       private router: Router,
       private route: ActivatedRoute) { }
 
   uploadFile(file, type, path?) {
     let formData:FormData = new FormData();
     formData.append('uploadFile', file, file.name);
-    let headers = new Headers();
-    let options = new RequestOptions({ headers: headers });
+    let headers = new HttpHeaders();
     let url = this.documentsUrl + '/upload?type=' + type;
     if (path) {
       url += '&path=' + path;
     }
   
-    return this.http.post(url, formData, options)
-          .map(res => res.json());
+    return this.http.post(url, formData, { headers });
   } 
 
   getFile(id, type, filePath) {
     let mediaType = this.getMediaType(filePath);
-    var headers = new Headers({ 'Content-Type': mediaType, 'Accept': mediaType });
+    var headers = new HttpHeaders({ 'Content-Type': mediaType, 'Accept': mediaType });
 
-    let options = new RequestOptions({ headers: headers });
-    options.responseType = ResponseContentType.Blob;
-    return this.http.get(this.documentsUrl + '/get/' + type + '/' + id, options)
+    return this.http.get(this.documentsUrl + '/get/' + type + '/' + id, { responseType: 'arraybuffer', headers: headers })
           .map((res) => {
-            return new Blob([res.blob()], { type: mediaType })
+            return new Blob([res], { type: mediaType })
         });
   }
 
@@ -63,63 +59,51 @@ export class DocumentsService {
 
   getFileById(id, fileName) {
     let mediaType = this.getMediaType(fileName);
-    var headers = new Headers({ 'Content-Type': mediaType, 'Accept': mediaType });
+    var headers = new HttpHeaders({ 'Content-Type': mediaType, 'Accept': mediaType });
 
-    let options = new RequestOptions({ headers: headers });
-    options.responseType = ResponseContentType.Blob;
-    return this.http.get(this.documentsUrl + '/get/' + id, options)
+    return this.http.get(this.documentsUrl + '/get/' + id, { responseType: 'arraybuffer', headers: headers })
           .map((res) => {
-            return new Blob([res.blob()], { type: mediaType })
+            return new Blob([res], { type: mediaType })
         });
   }   
 
-  getDocuments(folderPath){
-    var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
-    var options = new RequestOptions({ headers: headers });
-    return this.http.post(this.documentsUrl + '/list', folderPath, options)
-      .map(res => res.json());
+  getDocuments(folderPath): Observable<Document[]> {
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    return this.http.post<Document[]>(this.documentsUrl + '/list', folderPath, { responseType: 'json', headers: headers });
   }
 
-  createDirectory(directory, options) {
+  createDirectory(directory): Observable<Document> {
     let url = this.documentsUrl + '/directory';
+    let headers = new HttpHeaders();
 
-    return this.http.post(url, directory, options)
-          .map(res => res.json());
+    return this.http.post<Document>(url, directory, { responseType: 'json', headers: headers });
   } 
 
-  updateDirectory(directory, options) {
+  updateDirectory(directory): Observable<Document> {
     let url = this.documentsUrl + '/directory';
+    let headers = new HttpHeaders();
 
-    return this.http.put(url, directory, options)
-          .map(res => res.json());
+    return this.http.put<Document>(url, directory, { responseType: 'json', headers: headers });
   }  
 
-  addDocument(document){
-    var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
-    var options = new RequestOptions({ headers: headers });
-    return this.http.post(this.documentsUrl, JSON.stringify(document), options)
-      .map(res => res.json());
+  addDocument(document): Observable<Document> {
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    return this.http.post<Document>(this.documentsUrl, JSON.stringify(document), { responseType: 'json', headers: headers });
   }
 
-  moveFiles(moveFilesDto){
-    var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
-    var options = new RequestOptions({ headers: headers });
-    return this.http.post(this.documentsUrl + '/move', JSON.stringify(moveFilesDto), options)
-      .map(res => res.json());
+  moveFiles(moveFilesDto): Observable<Document> {
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    return this.http.post<Document>(this.documentsUrl + '/move', JSON.stringify(moveFilesDto), { responseType: 'json', headers: headers });
   }
 
-  updateDocument(document){
-    var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
-    var options = new RequestOptions({ headers: headers });
-    return this.http.put(this.getDocumentUrl(document.id), JSON.stringify(document), options)
-      .map(res => res.json());
+  updateDocument(document): Observable<Document> {
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    return this.http.put<Document>(this.getDocumentUrl(document.id), JSON.stringify(document), { responseType: 'json', headers: headers });
   }
 
-  deleteDocument(id) {
-    var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
-    var options = new RequestOptions({ headers: headers });
-    return this.http.delete(this.getDocumentUrl(id), options)
-      .map(res => res.json());    
+  deleteDocument(id): Observable<Document> {
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    return this.http.delete<Document>(this.getDocumentUrl(id), { responseType: 'json', headers: headers });
   }
 
   private getDocumentUrl(id){

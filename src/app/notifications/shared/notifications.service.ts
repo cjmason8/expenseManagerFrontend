@@ -1,30 +1,29 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment'
+import { Notification } from './notification'
+import { Observable } from 'rxjs/Rx';
 
-import { HttpInterceptor } from "../../shared/http.interceptor"
+import { HttpClient } from "@angular/common/http"
 
 @Injectable()
 export class NotificationsService {
 
   private notificationsUrl: string = environment.backendEndPoint + "/notifications";
 
-  constructor(private http: HttpInterceptor) { }
+  constructor(private http: HttpClient) { }
 
-  getNotifications(){
-    return this.http.get(this.notificationsUrl)
-      .map(res => res.json());
+  getNotifications(): Observable<Notification[]> {
+    return this.http.get<Notification[]>(this.notificationsUrl);
   }
 
-  markRead(id){
+  markRead(id): Observable<Notification> {
     let reqUrl = this.notificationsUrl + "/markRead/" + id;
-    return this.http.get(reqUrl)
-      .map(res => res.json());
+    return this.http.get<Notification>(reqUrl);
   }
 
-  markUnRead(id){
+  markUnRead(id): Observable<Notification> {
     let reqUrl = this.notificationsUrl + "/markUnRead/" + id;
-    return this.http.get(reqUrl)
-      .map(res => res.json());
+    return this.http.get<Notification>(reqUrl);
   }
 
 }

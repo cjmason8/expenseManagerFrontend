@@ -8,55 +8,48 @@ import { Observable } from 'rxjs/Rx';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../../environments/environment'
 
-import { HttpInterceptor } from "../../shared/http.interceptor"
+import { HttpClient, HttpResponse, HttpHeaders } from "@angular/common/http"
+import { RentalPayment } from './rentalpayment';
+import { RefData } from '../../ref-data/shared/ref-data';
 
 @Injectable()
 export class RentalPaymentsService {
 
   private rentalPaymentsUrl: string = environment.backendEndPoint + "/rentalPayments";
 
-  constructor(private http: HttpInterceptor,
+  constructor(private http: HttpClient,
       private router: Router,
       private route: ActivatedRoute) { }
 
-  addRentalPayment(rentalpayment){
-    var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
-    var options = new RequestOptions({ headers: headers });
-    return this.http.post(this.rentalPaymentsUrl, JSON.stringify(rentalpayment), options)
-      .map(res => res.json());
+  addRentalPayment(rentalpayment): Observable<RentalPayment> {
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    return this.http.post<RentalPayment>(this.rentalPaymentsUrl, JSON.stringify(rentalpayment), { responseType: 'json', headers: headers });
   }
 
-  updateRentalPayment(rentalpayment){
-    var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
-    var options = new RequestOptions({ headers: headers });
-    return this.http.put(this.getRentalPaymentUrl(rentalpayment.id), JSON.stringify(rentalpayment), options)
-      .map(res => res.json());
+  updateRentalPayment(rentalpayment): Observable<RentalPayment> {
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    return this.http.put<RentalPayment>(this.getRentalPaymentUrl(rentalpayment.id), JSON.stringify(rentalpayment), { responseType: 'json', headers: headers });
   }
 
-  deleteRentalPayment(id){
-    var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
-    var options = new RequestOptions({ headers: headers });
-    return this.http.delete(this.getRentalPaymentUrl(id), options)
-      .map(res => res.json());
+  deleteRentalPayment(id): Observable<RentalPayment> {
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    return this.http.delete<RentalPayment>(this.getRentalPaymentUrl(id), { responseType: 'json', headers: headers });
   }
 
-  getRentalPayment(id){
-    return this.http.get(this.getRentalPaymentUrl(id))
-      .map(res => res.json());
+  getRentalPayment(id): Observable<RentalPayment> {
+    return this.http.get<RentalPayment>(this.getRentalPaymentUrl(id));
   }
 
-  getRentalPayments(property){
-    return this.http.get(this.rentalPaymentsUrl + "/getByProperty/" + property)
-      .map(res => res.json());
+  getRentalPayments(property): Observable<RentalPayment[]> {
+    return this.http.get<RentalPayment[]>(this.rentalPaymentsUrl + "/getByProperty/" + property);
   } 
 
   private getRentalPaymentUrl(id){
     return this.rentalPaymentsUrl + "/" + id;
   }
 
-  getTypes(type){
-    return this.http.get(this.rentalPaymentsUrl + '/type/' + type)
-      .map(res => res.json());
+  getTypes(type): Observable<RefData[]>{
+    return this.http.get<RefData[]>(this.rentalPaymentsUrl + '/type/' + type);
   }
 
 }

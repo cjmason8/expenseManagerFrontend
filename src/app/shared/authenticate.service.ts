@@ -8,8 +8,9 @@ import { Observable } from 'rxjs/Rx';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'angular2-cookie/core';
 import { environment } from '../../environments/environment'
+import { UserAuthenticate } from './userAuthenticate'
 
-import { HttpInterceptor } from "./http.interceptor"
+import { HttpClient, HttpHeaders } from "@angular/common/http"
 
 @Injectable()
 export class AuthenticateService {
@@ -19,7 +20,7 @@ export class AuthenticateService {
   notifications: Notification[] = [];
   user: string = "";
 
-  constructor(private http: HttpInterceptor,
+  constructor(private http: HttpClient,
       private router: Router,
       private route: ActivatedRoute,
       private _cookieService:CookieService) { }
@@ -30,13 +31,12 @@ export class AuthenticateService {
       this.router.navigate(['login']);
     }
 
-    this.http.get(environment.backendEndPoint + "/notifications")
-      .map(res => res.json()).subscribe(data => {
+    this.http.get<Notification[]>(environment.backendEndPoint + "/notifications")
+      .subscribe(data => {
         this.hasNotifications = data.length > 0;
       });
 
-    return this.http.get(environment.backendEndPoint + "/users/" + token + "/authenticate")
-      .map(res => res.json())
+    return this.http.get<UserAuthenticate>(environment.backendEndPoint + "/users/" + token + "/authenticate")
       .subscribe(result => {
         if (result.status === 'failed') {
           this.authenticated = false;
@@ -49,15 +49,13 @@ export class AuthenticateService {
       });
   }
 
-  loginUser(login) {
-    var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
-    var options = new RequestOptions({ headers: headers });
-    return this.http.post(environment.backendEndPoint + "/login", JSON.stringify(login), options)
+  loginUser(login): Observable<UserAuthenticate> {
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    return this.http.post<UserAuthenticate>(environment.backendEndPoint + "/login", JSON.stringify(login), { responseType: 'json', headers: headers })
       .map(res => {
-        let result = res.json();
-        this.user = result.user;
+        this.user = res.user;
 
-        return result;
+        return res;
       });
   }
 

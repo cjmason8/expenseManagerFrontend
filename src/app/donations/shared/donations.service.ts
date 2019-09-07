@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Headers, RequestOptions } from '@angular/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -7,62 +6,53 @@ import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Rx';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../../environments/environment'
+import { Donation } from './donation'
+import { RefData } from '../../ref-data/shared/ref-data'
 
-import { HttpInterceptor } from "../../shared/http.interceptor"
+import { HttpClient, HttpHeaders } from "@angular/common/http"
 
 @Injectable()
 export class DonationsService {
 
   private donationsUrl: string = environment.backendEndPoint + "/donations";
 
-  constructor(private http: HttpInterceptor,
+  constructor(private http: HttpClient,
       private router: Router,
       private route: ActivatedRoute) { }
 
-  addDonation(donation){
-    var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
-    var options = new RequestOptions({ headers: headers });
-    return this.http.post(this.donationsUrl, JSON.stringify(donation), options)
-      .map(res => res.json());
+  addDonation(donation): Observable<Donation> {
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    return this.http.post<Donation>(this.donationsUrl, JSON.stringify(donation), { responseType: 'json', headers: headers });
   }
 
-  updateDonation(donation){
-    var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
-    var options = new RequestOptions({ headers: headers });
-    return this.http.put(this.getDonationUrl(donation.id), JSON.stringify(donation), options)
-      .map(res => res.json());
+  updateDonation(donation): Observable<Donation> {
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    return this.http.put<Donation>(this.getDonationUrl(donation.id), JSON.stringify(donation), { responseType: 'json', headers: headers });
   }
 
-  deleteDonation(id){
-    var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
-    var options = new RequestOptions({ headers: headers });
-    return this.http.delete(this.getDonationUrl(id), options)
-      .map(res => res.json());
+  deleteDonation(id): Observable<Donation> {
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    return this.http.delete<Donation>(this.getDonationUrl(id), { responseType: 'json', headers: headers });
   }
 
-  getDonation(id){
-    return this.http.get(this.getDonationUrl(id))
-      .map(res => res.json());
+  getDonation(id): Observable<Donation> {
+    return this.http.get<Donation>(this.getDonationUrl(id));
   }
 
-  getDonations(){
-    return this.http.get(this.donationsUrl)
-      .map(res => res.json());
+  getDonations(): Observable<Donation[]> {
+    return this.http.get<Donation[]>(this.donationsUrl);
   } 
 
   private getDonationUrl(id){
     return this.donationsUrl + "/" + id;
   }
 
-  getTypes(type){
-    return this.http.get(this.donationsUrl + '/type/' + type)
-      .map(res => res.json());
+  getTypes(type): Observable<RefData[]> {
+    return this.http.get<RefData[]>(this.donationsUrl + '/type/' + type);
   }
 
-  findDonations(donationSearch) {
-    var headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
-    var options = new RequestOptions({ headers: headers });
-    return this.http.post(this.donationsUrl + '/search', JSON.stringify(donationSearch), options)
-      .map(res => res.json());
+  findDonations(donationSearch): Observable<Donation[]> {
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    return this.http.post<Donation[]>(this.donationsUrl + '/search', JSON.stringify(donationSearch), { responseType: 'json', headers: headers });
   } 
 }

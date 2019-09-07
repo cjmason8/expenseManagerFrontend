@@ -6,7 +6,6 @@ import { FileComponent } from '../shared/file.component';
 import { Document } from "./shared/document";
 import {CookieService} from 'angular2-cookie/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import {Headers, RequestOptions} from '@angular/http';
 
 @Component({
  selector: 'app-donations',
@@ -80,28 +79,25 @@ export class DocumentsComponent extends FileComponent {
   }
 
   actionDirectory() {
-    let headers = new Headers();
-    let options = new RequestOptions({ headers: headers });
-
     if (this.directoryAction === "Create") {
       this.directory.folderPath = this.documentsService.currentFolderPath;
-      this.documentsService.createDirectory(this.directory, options)
+      this.documentsService.createDirectory(this.directory)
         .subscribe(data => {
-            this.documentsService.getDocuments(data.filePath)
+            this.documentsService.getDocuments(data.folderPath)
           .subscribe(data2 => {
             this.documents = data2;
             this.directory = new Document();
-            this.documentsService.currentFolderPath = data.filePath;
+            this.documentsService.currentFolderPath = data.folderPath;
           });
         });
     } else {
-      this.documentsService.updateDirectory(this.directory, options)
+      this.documentsService.updateDirectory(this.directory)
         .subscribe(data => {
-            this.documentsService.getDocuments(data.filePath)
+            this.documentsService.getDocuments(data.folderPath)
           .subscribe(data2 => {
             this.documents = data2;
             this.directory = new Document();
-            this.documentsService.currentFolderPath = data.filePath;
+            this.documentsService.currentFolderPath = data.folderPath;
             this.directoryAction = "Create";
           });
         });      
@@ -163,11 +159,11 @@ export class DocumentsComponent extends FileComponent {
       if (confirm(msg)) {
         this.documentsService.deleteDocument(document.id)
           .subscribe(data => {
-              this.documentsService.getDocuments(data.filePath)
+              this.documentsService.getDocuments(data.folderPath)
                 .subscribe(data2 => {
                   this.documents = data2;
                   this.directory = new Document();
-                  this.documentsService.currentFolderPath = data.filePath;
+                  this.documentsService.currentFolderPath = data.folderPath;
               });
             });
       }

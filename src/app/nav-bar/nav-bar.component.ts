@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'angular2-cookie/core';
 import { AuthenticateService } from '../shared/authenticate.service';
 
-import { HttpInterceptor } from "../shared/http.interceptor"
+import { HttpClient } from "@angular/common/http"
 
 @Component({
   selector: 'app-nav-bar',
@@ -15,7 +15,7 @@ export class NavBarComponent implements OnInit {
   isAdmin: boolean = false;
   
   constructor(private _cookieService:CookieService, private authenticateService:AuthenticateService,
-    private httpInterceptor: HttpInterceptor) { }
+    private httpInterceptor: HttpClient) { }
 
   ngOnInit() {
      var roles = this._cookieService.get('roles');
@@ -49,10 +49,11 @@ export class NavBarComponent implements OnInit {
   }
 
   getErrorMessage() {
-    if (this.httpInterceptor.errorMessage) {
-      window.scrollTo(0, 0);
-      return "There was an Error!!! Contact Chris(Muscles)";
-    }
+    // if (this.httpInterceptor.console.error();
+    // ) {
+    //   window.scrollTo(0, 0);
+    //   return "There was an Error!!! Contact Chris(Muscles)";
+    // }
   }  
 
 }

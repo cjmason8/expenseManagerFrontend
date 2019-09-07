@@ -4,9 +4,9 @@ import {DocumentsService} from "./shared/documents.service";
 import { AuthenticateService } from '../shared/authenticate.service';
 import { FileComponent } from '../shared/file.component';
 import { DocumentMove } from "./shared/document.move";
+import { Document } from "./shared/document";
 import {CookieService} from 'angular2-cookie/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import {Headers, RequestOptions} from '@angular/http';
 
 @Component({
  selector: 'app-donations',
@@ -73,7 +73,7 @@ export class DocumentsMoveComponent extends FileComponent {
   var result = this.documentsService.moveFiles(this.documentMove);
 
   result.subscribe(data => {
-    this.documentsService.currentFolderPath = data.filePath;
+    this.documentsService.currentFolderPath = data.folderPath;
     this.router.navigate(['documents/all'], {queryParams: {existingFolder: true}});
   });    
 }
