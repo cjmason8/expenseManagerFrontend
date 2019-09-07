@@ -3,13 +3,10 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 import { DocumentsService } from '../documents/shared/documents.service';
-import {Headers, RequestOptions} from '@angular/http';
-
 import { RefData } from '../ref-data/shared/ref-data';
 import { AuthenticateService } from '../shared/authenticate.service';
 import { FileComponent } from '../shared/file.component';
 import { RefDatasService } from '../ref-data/shared/ref-datas.service';
-import { BasicValidators } from '../shared/basic-validators';
 
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';

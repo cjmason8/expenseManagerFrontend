@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 import { DocumentsService } from '../../documents/shared/documents.service';
-import {Headers, RequestOptions} from '@angular/http';
 import * as moment from 'moment';
 
 import { Income } from '../shared/income';
