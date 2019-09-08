@@ -12,6 +12,7 @@ import { RefDatasService } from '../ref-data/shared/ref-datas.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RefData } from '../ref-data/shared/ref-data';
 import {DocumentsService} from "../documents/shared/documents.service";
+import { ExpenseGraph } from './shared/expenseGraph';
 
 @Component({
  selector: 'app-expenses',

@@ -5,9 +5,7 @@ import { FileComponent } from '../shared/file.component';
 import { RentalPayment } from "./shared/rentalpayment";
 import {CookieService} from 'angular2-cookie/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { RefData } from '../ref-data/shared/ref-data';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { RefDatasService } from '../ref-data/shared/ref-datas.service';
 import {DocumentsService} from "../documents/shared/documents.service";
 
 @Component({
