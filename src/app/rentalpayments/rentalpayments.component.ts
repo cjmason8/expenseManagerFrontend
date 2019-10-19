@@ -53,7 +53,7 @@ export class RentalPaymentsComponent extends FileComponent {
  }
 
   deleteRentalPayment(rentalPayment, property){
-    if (confirm("Are you sure you want to delete " + rentalPayment.statementTo + "?")) {
+    if (confirm("Are you sure you want to delete entry " + rentalPayment.statementFromString + " to " + rentalPayment.statementFromString + "?")) {
       if (property === 'WODONGA') {
         var index = this.rentalPaymentsWodonga.indexOf(rentalPayment);
         this.rentalPaymentsWodonga.splice(index, 1);
