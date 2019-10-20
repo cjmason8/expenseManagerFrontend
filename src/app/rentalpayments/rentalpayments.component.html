@@ -11,7 +11,7 @@
         <tr>
           <th data-field="name">Management Fee</th>
           <th data-field="name">Admin Fee</th>
-          <th data-field="name">Total Rent</th>
+          <th data-field="name">Other</th>
           <th data-field="name">Statement From</th>
           <th data-field="name">Statement To</th>
           <th data-field="name">Total Rent</th>
@@ -24,7 +24,7 @@
           <tr *ngFor="let rentalpayment of rentalPaymentsWodonga">
             <td>{{ rentalpayment.managementFee }}</td>
             <td>{{ rentalpayment.adminFee }}</td>
-            <td>{{ rentalpayment.totalRent }}</td>
+            <td>{{ rentalpayment.otherFee }}</td>
             <td>{{ rentalpayment.statementFromString }}</td>
             <td>{{ rentalpayment.statementToString }}</td>
             <td>{{ rentalpayment.totalRent }}</td>
@@ -48,7 +48,7 @@
           <tr>
             <th data-field="name">Management Fee</th>
             <th data-field="name">Admin Fee</th>
-            <th data-field="name">Total Rent</th>
+            <th data-field="name">Other</th>
             <th data-field="name">Statement From</th>
             <th data-field="name">Statement To</th>
             <th data-field="name">Total Rent</th>
@@ -61,7 +61,7 @@
             <tr *ngFor="let rentalpayment of rentalPaymentsSthKingsville">
               <td>{{ rentalpayment.managementFee }}</td>
               <td>{{ rentalpayment.adminFee }}</td>
-              <td>{{ rentalpayment.totalRent }}</td>
+              <td>{{ rentalpayment.otherFee }}</td>
               <td>{{ rentalpayment.statementFromString }}</td>
               <td>{{ rentalpayment.statementToString }}</td>
               <td>{{ rentalpayment.totalRent }}</td>
