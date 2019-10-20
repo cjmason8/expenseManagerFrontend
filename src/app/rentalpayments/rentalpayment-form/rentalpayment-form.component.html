@@ -69,6 +69,24 @@
             </label>
           </div>
         </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="input-field col s12">
+            <input id="otherFee" type="text" class="validate"
+                   [(ngModel)]="rentalPayment.otherFee" formControlName="otherFee"
+            >
+            <label for="otherFee"
+                   [class.active]="rentalPayment.otherFee">
+              Other
+            </label>
+          </div>
+        </td>
+        <td>
+          <div class="input-field col s12">
+
+          </div>
+        </td>
       </tr>            
       <tr>
         <td>

@@ -49,6 +49,7 @@ export class RentalPaymentFormComponent extends FileComponent {
       totalRent: ['', [Validators.required]],
       managementFee: ['', [Validators.required]],
       adminFee: ['', []],
+      otherFee: ['', []],
       statementFrom: ['', []],
       statementTo: ['', []],
       fileName: ['', []]
