@@ -7,6 +7,7 @@
         <tr>
           <th data-field="name">Name</th>
           <th data-field="name">Amount</th>
+          <th data-field="name">Notes</th>
           <th data-field="name">Recurring Type</th>
           <th data-field="name">Start Date</th>
           <th data-field="name">End Date</th>
@@ -19,6 +20,7 @@
           <tr *ngFor="let income of incomes">
             <td>{{ income.transactionType.description }}</td>
             <td>{{ income.amount }}</td>
+            <td>{{ income.notes }}</td>
             <td>{{ income.recurringType.description }}</td>
             <td>{{ income.startDateString }}</td>
             <td>{{ income.endDateString }}</td>
@@ -43,6 +45,7 @@
         <tr>
           <th data-field="name">Name</th>
           <th data-field="name">Amount</th>
+          <th data-field="name">Notes</th>
           <th data-field="name">Recurring Type</th>
           <th data-field="name">Start Date</th>
           <th data-field="name">End Date</th>
@@ -55,6 +58,7 @@
           <tr *ngFor="let expense of expenses">
             <td>{{ expense.transactionType.description }}</td>
             <td>{{ expense.amount }}</td>
+            <td>{{ expense.notes }}</td>
             <td>{{ expense.recurringType.description }}</td>
             <td>{{ expense.startDateString }}</td>
             <td>{{ expense.endDateString }}</td>
