@@ -3,7 +3,6 @@ import {RentalPaymentsService} from "./shared/retntalpayments.service";
 import { AuthenticateService } from '../shared/authenticate.service';
 import { FileComponent } from '../shared/file.component';
 import { RentalPayment } from "./shared/rentalpayment";
-import {CookieService} from 'angular2-cookie/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import {DocumentsService} from "../documents/shared/documents.service";
@@ -22,8 +21,8 @@ export class RentalPaymentsComponent extends FileComponent {
   public rentalPaymentsSthKingsville: RentalPayment[] = [];
 
   constructor(formBuilder: FormBuilder, authenticateService: AuthenticateService, private rentalPaymentsService: RentalPaymentsService, 
-  private route: ActivatedRoute, router: Router, _cookieService:CookieService, documentsService: DocumentsService) { 
-      super(authenticateService, _cookieService, documentsService, router);
+  private route: ActivatedRoute, router: Router, documentsService: DocumentsService) { 
+      super(authenticateService, documentsService, router);
 
       this.form = formBuilder.group({
       totalRent: ['', []],

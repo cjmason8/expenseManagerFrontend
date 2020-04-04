@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import {CookieService} from 'angular2-cookie/core';
 import * as moment from 'moment';
 
 import { RefData } from '../../ref-data/shared/ref-data';
@@ -37,10 +36,9 @@ export class DonationFormComponent extends FileComponent {
     private refDatasService: RefDatasService,
     private donationsService: DonationsService,
     documentsService: DocumentsService,
-    authenticateService: AuthenticateService,
-    _cookieService:CookieService
+    authenticateService: AuthenticateService
   ) {
-    super(authenticateService, _cookieService, documentsService, router);
+    super(authenticateService, documentsService, router);
     this.fileType = 'donations';
     this.form = formBuilder.group({
       cause: ['', [

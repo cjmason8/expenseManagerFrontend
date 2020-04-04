@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import {CookieService} from 'angular2-cookie/core';
 import * as moment from 'moment';
 
 import { RefData } from '../../ref-data/shared/ref-data';
@@ -39,10 +38,9 @@ export class RentalPaymentFormComponent extends FileComponent {
     private refDatasService: RefDatasService,
     private rentalPaymentsService: RentalPaymentsService,
     documentsService: DocumentsService,
-    authenticateService: AuthenticateService,
-    _cookieService:CookieService
+    authenticateService: AuthenticateService
   ) {
-    super(authenticateService, _cookieService, documentsService, router);
+    super(authenticateService, documentsService, router);
     this.fileType = 'rentalpayments';
     this.form = formBuilder.group({
       property: ['', [Validators.required]],

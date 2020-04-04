@@ -8,9 +8,12 @@ import { DonationsComponent } from './donations.component';
 import { DonationsService } from './shared/donations.service';
 import { DonationFormComponent } from './donation-form/donation-form.component';
 
-import {MatInputModule, MatButtonModule,
-  MatAutocompleteModule, MatOptionModule, MatDatepickerModule, MatNativeDateModule,
-  DateAdapter, NativeDateAdapter, MAT_DATE_FORMATS} from '@angular/material';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatOptionModule} from '@angular/material/core';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';  
 
 @NgModule({
   imports: [

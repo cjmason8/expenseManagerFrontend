@@ -1,5 +1,4 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { CookieService } from 'angular2-cookie/core';
 import { AuthenticateService } from '../shared/authenticate.service';
 import { HomeService } from './shared/home.service';
 import { Expense } from "../expenses/shared/expense";
@@ -33,10 +32,10 @@ export class HomeComponent extends FileComponent {
   form: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, router: Router,
-    _cookieService:CookieService, private homeService: HomeService,
+    private homeService: HomeService,
     authenticateService: AuthenticateService, documentsService: DocumentsService,
     private expensesService: ExpensesService, private zone: NgZone) {
-      super(authenticateService, _cookieService, documentsService, router);
+      super(authenticateService, documentsService, router);
       this.form = formBuilder.group({
       dateString: ['', []],
       datePic: ['', []]

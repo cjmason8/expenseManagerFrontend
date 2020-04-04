@@ -5,7 +5,6 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Rx';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CookieService } from 'angular2-cookie/core';
 import { environment } from '../../environments/environment'
 import { UserAuthenticate } from './userAuthenticate'
 
@@ -15,17 +14,18 @@ import { HttpClient, HttpHeaders } from "@angular/common/http"
 export class AuthenticateService {
 
   authenticated: boolean = false;
+  token: string = "";
+  roles: string = "";
   hasNotifications: boolean = false;
   notifications: Notification[] = [];
   user: string = "";
 
   constructor(private http: HttpClient,
       private router: Router,
-      private route: ActivatedRoute,
-      private _cookieService:CookieService) { }
+      private route: ActivatedRoute) { }
 
-  authenticate(token) {
-    if (!token) {
+  authenticate() {
+    if (!this.token) {
       this.authenticated = false;
       this.router.navigate(['login']);
     }
@@ -35,7 +35,13 @@ export class AuthenticateService {
         this.hasNotifications = data.length > 0;
       });
 
-    return this.http.get<UserAuthenticate>(environment.backendEndPoint + "/users/" + token + "/authenticate")
+    if (this.token === '') {
+      this.authenticated = false;
+      this.router.navigate(['login']);
+      return;
+    }
+
+    return this.http.get<UserAuthenticate>(environment.backendEndPoint + "/users/" + this.token + "/authenticate")
       .subscribe(result => {
         if (result.status === 'failed') {
           this.authenticated = false;

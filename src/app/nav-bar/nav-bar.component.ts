@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CookieService } from 'angular2-cookie/core';
 import { AuthenticateService } from '../shared/authenticate.service';
 
 import { HttpClient } from "@angular/common/http"
@@ -14,11 +13,11 @@ export class NavBarComponent implements OnInit {
   loggedIn: boolean = false;
   isAdmin: boolean = false;
   
-  constructor(private _cookieService:CookieService, private authenticateService:AuthenticateService,
+  constructor(private authenticateService:AuthenticateService,
     private httpInterceptor: HttpClient) { }
 
   ngOnInit() {
-     var roles = this._cookieService.get('roles');
+     var roles = this.authenticateService.roles;
      if (roles) {
        if (roles.length > 0) {
          this.loggedIn = true;

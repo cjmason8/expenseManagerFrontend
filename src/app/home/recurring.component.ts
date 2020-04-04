@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {CookieService} from 'angular2-cookie/core';
 import { AuthenticateService } from '../shared/authenticate.service';
 import { AuthenticateComponent } from '../shared/authenticate.component';
 import { HomeService } from './shared/home.service';
@@ -19,8 +18,8 @@ export class RecurringComponent extends AuthenticateComponent {
   public incomes: Income[] = [];
 
   constructor(private route: ActivatedRoute,
-    _cookieService:CookieService, authenticateService: AuthenticateService, private homeService: HomeService) {
-      super(authenticateService, _cookieService);
+    authenticateService: AuthenticateService, private homeService: HomeService) {
+      super(authenticateService);
      }
 
   ngOnInit() {

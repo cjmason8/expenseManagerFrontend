@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CookieService } from 'angular2-cookie/core';
 import { Router } from '@angular/router';
 import { AuthenticateService } from '../shared/authenticate.service';
 import { AuthenticateComponent } from '../shared/authenticate.component';
@@ -17,11 +16,10 @@ export class FileComponent extends AuthenticateComponent {
 
   constructor(
     authenticateService:AuthenticateService,
-    _cookieService:CookieService,
     protected documentsService: DocumentsService,
     protected router: Router
   ) {
-    super(authenticateService, _cookieService);
+    super(authenticateService);
   }
 
   ngOnInit() {

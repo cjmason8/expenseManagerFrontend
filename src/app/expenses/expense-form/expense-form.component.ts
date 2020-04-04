@@ -1,18 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import {CookieService} from 'angular2-cookie/core';
 import { DocumentsService } from '../../documents/shared/documents.service';
 
 import { Expense } from '../shared/expense';
-import { RefData } from '../../ref-data/shared/ref-data';
 import { ExpensesService } from '../shared/expenses.service';
 import { AuthenticateService } from '../../shared/authenticate.service';
 import { RefDatasService } from '../../ref-data/shared/ref-datas.service';
-import { BasicValidators } from '../../shared/basic-validators';
 import * as moment from 'moment';
 
 import { TransactionFormComponent } from '../../shared/transaction-form.component';
+
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
@@ -31,10 +30,9 @@ export class ExpenseFormComponent extends TransactionFormComponent implements On
     private expensesService: ExpensesService,
     documentsService: DocumentsService,
     authenticateService: AuthenticateService,
-    refDatasService: RefDatasService,
-    _cookieService:CookieService
+    refDatasService: RefDatasService
   ) {
-    super(formBuilder, router, route, authenticateService, refDatasService, _cookieService, documentsService);
+    super(formBuilder, router, route, authenticateService, refDatasService, documentsService);
     this.transactionType = 'Expense';
     this.transactionTypeName = 'expenseType';
     this.transaction = new Expense();

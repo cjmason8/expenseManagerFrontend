@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import {CookieService} from 'angular2-cookie/core';
 import { DocumentsService } from '../documents/shared/documents.service';
 import { RefData } from '../ref-data/shared/ref-data';
 import { AuthenticateService } from '../shared/authenticate.service';
@@ -45,10 +44,9 @@ export class TransactionFormComponent extends FileComponent {
     private route: ActivatedRoute,
     authenticateService: AuthenticateService,
     private refDatasService: RefDatasService,
-    _cookieService: CookieService,
     documentsService: DocumentsService
   ) {
-    super(authenticateService, _cookieService, documentsService, router);
+    super(authenticateService, documentsService, router);
     this.form = formBuilder.group({
       transactionType: ['', [
         Validators.required

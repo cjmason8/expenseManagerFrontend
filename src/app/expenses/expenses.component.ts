@@ -7,7 +7,6 @@ import { FileComponent } from '../shared/file.component';
 import { Expense } from "./shared/expense";
 import { Document } from "../documents/shared/document";
 import { SearchParams } from "./shared/searchParams";
-import {CookieService} from 'angular2-cookie/core';
 import { RefDatasService } from '../ref-data/shared/ref-datas.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RefData } from '../ref-data/shared/ref-data';
@@ -40,9 +39,9 @@ export class ExpensesComponent extends FileComponent {
   constructor(private formBuilder: FormBuilder, 
     authenticateService: AuthenticateService, private expensesService: ExpensesService,
      private searchService: SearchService, 
-    _cookieService:CookieService, documentsService: DocumentsService, router: Router,
+    documentsService: DocumentsService, router: Router,
     private refDatasService: RefDatasService,) { 
-      super(authenticateService, _cookieService, documentsService, router);
+      super(authenticateService, documentsService, router);
 
       this.form = formBuilder.group({
       expenseType: ['', []],

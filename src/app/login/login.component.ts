@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CookieService } from 'angular2-cookie/core';
 import { AuthenticateService } from '../shared/authenticate.service';
 
 import { Login } from './shared/login';
@@ -22,7 +21,6 @@ export class LoginFormComponent implements OnInit {
     formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private _cookieService:CookieService,
     private authenticateService:AuthenticateService
   ) {
     this.form = formBuilder.group({
@@ -36,8 +34,8 @@ export class LoginFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._cookieService.put('token', null);
-    this._cookieService.put('roles', null);
+    this.authenticateService.token = null;
+    this.authenticateService.roles = null;
     this.authenticateService.authenticated = false;
   }
 
@@ -45,8 +43,8 @@ export class LoginFormComponent implements OnInit {
     this.authenticateService.loginUser(this.login)
     .subscribe(data => {
       if (data.loginStatus === 'success') {
-        this._cookieService.put('token', data.token);
-        this._cookieService.put('roles', data.roles);
+        this.authenticateService.token = data.token;
+        this.authenticateService.roles = data.roles;
         this.router.navigate(['']);
       }
     });

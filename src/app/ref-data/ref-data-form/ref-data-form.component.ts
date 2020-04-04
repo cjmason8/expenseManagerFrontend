@@ -1,15 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import {CookieService} from 'angular2-cookie/core';
 
 import { RefData } from '../shared/ref-data';
 import { RefDatasService } from '../shared/ref-datas.service';
 import { AuthenticateService } from '../../shared/authenticate.service';
 import { AuthenticateComponent } from '../../shared/authenticate.component';
-import { BasicValidators } from '../../shared/basic-validators';
-
-import {MatSelectChange} from '@angular/material';
 
 @Component({
   selector: 'app-ref-data-form',
@@ -35,10 +31,9 @@ export class RefDataFormComponent extends AuthenticateComponent {
     private router: Router,
     private route: ActivatedRoute,
     private refDatasService: RefDatasService,
-    authenticateService: AuthenticateService,
-    _cookieService:CookieService
+    authenticateService: AuthenticateService
   ) {
-    super(authenticateService, _cookieService);
+    super(authenticateService);
     this.form = formBuilder.group({
       type: ['', [
         Validators.required

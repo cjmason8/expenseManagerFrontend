@@ -4,7 +4,6 @@ import {DocumentsService} from "./shared/documents.service";
 import { AuthenticateService } from '../shared/authenticate.service';
 import { FileComponent } from '../shared/file.component';
 import { Document } from "./shared/document";
-import {CookieService} from 'angular2-cookie/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -28,8 +27,8 @@ export class DocumentsComponent extends FileComponent {
 
   constructor(formBuilder: FormBuilder,
   authenticateService: AuthenticateService, public documentsService: DocumentsService,
-  private route: ActivatedRoute, router: Router, _cookieService:CookieService) { 
-      super(authenticateService, _cookieService, documentsService, router);
+  private route: ActivatedRoute, router: Router) { 
+      super(authenticateService, documentsService, router);
       this.fileType = 'documents';
       this.directoryForm = formBuilder.group({
         directory: ['', []],

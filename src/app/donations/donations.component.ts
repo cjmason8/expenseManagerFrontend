@@ -4,7 +4,6 @@ import { AuthenticateService } from '../shared/authenticate.service';
 import { FileComponent } from '../shared/file.component';
 import { DonationSearch } from "./shared/donation-search";
 import { Donation } from "./shared/donation";
-import {CookieService} from 'angular2-cookie/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RefData } from '../ref-data/shared/ref-data';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
@@ -30,9 +29,9 @@ export class DonationsComponent extends FileComponent {
   stateCtrl: FormControl;
 
   constructor(formBuilder: FormBuilder, authenticateService: AuthenticateService, private donationsService: DonationsService, 
-  private route: ActivatedRoute, router: Router, _cookieService:CookieService, documentsService: DocumentsService,
+  private route: ActivatedRoute, router: Router, documentsService: DocumentsService,
   private refDatasService:RefDatasService) { 
-      super(authenticateService, _cookieService, documentsService, router);
+      super(authenticateService, documentsService, router);
 
       this.form = formBuilder.group({
       cause: ['', []],

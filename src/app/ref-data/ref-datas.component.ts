@@ -3,7 +3,6 @@ import {RefDatasService} from "./shared/ref-datas.service";
 import { AuthenticateService } from '../shared/authenticate.service';
 import { AuthenticateComponent } from '../shared/authenticate.component';
 import {RefData} from "./shared/ref-data";
-import {CookieService} from 'angular2-cookie/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
@@ -30,8 +29,8 @@ export class RefDatasComponent extends AuthenticateComponent {
 
   constructor(private formBuilder: FormBuilder, 
   authenticateService: AuthenticateService, private refDatasService: RefDatasService, 
-  private route: ActivatedRoute, _cookieService:CookieService) { 
-      super(authenticateService, _cookieService);
+  private route: ActivatedRoute) { 
+      super(authenticateService);
 
       this.form = formBuilder.group({
       type: ['', []],
