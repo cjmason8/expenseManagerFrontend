@@ -33,7 +33,6 @@ import {MatNativeDateModule, DateAdapter, MAT_DATE_FORMATS} from '@angular/mater
     MatNativeDateModule
   ],
   declarations: [
-    ExpenseFormComponent,
     IncomeFormComponent,
     TransactionFormComponent
   ],

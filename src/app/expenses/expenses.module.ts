@@ -7,6 +7,7 @@ import { ChartModule } from 'angular2-chartjs';
 
 import { MyDateAdapter, MY_DATE_FORMATS } from '../shared/mydate.adapter';
 import { ExpensesComponent } from './expenses.component';
+import { ExpenseFormComponent } from './expense-form/expense-form.component';
 import { SearchService } from './shared/search.service';
 
 import {MatInputModule} from '@angular/material/input';
@@ -32,6 +33,7 @@ import {MatNativeDateModule, DateAdapter, MAT_DATE_FORMATS} from '@angular/mater
     ChartModule
   ],
   declarations: [
+    ExpenseFormComponent,
     ExpensesComponent
   ],
   exports: [

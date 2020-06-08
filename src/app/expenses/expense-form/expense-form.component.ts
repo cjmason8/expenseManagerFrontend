@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DocumentsService } from '../../documents/shared/documents.service';
 
@@ -10,8 +10,6 @@ import { RefDatasService } from '../../ref-data/shared/ref-datas.service';
 import * as moment from 'moment';
 
 import { TransactionFormComponent } from '../../shared/transaction-form.component';
-
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';

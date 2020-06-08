@@ -2,3 +2,4 @@
 // the app. You can add your own extra polyfills to this file.
 
 import 'zone.js/dist/zone';
+import 'zone.js/dist/zone-error';
