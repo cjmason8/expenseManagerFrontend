@@ -1,6 +1,15 @@
 
 <table width="100%">
   <tr>
+    <td>
+      <table>
+        <td><a *ngIf="previousYear != null" (click)="moveFinancialYears(previousYear)" class="pointer"><i class="material-icons">navigate_before</i>Prev</a></td>
+        <td><a *ngIf="nextYear != null" (click)="moveFinancialYears(nextYear)" class="pointer">Next<i class="material-icons">navigate_next</i></a></td>
+      </table>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td width="50%"><b>Wodonga</b></td>
     <td width="50%"><b>Sth Kingsville</b></td>
   </tr>

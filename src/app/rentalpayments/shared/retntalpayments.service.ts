@@ -9,6 +9,7 @@ import { environment } from '../../../environments/environment'
 
 import { HttpClient, HttpResponse, HttpHeaders } from "@angular/common/http"
 import { RentalPayment } from './rentalpayment';
+import { RentalPaymentInfo } from './rentalpaymentinfo';
 import { RefData } from '../../ref-data/shared/ref-data';
 
 @Injectable()
@@ -39,10 +40,14 @@ export class RentalPaymentsService {
     return this.http.get<RentalPayment>(this.getRentalPaymentUrl(id));
   }
 
-  getRentalPayments(property): Observable<RentalPayment[]> {
-    return this.http.get<RentalPayment[]>(this.rentalPaymentsUrl + "/getByProperty/" + property);
-  } 
+  getRentalPayments(property, year): Observable<RentalPaymentInfo> {
+    if (year != null) {
+      return this.http.get<RentalPaymentInfo>(this.rentalPaymentsUrl + "/getByProperty/" + property + "/" + year);
+    }
 
+    return this.http.get<RentalPaymentInfo>(this.rentalPaymentsUrl + "/getByProperty/" + property);
+  }
+  
   private getRentalPaymentUrl(id){
     return this.rentalPaymentsUrl + "/" + id;
   }

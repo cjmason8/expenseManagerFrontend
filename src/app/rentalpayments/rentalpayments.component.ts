@@ -3,6 +3,7 @@ import {RentalPaymentsService} from "./shared/retntalpayments.service";
 import { AuthenticateService } from '../shared/authenticate.service';
 import { FileComponent } from '../shared/file.component';
 import { RentalPayment } from "./shared/rentalpayment";
+import { RentalPaymentInfo } from "./shared/rentalpaymentinfo";
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import {DocumentsService} from "../documents/shared/documents.service";
@@ -19,6 +20,8 @@ export class RentalPaymentsComponent extends FileComponent {
 
   public rentalPaymentsWodonga: RentalPayment[] = [];
   public rentalPaymentsSthKingsville: RentalPayment[] = [];
+  public previousYear: number = null;
+  public nextYear: number = null;
 
   constructor(formBuilder: FormBuilder, authenticateService: AuthenticateService, private rentalPaymentsService: RentalPaymentsService, 
   private route: ActivatedRoute, router: Router, documentsService: DocumentsService) { 
@@ -37,18 +40,51 @@ export class RentalPaymentsComponent extends FileComponent {
     super.ngOnInit();
 
     this.route.params.subscribe(params => {
-      this.rentalPaymentsService.getRentalPayments("WODONGA")
+      this.rentalPaymentsService.getRentalPayments("WODONGA", null)
         .subscribe(data => {
-          this.rentalPaymentsWodonga = data;
+          this.rentalPaymentsWodonga = data.rentalPayments;
+          this.previousYear = data.previousYear;
+          this.nextYear = data.nextYear;
         });
     });
 
     this.route.params.subscribe(params => {
-      this.rentalPaymentsService.getRentalPayments("STH_KINGSVILLE")
+      this.rentalPaymentsService.getRentalPayments("STH_KINGSVILLE", null)
         .subscribe(data => {
-          this.rentalPaymentsSthKingsville = data;
+          this.rentalPaymentsSthKingsville = data.rentalPayments;
         });
     });
+ }
+
+ moveFinancialYears(year) {
+  this.previousYear = null;
+  this.nextYear = null;
+
+  this.route.params.subscribe(params => {
+    this.rentalPaymentsService.getRentalPayments("WODONGA", year)
+      .subscribe(data => {
+        this.rentalPaymentsWodonga = data.rentalPayments;
+        if (data.previousYear != null) {
+          this.previousYear = data.previousYear;
+        }
+        if (data.nextYear != null) {
+          this.nextYear = data.nextYear;
+        }
+      });
+  });
+
+  this.route.params.subscribe(params => {
+    this.rentalPaymentsService.getRentalPayments("STH_KINGSVILLE", year)
+      .subscribe(data => {
+        this.rentalPaymentsSthKingsville = data.rentalPayments;
+        if (data.previousYear != null) {
+          this.previousYear = data.previousYear;
+        }
+        if (data.nextYear != null) {
+          this.nextYear = data.nextYear;
+        }
+      });
+  });
  }
 
   deleteRentalPayment(rentalPayment, property){
