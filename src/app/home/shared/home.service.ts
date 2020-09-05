@@ -28,8 +28,13 @@ export class HomeService {
     return this.http.get<HomeInfo>(this.url + "/week" + suffix);
   }
 
-  getRecurring(): Observable<HomeInfo> {
-    return this.http.get<HomeInfo>(this.url + "/recurring");
+  getRecurring(includeAll): Observable<HomeInfo> {
+    if (includeAll) {
+      return this.http.get<HomeInfo>(this.url + "/recurring/all");
+    }
+    else {
+      return this.http.get<HomeInfo>(this.url + "/recurring/active");
+    }
   }
 
   deleteExpense(expense, expenses) {

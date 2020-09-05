@@ -16,6 +16,7 @@ export class RecurringComponent extends AuthenticateComponent {
 
   public expenses: Expense[] = [];
   public incomes: Income[] = [];
+  public includeAll: boolean = false;
 
   constructor(private route: ActivatedRoute,
     authenticateService: AuthenticateService, private homeService: HomeService) {
@@ -26,7 +27,7 @@ export class RecurringComponent extends AuthenticateComponent {
     super.ngOnInit();
 
     this.route.params.subscribe(params => {
-      this.homeService.getRecurring()
+      this.homeService.getRecurring(this.includeAll)
         .subscribe(data => {
           this.expenses = data.expenses;
           this.incomes = data.incomes;

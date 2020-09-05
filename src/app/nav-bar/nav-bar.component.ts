@@ -41,7 +41,7 @@ export class NavBarComponent implements OnInit {
 
   getUserGreeting() {
     if (this.authenticateService.user) {
-      return "Hi " + this.authenticateService.user[0].toLocaleUpperCase() + this.authenticateService.user.substring(1);
+      return "Yo " + this.authenticateService.user[0].toLocaleUpperCase() + this.authenticateService.user.substring(1);
     }
 
     return "";

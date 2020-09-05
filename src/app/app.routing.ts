@@ -24,6 +24,7 @@ const appRoutes: Routes = [
   { path: ':weekString', component: HomeComponent },
   { path: 'not-found', component: NotFoundComponent },
   { path: 'recurring/all', component: RecurringComponent },
+  { path: 'recurring/active', component: RecurringComponent },
   { path: 'expenses/search', component: ExpensesComponent },
   { path: 'expenses/new', component: ExpenseFormComponent },
   { path: 'expenses/:id', component: ExpenseFormComponent },  
