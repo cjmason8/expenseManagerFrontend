@@ -35,6 +35,17 @@ export class RecurringComponent extends AuthenticateComponent {
     });
   }
 
+  refreshList(includeAllParam) {
+    this.includeAll = includeAllParam
+    this.route.params.subscribe(params => {
+      this.homeService.getRecurring(this.includeAll)
+        .subscribe(data => {
+          this.expenses = data.expenses;
+          this.incomes = data.incomes;
+        });
+    });
+  }
+
   deleteExpense(expense) {
     this.homeService.deleteExpense(expense, this.expenses);
   }

@@ -1,5 +1,15 @@
 <table>
   <tr>
+    <td colspan="2">Show All
+      <a *ngIf="!includeAll" (click)="refreshList(true)" class="pointer">
+        <i class="material-icons">check_box_outline_blank</i>
+      </a>
+      <a *ngIf="includeAll" (click)="refreshList(false)" class="pointer">
+        <i class="material-icons">check_box</i>
+      </a>
+    </td>
+  </tr>
+  <tr>
     <td style="vertical-align:top">
       <b>Income</b>
       <table>

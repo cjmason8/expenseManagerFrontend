@@ -5,6 +5,7 @@
     <th data-field="name">Message</th>
     <th data-field="name">Due Date</th>
     <th data-field="name">Created</th>
+    <th data-field="name">Amount</th>
     <th data-field="name">Link</th>
     <th data-field="name">Mark Read</th>
   </tr>
@@ -18,6 +19,8 @@
       <td *ngIf="notification.expense">{{ notification.expense.dueDateString }}</td>
       <td *ngIf="!notification.expense">N/A</td>
       <td>{{ notification.createdDateString }}</td>
+      <td *ngIf="notification.expense">{{ notification.expense.amount }}</td>
+      <td *ngIf="!notification.expense">N/A</td>      
       <td *ngIf="notification.expense"><a [routerLink]="['/expenses', notification.expense.id]" routerLinkActive="active">Edit</a></td>
       <td *ngIf="!notification.expense"></td>
       <td>
