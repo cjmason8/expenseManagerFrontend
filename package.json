@@ -22,7 +22,7 @@
     "@types/chart.js": "^2.9.21",
     "@types/node": "^13.13.10",
     "angular2-chartjs": "^0.5.1",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "core-js": "^3.6.5",
     "file-saver": "^2.0.2",
     "jquery": "^3.5.1",
