@@ -46,4 +46,4 @@ const appRoutes: Routes = [
   { path: '**', redirectTo: 'not-found' }
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
+export const routing: ModuleWithProviders<any> = RouterModule.forRoot(appRoutes);
