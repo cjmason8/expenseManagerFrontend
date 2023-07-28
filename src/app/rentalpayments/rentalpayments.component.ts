@@ -52,6 +52,8 @@ export class RentalPaymentsComponent extends FileComponent {
       this.rentalPaymentsService.getRentalPayments("STH_KINGSVILLE", null)
         .subscribe(data => {
           this.rentalPaymentsSthKingsville = data.rentalPayments;
+          this.previousYear = data.previousYear;
+          this.nextYear = data.nextYear;
         });
     });
  }
@@ -64,11 +66,11 @@ export class RentalPaymentsComponent extends FileComponent {
     this.rentalPaymentsService.getRentalPayments("WODONGA", year)
       .subscribe(data => {
         this.rentalPaymentsWodonga = data.rentalPayments;
-        if (data.previousYear != null) {
-          this.previousYear = data.previousYear;
+        if (data.previousYear != null && this.previousYear == null) {
+          //this.previousYear = data.previousYear;
         }
         if (data.nextYear != null) {
-          this.nextYear = data.nextYear;
+          //this.nextYear = data.nextYear;
         }
       });
   });
