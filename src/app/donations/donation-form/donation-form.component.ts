@@ -10,6 +10,7 @@ import { DocumentsService } from '../../documents/shared/documents.service';
 import { AuthenticateService } from '../../shared/authenticate.service';
 import { FileComponent } from '../../shared/file.component';
 import { RefDatasService } from '../../ref-data/shared/ref-datas.service';
+import { Document } from '../../documents/shared/document';
 
 @Component({
   selector: 'app-donation-form',
@@ -82,6 +83,9 @@ export class DonationFormComponent extends FileComponent {
           donation => {
             this.donation = donation;
             this.dueDate = this.donation.dueDateString ? moment(this.donation.dueDateString, 'DD-MM-YYYY').toDate() : null;
+            if (!this.donation.documentDto) {
+              this.donation.documentDto = new Document()
+            }
           },
           response => {
             if (response.status == 404) {
@@ -120,7 +124,7 @@ export class DonationFormComponent extends FileComponent {
   }
 
   causeInvalid() {
-    return this.causeTouched && !this.donation.cause; 
+    return (this.causeTouched || this.title == 'Edit Cause') && !this.donation.cause; 
   }
 
   postFileChange(document) {
