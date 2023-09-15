@@ -13,6 +13,8 @@ import { Router, ActivatedRoute } from '@angular/router';
  providers: []
 })
 export class DocumentsComponent extends FileComponent {
+  public showArchive: boolean = false;
+  public includeAll: boolean = false;
   public document: Document = new Document();
   public documents: Document[] = [];
   directoryForm: FormGroup;
@@ -48,7 +50,8 @@ export class DocumentsComponent extends FileComponent {
         this.openFolder(this.documentsService.currentFolderPath);
       }
       else {
-        this.documentsService.getDocuments("/docs/expenseManager/filofax")
+        this.showArchive = true;
+        this.documentsService.getDocuments("/docs/expenseManager/filofax", false)
           .subscribe(data => {
             this.documents = data;
             this.documentsService.currentFolderPath = "/docs/expenseManager/filofax";
@@ -57,10 +60,26 @@ export class DocumentsComponent extends FileComponent {
     });
  }
 
+ refreshList(includeAllParam) {
+  this.includeAll = includeAllParam
+  this.route.params.subscribe(params => {
+    this.documentsService.getDocuments(this.documentsService.currentFolderPath, this.includeAll)
+      .subscribe(data => {
+        this.documents = data;
+      });
+  });
+}
+
   openFolder(folderPath) {
+    if (folderPath.endsWith("IPs")) {
+      this.showArchive = true
+    }
+    else {
+      this.showArchive = false
+    }
     this.documents = [];
     this.route.params.subscribe(params => {
-      this.documentsService.getDocuments(folderPath)
+      this.documentsService.getDocuments(folderPath, false)
         .subscribe(data => {
           this.documents = data;
           this.documentsService.currentFolderPath = folderPath;
@@ -82,7 +101,7 @@ export class DocumentsComponent extends FileComponent {
       this.directory.folderPath = this.documentsService.currentFolderPath;
       this.documentsService.createDirectory(this.directory)
         .subscribe(data => {
-            this.documentsService.getDocuments(data.folderPath)
+            this.documentsService.getDocuments(data.folderPath, false)
           .subscribe(data2 => {
             this.documents = data2;
             this.directory = new Document();
@@ -92,7 +111,7 @@ export class DocumentsComponent extends FileComponent {
     } else {
       this.documentsService.updateDirectory(this.directory)
         .subscribe(data => {
-            this.documentsService.getDocuments(data.folderPath)
+            this.documentsService.getDocuments(data.folderPath, false)
           .subscribe(data2 => {
             this.documents = data2;
             this.directory = new Document();
@@ -118,7 +137,7 @@ export class DocumentsComponent extends FileComponent {
     }
 
     result.subscribe(data => {
-      this.documentsService.getDocuments(data.filePath)
+      this.documentsService.getDocuments(data.filePath, false)
         .subscribe(data => {
           this.documents = data;
           this.document = new Document();
@@ -158,7 +177,7 @@ export class DocumentsComponent extends FileComponent {
       if (confirm(msg)) {
         this.documentsService.deleteDocument(document.id)
           .subscribe(data => {
-              this.documentsService.getDocuments(data.folderPath)
+              this.documentsService.getDocuments(data.folderPath, false)
                 .subscribe(data2 => {
                   this.documents = data2;
                   this.directory = new Document();
@@ -167,6 +186,20 @@ export class DocumentsComponent extends FileComponent {
             });
       }
   }
+
+  archiveFolder(document){
+    let msg = "Are you sure you want to archive the folder " + document.fileName + "?";
+    if (confirm(msg)) {
+      this.documentsService.archiveFolder(document.id)
+        .subscribe(data => {
+            this.documentsService.getDocuments(this.documentsService.currentFolderPath, false)
+              .subscribe(data2 => {
+                this.documents = data2;
+                this.directory = new Document();
+            });
+          });
+    }
+}
 
   move() {
     this.router.navigate(['documents/move']);

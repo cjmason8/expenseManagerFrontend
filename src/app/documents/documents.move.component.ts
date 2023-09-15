@@ -41,7 +41,7 @@ export class DocumentsMoveComponent extends FileComponent {
     super.ngOnInit();
 
     this.route.params.subscribe(params => {
-      this.documentsService.getDocuments(this.documentsService.currentFolderPath)
+      this.documentsService.getDocuments(this.documentsService.currentFolderPath, false)
         .subscribe(data => {
           this.documents = data;
         });

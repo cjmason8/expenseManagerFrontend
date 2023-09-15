@@ -67,9 +67,9 @@ export class DocumentsService {
         });
   }   
 
-  getDocuments(folderPath): Observable<Document[]> {
+  getDocuments(folderPath, includeArchived): Observable<Document[]> {
     var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
-    return this.http.post<Document[]>(this.documentsUrl + '/list', folderPath, { responseType: 'json', headers: headers });
+    return this.http.post<Document[]>(this.documentsUrl + '/list', {"folderPath": folderPath, "includeArchived": includeArchived}, { responseType: 'json', headers: headers });
   }
 
   createDirectory(directory): Observable<Document> {
@@ -104,6 +104,11 @@ export class DocumentsService {
   deleteDocument(id): Observable<Document> {
     var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
     return this.http.delete<Document>(this.getDocumentUrl(id), { responseType: 'json', headers: headers });
+  }
+
+  archiveFolder(id): Observable<Document> {
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    return this.http.get<Document>(this.getDocumentUrl(id) + '/archive', { responseType: 'json', headers: headers });
   }
 
   private getDocumentUrl(id){

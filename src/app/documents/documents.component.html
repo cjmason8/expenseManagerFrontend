@@ -21,6 +21,16 @@
     </td>
   </tr>
   <tr>
+    <td *ngIf="showArchive" colspan="2">Show All
+      <a *ngIf="!includeAll" (click)="refreshList(true)" class="pointer">
+        <i class="material-icons">check_box_outline_blank</i>
+      </a>
+      <a *ngIf="includeAll" (click)="refreshList(false)" class="pointer">
+        <i class="material-icons">check_box</i>
+      </a>
+    </td>
+  </tr>
+  <tr>
     <td style="vertical-align:top">
       <table>
         <tbody>
@@ -29,7 +39,7 @@
             <td *ngIf="document.isFolder" width="45%" class="folderClass">{{ document.fileName }}</td>
             <td width="15%">
             </td>
-            <td width="7%">
+            <td width="5%">
                 <a *ngIf="!document.isFolder" (click)="viewDocumentation(document)" class="pointer">
                   <i class="material-icons">open_in_browser</i>
                 </a>
@@ -37,14 +47,19 @@
                   <i class="material-icons">folder_open</i>
                 </a>          
             </td>
-            <td width="7%">
+            <td width="5%">
               <a (click)="editDocument(document)" class="pointer">
                 <i class="material-icons">mode_edit</i>
               </a>
             </td>
-            <td width="10%">
+            <td width="7%">
               <a (click)="deleteDocument(document)" class="pointer">
                 <i class="material-icons">delete</i>
+              </a>
+            </td>
+            <td width="7%">
+              <a *ngIf="showArchive" (click)="archiveFolder(document)" class="pointer">
+                <i class="material-icons">archive</i>
               </a>
             </td>
           </tr>
