@@ -1,0 +1,2 @@
+[default_conf]
+openssl_conf = openssl_init
